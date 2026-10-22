@@ -1,0 +1,29 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+.astro/
+.vercel/
+
+# Lockfile version control: keep it, only ignore temp locks
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Environment
+.env
+.env.*
+!.env.example
+
+# Test output
+coverage/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+*.local
+
+# Local planning document (not published)
+PLAN.md

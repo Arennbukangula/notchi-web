@@ -1,0 +1,9 @@
+@import 'tailwindcss';
+
+@theme {
+  --color-accent: #3d7eff;
+  --color-accent-hover: #2f6ef0;
+  --font-sans:
+    ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial,
+    'Noto Sans', sans-serif;
+}
