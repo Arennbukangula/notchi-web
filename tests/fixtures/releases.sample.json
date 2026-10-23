@@ -1,0 +1,136 @@
+[
+  {
+    "tag_name": "v1.2.0",
+    "name": "Notchi 1.2.0",
+    "draft": false,
+    "prerelease": false,
+    "published_at": "2026-09-10T12:00:00Z",
+    "created_at": "2026-09-10T10:00:00Z",
+    "body": "## What's new\n\n- Faster startup\n- Better notch animations\n\n[Release guide](https://example.com/guide)\n\n<script>alert('xss')</script>",
+    "html_url": "https://github.com/risuunava/Notchi/releases/tag/v1.2.0",
+    "assets": [
+      {
+        "name": "Notchi-Setup-1.2.0.exe",
+        "size": 24000000,
+        "download_count": 128,
+        "browser_download_url": "https://github.com/risuunava/Notchi/releases/download/v1.2.0/Notchi-Setup-1.2.0.exe",
+        "digest": "sha256:0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+      },
+      {
+        "name": "Notchi-1.2.0-portable.zip",
+        "size": 18000000,
+        "download_count": 37,
+        "browser_download_url": "https://github.com/risuunava/Notchi/releases/download/v1.2.0/Notchi-1.2.0-portable.zip",
+        "digest": "sha256:0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+      },
+      {
+        "name": "Notchi-Setup-1.2.0.exe.sha256",
+        "size": 96,
+        "download_count": 5,
+        "browser_download_url": "https://github.com/risuunava/Notchi/releases/download/v1.2.0/Notchi-Setup-1.2.0.exe.sha256",
+        "digest": null
+      }
+    ]
+  },
+  {
+    "tag_name": "v1.1.0",
+    "name": "Notchi 1.1.0",
+    "draft": false,
+    "prerelease": false,
+    "published_at": "2026-08-01T09:30:00Z",
+    "created_at": "2026-08-01T09:00:00Z",
+    "body": "Maintenance release.",
+    "html_url": "https://github.com/risuunava/Notchi/releases/tag/v1.1.0",
+    "assets": [
+      {
+        "name": "Notchi-Setup-1.1.0.exe",
+        "size": 23000000,
+        "download_count": 64,
+        "browser_download_url": "https://github.com/risuunava/Notchi/releases/download/v1.1.0/Notchi-Setup-1.1.0.exe",
+        "digest": null
+      },
+      {
+        "name": "Notchi-1.1.0-portable.zip",
+        "size": 17000000,
+        "download_count": 12,
+        "browser_download_url": "https://github.com/risuunava/Notchi/releases/download/v1.1.0/Notchi-1.1.0-portable.zip",
+        "digest": null
+      },
+      {
+        "name": "SHA256SUMS",
+        "size": 190,
+        "download_count": 4,
+        "browser_download_url": "https://example.com/checksums/1.1.0.txt",
+        "digest": null
+      }
+    ]
+  },
+  {
+    "tag_name": "v1.3.0-beta.1",
+    "name": "Notchi 1.3.0 beta 1",
+    "draft": false,
+    "prerelease": true,
+    "published_at": "2026-09-15T08:00:00Z",
+    "created_at": "2026-09-15T07:00:00Z",
+    "body": "Beta build with experimental features.",
+    "html_url": "https://github.com/risuunava/Notchi/releases/tag/v1.3.0-beta.1",
+    "assets": [
+      {
+        "name": "Notchi-Setup-1.3.0-beta.1.exe",
+        "size": 25000000,
+        "download_count": 9,
+        "browser_download_url": "https://github.com/risuunava/Notchi/releases/download/v1.3.0-beta.1/Notchi-Setup-1.3.0-beta.1.exe",
+        "digest": "sha256:0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+      }
+    ]
+  },
+  {
+    "tag_name": "nightly",
+    "name": "Nightly build",
+    "draft": false,
+    "prerelease": true,
+    "published_at": "2026-09-20T03:00:00Z",
+    "created_at": "2026-09-20T02:00:00Z",
+    "body": "Untagged nightly build.",
+    "html_url": "https://github.com/risuunava/Notchi/releases/tag/nightly",
+    "assets": [
+      {
+        "name": "Notchi-nightly.exe",
+        "size": 26000000,
+        "download_count": 2,
+        "browser_download_url": "https://github.com/risuunava/Notchi/releases/download/nightly/Notchi-nightly.exe",
+        "digest": null
+      }
+    ]
+  },
+  {
+    "tag_name": "v1.4.0-draft",
+    "name": "Notchi 1.4.0 draft",
+    "draft": true,
+    "prerelease": false,
+    "published_at": "2026-09-25T12:00:00Z",
+    "created_at": "2026-09-25T11:00:00Z",
+    "body": "Draft release.",
+    "html_url": "https://github.com/risuunava/Notchi/releases/tag/v1.4.0-draft",
+    "assets": [
+      {
+        "name": "Notchi-Setup-1.4.0.exe",
+        "size": 27000000,
+        "download_count": 0,
+        "browser_download_url": "https://github.com/risuunava/Notchi/releases/download/v1.4.0-draft/Notchi-Setup-1.4.0.exe",
+        "digest": "sha256:0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+      }
+    ]
+  },
+  {
+    "tag_name": "v1.0.0",
+    "name": null,
+    "draft": false,
+    "prerelease": false,
+    "published_at": "2026-07-01T00:00:00Z",
+    "created_at": "2026-07-01T00:00:00Z",
+    "body": "",
+    "html_url": "https://github.com/risuunava/Notchi/releases/tag/v1.0.0",
+    "assets": []
+  }
+]
