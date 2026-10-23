@@ -31,7 +31,7 @@ export const siteConfig = {
     home: '/',
     download: '/download/',
     latest: '/download/latest',
-    docs: '/docs',
+    docs: '/docs/',
   },
   assetRules: {
     installer: {

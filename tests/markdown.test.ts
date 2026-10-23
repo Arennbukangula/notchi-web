@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { renderReleaseNotes } from '../src/lib/markdown';
+import { renderReleaseNotes, toPlainText } from '../src/lib/markdown';
 
 describe('renderReleaseNotes', () => {
   it('renders common release note markup', () => {
@@ -73,5 +73,18 @@ describe('renderReleaseNotes', () => {
     const html = renderReleaseNotes('![inline](data:image/png;base64,AAAA)');
 
     expect(html).not.toContain('data:image');
+  });
+});
+
+describe('toPlainText', () => {
+  it('strips markup, decodes entities and collapses whitespace', () => {
+    expect(toPlainText('<h2>Fixes</h2><p>Faster &amp; safer<br>startup</p>')).toBe(
+      'Fixes\nFaster & safer\nstartup',
+    );
+    expect(toPlainText('<p>&#39;quoted&#39; &#x2014; done</p>')).toBe("'quoted' — done");
+  });
+
+  it('ignores invalid numeric entities', () => {
+    expect(toPlainText('<p>&#999999999; ok</p>')).toBe('ok');
   });
 });

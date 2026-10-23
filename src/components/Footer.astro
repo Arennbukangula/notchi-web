@@ -11,6 +11,7 @@ interface Props {
 const { locale } = Astro.props;
 const versionsHref = localizePath(siteConfig.routes.download, locale);
 const docsHref = localizePath(siteConfig.routes.docs, locale);
+const rssHref = localizePath('/rss.xml', locale);
 const year = new Date().getFullYear();
 const linkClass =
   'text-sm text-neutral-600 transition-colors hover:text-neutral-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/60 dark:text-neutral-400 dark:hover:text-white';
@@ -83,6 +84,7 @@ const linkClass =
             {t(locale, 'footer.githubReleases')}
           </a>
         </li>
+        <li><a href={rssHref} class={linkClass}>{t(locale, 'footer.rss')}</a></li>
       </ul>
       <LangSwitcher locale={locale} />
     </div>

@@ -36,8 +36,13 @@
     "githubReleases": "GitHub Releases",
     "source": "Source code",
     "issues": "Report an issue",
+    "rss": "RSS feed",
     "license": "Licensed under Apache-2.0",
     "copyright": "© {year} Notchi"
+  },
+  "rss": {
+    "title": "Notchi releases",
+    "description": "Every published Notchi release, including changelogs and pre-releases."
   },
   "home": {
     "platform": "Windows 10/11 · x64",
@@ -269,5 +274,13 @@
       "question": "How do I uninstall Notchi?",
       "answer": "Open Windows Settings → Apps → Installed apps, select Notchi, then choose Uninstall."
     }
+  },
+  "notFound": {
+    "title": "Page not found",
+    "description": "The page you are looking for does not exist or has moved.",
+    "body": "The page you are looking for does not exist or has moved. Try one of the links below instead.",
+    "home": "Back to home",
+    "versions": "Browse versions",
+    "docs": "Read the docs"
   }
 }

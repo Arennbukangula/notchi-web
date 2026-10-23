@@ -76,3 +76,31 @@ export function renderReleaseNotes(markdown: string | null | undefined): string 
   const html = marked.parse(source, { async: false, gfm: true });
   return sanitizeHtml(html, sanitizeOptions);
 }
+
+function decodeCodePoint(value: number): string {
+  if (!Number.isInteger(value) || value < 0 || value > 0x10ffff) return '';
+
+  try {
+    return String.fromCodePoint(value);
+  } catch {
+    return '';
+  }
+}
+
+export function toPlainText(html: string): string {
+  return html
+    .replace(/<br\s*\/?>/gi, '\n')
+    .replace(/<\/(p|div|li|h[1-6]|tr|blockquote)>/gi, '\n')
+    .replace(/<[^>]+>/g, '')
+    .replace(/&nbsp;/g, ' ')
+    .replace(/&amp;/g, '&')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;|&apos;/g, "'")
+    .replace(/&#(\d+);/g, (_, code: string) => decodeCodePoint(Number(code)))
+    .replace(/&#x([0-9a-f]+);/gi, (_, code: string) => decodeCodePoint(Number.parseInt(code, 16)))
+    .replace(/[ \t]+/g, ' ')
+    .replace(/\n{3,}/g, '\n\n')
+    .trim();
+}

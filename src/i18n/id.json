@@ -36,8 +36,13 @@
     "githubReleases": "Rilis GitHub",
     "source": "Kode sumber",
     "issues": "Laporkan masalah",
+    "rss": "Feed RSS",
     "license": "Dilisensikan di bawah Apache-2.0",
     "copyright": "© {year} Notchi"
+  },
+  "rss": {
+    "title": "Rilis Notchi",
+    "description": "Semua rilis Notchi yang dipublikasikan, termasuk changelog dan pre-rilis."
   },
   "home": {
     "platform": "Windows 10/11 · x64",
@@ -269,5 +274,13 @@
       "question": "Bagaimana cara menghapus Notchi?",
       "answer": "Buka Windows Settings → Apps → Installed apps, pilih Notchi, lalu pilih Uninstall."
     }
+  },
+  "notFound": {
+    "title": "Halaman tidak ditemukan",
+    "description": "Halaman yang Anda cari tidak ada atau telah dipindahkan.",
+    "body": "Halaman yang Anda cari tidak ada atau telah dipindahkan. Coba salah satu tautan di bawah ini.",
+    "home": "Kembali ke beranda",
+    "versions": "Jelajahi versi",
+    "docs": "Baca dokumentasi"
   }
 }
