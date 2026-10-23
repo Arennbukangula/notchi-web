@@ -1,0 +1,52 @@
+---
+import { localizePath, stripLocaleFromPath, t } from '../i18n';
+import type { Locale } from '../i18n';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const currentPath = stripLocaleFromPath(Astro.url.pathname);
+
+const options = [
+  {
+    locale: 'en' as const,
+    short: 'EN',
+    label: t(locale, 'language.english'),
+    href: localizePath(currentPath, 'en'),
+  },
+  {
+    locale: 'id' as const,
+    short: 'ID',
+    label: t(locale, 'language.indonesian'),
+    href: localizePath(currentPath, 'id'),
+  },
+];
+---
+
+<div
+  class="inline-flex items-center rounded-full border border-neutral-200 p-0.5 dark:border-white/10"
+  role="group"
+  aria-label={t(locale, 'language.switch')}
+>
+  {
+    options.map((option) => (
+      <a
+        href={option.href}
+        hreflang={option.locale}
+        lang={option.locale}
+        aria-current={locale === option.locale ? 'true' : undefined}
+        class:list={[
+          'rounded-full px-2 py-1 text-xs font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/60',
+          locale === option.locale
+            ? 'bg-neutral-900 text-white dark:bg-white dark:text-neutral-900'
+            : 'text-neutral-500 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-white',
+        ]}
+      >
+        <span aria-hidden="true">{option.short}</span>
+        <span class="sr-only">{option.label}</span>
+      </a>
+    ))
+  }
+</div>

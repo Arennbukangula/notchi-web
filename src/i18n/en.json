@@ -1,0 +1,45 @@
+{
+  "meta": {
+    "titleTemplate": "{title} · {site}",
+    "defaultTitle": "Notchi — a native notch overlay for Windows",
+    "description": "Download Notchi, a native notch overlay for Windows 10 and 11. Browse every published version with changelogs, file sizes and checksums.",
+    "ogImageAlt": "Notchi notch overlay preview"
+  },
+  "a11y": {
+    "skipToContent": "Skip to content"
+  },
+  "nav": {
+    "main": "Main navigation",
+    "home": "Home",
+    "versions": "Versions",
+    "docs": "Docs",
+    "github": "GitHub"
+  },
+  "theme": {
+    "toggle": "Toggle dark mode",
+    "switchToDark": "Switch to dark mode",
+    "switchToLight": "Switch to light mode"
+  },
+  "language": {
+    "label": "Language",
+    "switch": "Change language",
+    "english": "English",
+    "indonesian": "Bahasa Indonesia"
+  },
+  "footer": {
+    "tagline": "A native notch overlay for Windows, inspired by the macOS notch and Dynamic Island.",
+    "product": "Product",
+    "resources": "Resources",
+    "allReleases": "All releases",
+    "githubReleases": "GitHub Releases",
+    "source": "Source code",
+    "issues": "Report an issue",
+    "license": "Licensed under Apache-2.0",
+    "copyright": "© {year} Notchi"
+  },
+  "home": {
+    "platform": "Windows 10/11 · x64",
+    "placeholderTitle": "Notchi",
+    "placeholderBody": "The download site is being built."
+  }
+}

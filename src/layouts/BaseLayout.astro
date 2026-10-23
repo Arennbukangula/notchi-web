@@ -1,0 +1,114 @@
+---
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { getLocaleFromUrl, localizePath, locales, stripLocaleFromPath, t } from '../i18n';
+import type { Locale } from '../i18n';
+import { siteConfig } from '../site.config';
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+  locale?: Locale;
+  image?: string;
+  noindex?: boolean;
+}
+
+const locale = Astro.props.locale ?? getLocaleFromUrl(Astro.url);
+const description = Astro.props.description ?? t(locale, 'meta.description');
+const image = Astro.props.image ?? '/images/banner.png';
+const noindex = Astro.props.noindex ?? false;
+
+const pageTitle = Astro.props.title
+  ? t(locale, 'meta.titleTemplate', {
+      title: Astro.props.title,
+      site: siteConfig.appName,
+    })
+  : t(locale, 'meta.defaultTitle');
+
+const site = Astro.site ?? new URL(siteConfig.siteUrl);
+const canonical = new URL(Astro.url.pathname, site).href;
+const imageUrl = new URL(image, site).href;
+const barePath = stripLocaleFromPath(Astro.url.pathname);
+
+const alternateLinks = locales.map((code) => ({
+  code,
+  href: new URL(localizePath(barePath, code), site).href,
+}));
+const defaultAlternate = alternateLinks[0]?.href ?? canonical;
+const ogLocale = locale === 'id' ? 'id_ID' : 'en_US';
+const ogAlternateLocale = locale === 'id' ? 'en_US' : 'id_ID';
+---
+
+<!doctype html>
+<html lang={locale}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
+
+    {
+      alternateLinks.map((alternate) => (
+        <link rel="alternate" hreflang={alternate.code} href={alternate.href} />
+      ))
+    }
+    <link rel="alternate" hreflang="x-default" href={defaultAlternate} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={siteConfig.appName} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={imageUrl} />
+    <meta property="og:image:alt" content={t(locale, 'meta.ogImageAlt')} />
+    <meta property="og:locale" content={ogLocale} />
+    <meta property="og:locale:alternate" content={ogAlternateLocale} />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={imageUrl} />
+
+    <link rel="icon" href="/images/icon.png" type="image/png" />
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0a0a0a" media="(prefers-color-scheme: dark)" />
+
+    <script is:inline>
+      (() => {
+        const root = document.documentElement;
+        let stored;
+
+        try {
+          stored = window.localStorage.getItem('theme');
+        } catch {
+          stored = null;
+        }
+
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const dark = stored === 'dark' || (stored !== 'light' && prefersDark);
+        root.classList.toggle('dark', dark);
+      })();
+    </script>
+  </head>
+  <body
+    class="flex min-h-dvh flex-col bg-neutral-50 font-sans text-neutral-900 antialiased dark:bg-neutral-950 dark:text-neutral-100"
+  >
+    <a
+      href="#main"
+      class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:rounded-full focus:bg-accent focus:px-4 focus:py-2 focus:text-sm focus:font-medium focus:text-white"
+    >
+      {t(locale, 'a11y.skipToContent')}
+    </a>
+
+    <Header locale={locale} />
+    <main id="main" class="flex-1">
+      <slot />
+    </main>
+    <Footer locale={locale} />
+  </body>
+</html>

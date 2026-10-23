@@ -1,0 +1,45 @@
+{
+  "meta": {
+    "titleTemplate": "{title} · {site}",
+    "defaultTitle": "Notchi — overlay notch native untuk Windows",
+    "description": "Unduh Notchi, overlay notch native untuk Windows 10 dan 11. Jelajahi semua versi dengan changelog, ukuran file, dan checksum.",
+    "ogImageAlt": "Pratinjau overlay notch Notchi"
+  },
+  "a11y": {
+    "skipToContent": "Lewati ke konten"
+  },
+  "nav": {
+    "main": "Navigasi utama",
+    "home": "Beranda",
+    "versions": "Versi",
+    "docs": "Dokumentasi",
+    "github": "GitHub"
+  },
+  "theme": {
+    "toggle": "Ubah mode gelap",
+    "switchToDark": "Beralih ke mode gelap",
+    "switchToLight": "Beralih ke mode terang"
+  },
+  "language": {
+    "label": "Bahasa",
+    "switch": "Ganti bahasa",
+    "english": "English",
+    "indonesian": "Bahasa Indonesia"
+  },
+  "footer": {
+    "tagline": "Overlay notch native untuk Windows, terinspirasi notch macOS dan Dynamic Island.",
+    "product": "Produk",
+    "resources": "Sumber daya",
+    "allReleases": "Semua versi",
+    "githubReleases": "Rilis GitHub",
+    "source": "Kode sumber",
+    "issues": "Laporkan masalah",
+    "license": "Dilisensikan di bawah Apache-2.0",
+    "copyright": "© {year} Notchi"
+  },
+  "home": {
+    "platform": "Windows 10/11 · x64",
+    "placeholderTitle": "Notchi",
+    "placeholderBody": "Situs unduhan sedang dibangun."
+  }
+}
