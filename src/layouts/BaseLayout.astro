@@ -8,6 +8,7 @@ import '../styles/global.css';
 
 interface Props {
   title?: string;
+  fullTitle?: string;
   description?: string;
   locale?: Locale;
   image?: string;
@@ -19,12 +20,14 @@ const description = Astro.props.description ?? t(locale, 'meta.description');
 const image = Astro.props.image ?? '/images/banner.png';
 const noindex = Astro.props.noindex ?? false;
 
-const pageTitle = Astro.props.title
-  ? t(locale, 'meta.titleTemplate', {
-      title: Astro.props.title,
-      site: siteConfig.appName,
-    })
-  : t(locale, 'meta.defaultTitle');
+const pageTitle =
+  Astro.props.fullTitle ??
+  (Astro.props.title
+    ? t(locale, 'meta.titleTemplate', {
+        title: Astro.props.title,
+        site: siteConfig.appName,
+      })
+    : t(locale, 'meta.defaultTitle'));
 
 const site = Astro.site ?? new URL(siteConfig.siteUrl);
 const canonical = new URL(Astro.url.pathname, site).href;

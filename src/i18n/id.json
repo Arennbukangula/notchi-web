@@ -6,7 +6,9 @@
     "ogImageAlt": "Pratinjau overlay notch Notchi"
   },
   "a11y": {
-    "skipToContent": "Lewati ke konten"
+    "skipToContent": "Lewati ke konten",
+    "screenshots": "Tangkapan layar Notchi",
+    "releaseList": "Daftar rilis"
   },
   "nav": {
     "main": "Navigasi utama",
@@ -39,7 +41,233 @@
   },
   "home": {
     "platform": "Windows 10/11 · x64",
-    "placeholderTitle": "Notchi",
-    "placeholderBody": "Situs unduhan sedang dibangun."
+    "hero": {
+      "tagline": "Overlay notch native untuk Windows, terinspirasi notch macOS dan Dynamic Island.",
+      "latest": "Stabil terbaru",
+      "secondary": "Lihat semua versi",
+      "nonWindows": "Notchi hanya berjalan di Windows. Anda tetap dapat menjelajahi semua rilis dari situs ini.",
+      "noStable": "Belum ada rilis stabil yang tersedia.",
+      "browseReleases": "Jelajahi rilis"
+    },
+    "previews": {
+      "title": "Ringkas saat diam. Siap saat kursor mendekat.",
+      "description": "Notch tetap tidak mengganggu, lalu mengembang dengan kontrol media, statistik sistem, catatan, dan file.",
+      "menu": "Menu fitur",
+      "media": "Pemutar media",
+      "side": "Anchor samping",
+      "compact": "Ringkas",
+      "expanded": "Mengembang",
+      "menuCompactAlt": "Menu fitur Notchi versi ringkas",
+      "menuExpandedAlt": "Menu fitur Notchi versi mengembang",
+      "mediaCompactAlt": "Pemutar media Notchi versi ringkas",
+      "mediaExpandedAlt": "Pemutar media Notchi versi mengembang",
+      "sideCompactAlt": "Anchor samping Notchi versi ringkas",
+      "sideExpandedAlt": "Anchor samping Notchi versi mengembang"
+    },
+    "features": {
+      "title": "Dibuat untuk desktop",
+      "description": "Seperangkat alat fokus yang selalu dekat tanpa mengambil alih layar.",
+      "alwaysOnTop": {
+        "title": "Overlay selalu di atas",
+        "description": "Notch tetap terlihat di atas jendela lain tanpa muncul di taskbar."
+      },
+      "modes": {
+        "title": "Ringkas dan mengembang",
+        "description": "Tetap ringkas saat diam dan mengembang mulus saat kursor diarahkan."
+      },
+      "media": {
+        "title": "Kontrol media",
+        "description": "Info trek, sampul album, progres, pencarian, dan kontrol pemutaran melalui Windows SMTC."
+      },
+      "dashboard": {
+        "title": "Dasbor sistem",
+        "description": "Jam, tanggal, baterai, CPU, RAM, dan penggunaan disk sekilas."
+      },
+      "notes": {
+        "title": "Catatan cepat",
+        "description": "Jendela catatan khusus dengan penyimpanan otomatis."
+      },
+      "files": {
+        "title": "Rak file",
+        "description": "Seret file ke notch untuk membuka, menampilkan, menyalin path, atau menghapusnya."
+      },
+      "anchor": {
+        "title": "Penjangkaran layar",
+        "description": "Menempel ke tengah atas, tengah kiri, atau tengah kanan layar."
+      },
+      "position": {
+        "title": "Posisi tersimpan",
+        "description": "Mengingat anchor terakhir dan memulihkannya saat diluncurkan."
+      },
+      "settings": {
+        "title": "Pengaturan berguna",
+        "description": "Pilih metrik sistem yang terlihat dan jalankan Notchi bersama Windows."
+      },
+      "lightweight": {
+        "title": "Ringan secara desain",
+        "description": "WPF native tanpa Electron atau webview, dengan penggunaan sumber daya rendah saat diam."
+      }
+    },
+    "requirements": {
+      "title": "Persyaratan sistem",
+      "description": "Notchi berjalan di Windows 10 dan Windows 11 64-bit.",
+      "component": "Komponen",
+      "minimum": "Minimum",
+      "recommended": "Direkomendasikan",
+      "os": {
+        "label": "Sistem operasi",
+        "minimum": "Windows 10 versi 2004 (build 19041), 64-bit",
+        "recommended": "Windows 11 versi 22H2 atau lebih baru, 64-bit"
+      },
+      "architecture": {
+        "label": "Arsitektur",
+        "minimum": "x64",
+        "recommended": "x64"
+      },
+      "processor": {
+        "label": "Prosesor",
+        "minimum": "Dual-core 1 GHz atau setara",
+        "recommended": "Quad-core 2 GHz atau setara"
+      },
+      "memory": {
+        "label": "Memori",
+        "minimum": "RAM 4 GB",
+        "recommended": "RAM 8 GB"
+      },
+      "storage": {
+        "label": "Penyimpanan",
+        "minimum": "Ruang kosong 150 MB",
+        "recommended": "Ruang kosong 250 MB di SSD"
+      },
+      "display": {
+        "label": "Layar",
+        "minimum": "1280 × 720",
+        "recommended": "1920 × 1080 atau lebih tinggi"
+      },
+      "note": "Installer bersifat per-pengguna dan tidak memerlukan hak administrator."
+    },
+    "install": {
+      "title": "Instal dalam tiga langkah",
+      "step1": {
+        "title": "Unduh installer",
+        "description": "Dapatkan versi stabil terbaru dari situs ini atau halaman rilis GitHub."
+      },
+      "step2": {
+        "title": "Jalankan installer",
+        "description": "Installer per-pengguna langsung berjalan dan tidak memerlukan hak administrator."
+      },
+      "step3": {
+        "title": "Luncurkan Notchi",
+        "description": "Notch muncul di bagian atas layar. Arahkan kursor untuk mengembangkannya."
+      },
+      "smartScreenTitle": "Windows mungkin menampilkan peringatan SmartScreen",
+      "smartScreenBody": "Installer belum ditandatangani secara digital, jadi Windows mungkin memperingatkan Anda pertama kali. Pilih “More info” lalu “Run anyway” hanya jika Anda mengunduh file dari situs ini atau GitHub.",
+      "smartScreenLink": "Baca panduan instalasi",
+      "note": "Mencari beta? Pre-rilis tercantum di halaman versi."
+    }
+  },
+  "archive": {
+    "title": "Semua versi",
+    "description": "Jelajahi semua rilis Notchi yang dipublikasikan, termasuk versi lama dan pre-rilis.",
+    "showPrereleases": "Tampilkan pre-rilis",
+    "hidePrereleases": "Sembunyikan pre-rilis",
+    "latest": "Terbaru",
+    "prerelease": "Pre-rilis",
+    "noInstaller": "Tanpa installer",
+    "download": "Unduh",
+    "details": "Detail",
+    "size": "Ukuran installer",
+    "downloads": "Unduhan",
+    "date": "Dirilis",
+    "emptyTitle": "Belum ada rilis",
+    "emptyBody": "Notchi belum mempublikasikan rilis. Ikuti repositori di GitHub untuk mendapat notifikasi.",
+    "viewGithub": "Lihat rilis GitHub",
+    "backHome": "Kembali ke beranda"
+  },
+  "version": {
+    "title": "Notchi {version}",
+    "description": "Unduh Notchi {version}, baca catatan rilis, dan verifikasi checksum SHA-256.",
+    "published": "Dirilis {date}",
+    "installer": "Installer",
+    "otherFiles": "File lain",
+    "releaseNotes": "Catatan rilis",
+    "noNotes": "Tidak ada catatan rilis untuk versi ini.",
+    "noInstallerTitle": "Tidak ada installer untuk versi ini",
+    "noInstallerBody": "Rilis ini tidak menyertakan installer Windows. Anda tetap dapat melihat file dan catatannya di GitHub.",
+    "viewGithub": "Lihat di GitHub",
+    "newer": "Versi lebih baru",
+    "older": "Versi lebih lama",
+    "navigation": "Navigasi versi",
+    "back": "Semua versi",
+    "checksumTitle": "Checksum SHA-256",
+    "verifyTitle": "Verifikasi di PowerShell",
+    "verifyHint": "Jalankan perintah ini di PowerShell dan bandingkan hash dengan yang di atas.",
+    "downloads": "{count} unduhan",
+    "size": "Ukuran"
+  },
+  "download": {
+    "cta": "Unduh Notchi {version}",
+    "ctaShort": "Unduh",
+    "unavailable": "Installer tidak tersedia",
+    "viewRelease": "Lihat rilis di GitHub",
+    "copy": "Salin",
+    "copied": "Tersalin",
+    "copyFailed": "Gagal menyalin",
+    "checksumUnavailable": "Checksum tidak tersedia",
+    "verifyCommand": "Get-FileHash .\\{file} -Algorithm SHA256",
+    "kindInstaller": "Installer",
+    "kindPortable": "Portabel",
+    "kindChecksum": "File checksum",
+    "kindOther": "File"
+  },
+  "docs": {
+    "title": "Dokumentasi",
+    "description": "Instal, verifikasi, perbarui, dan hapus Notchi di Windows 10 dan Windows 11.",
+    "installTitle": "Cara menginstal Notchi",
+    "installIntro": "Unduh installer stabil terbaru, jalankan, lalu luncurkan Notchi dari menu Start.",
+    "verifyTitle": "Verifikasi installer",
+    "verifyBody": "Setiap rilis mencantumkan checksum SHA-256. Unduh installer, jalankan perintah di bawah di PowerShell, lalu bandingkan kedua hash.",
+    "verifyNote": "Jika hash tidak cocok, hapus file dan unduh ulang dari GitHub.",
+    "smartScreenTitle": "SmartScreen dan installer tanpa tanda tangan",
+    "smartScreenBody": "Notchi belum ditandatangani secara digital, jadi Windows SmartScreen mungkin menampilkan peringatan. Ini normal untuk perangkat lunak baru yang belum ditandatangani. Anda dapat memverifikasi checksum SHA-256 sebelum menjalankan installer.",
+    "uninstallTitle": "Hapus Notchi",
+    "uninstallBody": "Buka Windows Settings, masuk ke Apps → Installed apps, pilih Notchi lalu pilih Uninstall. Catatan Anda tetap tersimpan di %LOCALAPPDATA%\\Notchi kecuali Anda menghapusnya sendiri.",
+    "autostartTitle": "Mulai bersama Windows",
+    "autostartBody": "Buka pengaturan Notchi dan aktifkan Start with Windows. Anda dapat mematikannya kembali kapan saja.",
+    "storageTitle": "Catatan dan data",
+    "storageBody": "Catatan disimpan di %LOCALAPPDATA%\\Notchi. Catatan dari versi lama dimigrasikan secara otomatis.",
+    "faqTitle": "Pertanyaan yang sering diajukan",
+    "bugsTitle": "Menemukan bug?",
+    "bugsBody": "Laporkan masalah di GitHub agar dapat dilacak dan diperbaiki. Sertakan versi Windows dan versi Notchi yang Anda gunakan.",
+    "reportIssue": "Laporkan masalah",
+    "viewSource": "Lihat kode sumber",
+    "downloadLatest": "Unduh terbaru",
+    "backHome": "Kembali ke beranda"
+  },
+  "faq": {
+    "windows": {
+      "question": "Versi Windows apa yang didukung?",
+      "answer": "Notchi mendukung Windows 10 versi 2004 (build 19041) atau lebih baru, dan Windows 11, pada x64."
+    },
+    "smartscreen": {
+      "question": "Mengapa Windows memperingatkan tentang installer?",
+      "answer": "Installer belum ditandatangani secara digital. Windows mungkin menampilkan peringatan SmartScreen; verifikasi checksum SHA-256 sebelum memilih “More info” lalu “Run anyway”."
+    },
+    "admin": {
+      "question": "Apakah Notchi memerlukan hak administrator?",
+      "answer": "Tidak. Notchi dipasang per-pengguna di %LOCALAPPDATA% dan tidak memerlukan hak administrator."
+    },
+    "rollback": {
+      "question": "Bisakah saya menginstal versi lama?",
+      "answer": "Bisa. Semua rilis yang dipublikasikan tetap tersedia di halaman semua versi."
+    },
+    "notes": {
+      "question": "Di mana catatan saya disimpan?",
+      "answer": "Catatan disimpan di %LOCALAPPDATA%\\Notchi dan dimigrasikan otomatis dari versi lama."
+    },
+    "uninstall": {
+      "question": "Bagaimana cara menghapus Notchi?",
+      "answer": "Buka Windows Settings → Apps → Installed apps, pilih Notchi, lalu pilih Uninstall."
+    }
   }
 }

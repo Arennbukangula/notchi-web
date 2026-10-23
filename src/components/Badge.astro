@@ -1,0 +1,25 @@
+---
+interface Props {
+  label: string;
+  tone?: 'accent' | 'muted' | 'warning';
+}
+
+const { label, tone = 'muted' } = Astro.props;
+
+const toneClass = {
+  accent: 'bg-accent/10 text-accent ring-accent/20',
+  muted:
+    'bg-neutral-100 text-neutral-600 ring-neutral-200 dark:bg-white/10 dark:text-neutral-300 dark:ring-white/10',
+  warning:
+    'bg-amber-500/10 text-amber-700 ring-amber-500/20 dark:text-amber-300 dark:ring-amber-400/20',
+}[tone];
+---
+
+<span
+  class:list={[
+    'inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium ring-1 ring-inset',
+    toneClass,
+  ]}
+>
+  {label}
+</span>

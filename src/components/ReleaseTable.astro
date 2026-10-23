@@ -1,0 +1,55 @@
+---
+import ReleaseCard from './ReleaseCard.astro';
+import { t } from '../i18n';
+import type { Locale } from '../i18n';
+import type { Release } from '../lib/github';
+
+interface Props {
+  releases: Release[];
+  locale: Locale;
+}
+
+const { releases, locale } = Astro.props;
+const hasPrereleases = releases.some((release) => release.prerelease);
+---
+
+{
+  hasPrereleases && (
+    <div class="mb-6 flex justify-end">
+      <button
+        id="prerelease-toggle"
+        type="button"
+        aria-pressed="false"
+        aria-controls="release-list"
+        data-label-show={t(locale, 'archive.showPrereleases')}
+        data-label-hide={t(locale, 'archive.hidePrereleases')}
+        class="inline-flex items-center rounded-full border border-neutral-200 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition-colors hover:bg-neutral-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent dark:border-white/10 dark:bg-white/5 dark:text-neutral-300 dark:hover:bg-white/10"
+      >
+        {t(locale, 'archive.showPrereleases')}
+      </button>
+    </div>
+  )
+}
+
+<div id="release-list" role="list" class="space-y-4" aria-label={t(locale, 'a11y.releaseList')}>
+  {releases.map((release) => <ReleaseCard release={release} locale={locale} />)}
+</div>
+
+<script>
+  const toggle = document.getElementById('prerelease-toggle');
+  const list = document.getElementById('release-list');
+
+  if (toggle instanceof HTMLButtonElement && list) {
+    toggle.addEventListener('click', () => {
+      const show = toggle.getAttribute('aria-pressed') !== 'true';
+      toggle.setAttribute('aria-pressed', String(show));
+      toggle.textContent = show
+        ? (toggle.dataset.labelHide ?? '')
+        : (toggle.dataset.labelShow ?? '');
+
+      list.querySelectorAll<HTMLElement>('[data-prerelease]').forEach((item) => {
+        item.hidden = !show;
+      });
+    });
+  }
+</script>

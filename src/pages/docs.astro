@@ -1,0 +1,16 @@
+---
+import DocsPage from '../components/pages/DocsPage.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { t } from '../i18n';
+import type { Locale } from '../i18n';
+
+const locale: Locale = 'en';
+---
+
+<BaseLayout
+  locale={locale}
+  title={t(locale, 'docs.title')}
+  description={t(locale, 'docs.description')}
+>
+  <DocsPage locale={locale} />
+</BaseLayout>

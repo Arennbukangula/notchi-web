@@ -1,0 +1,78 @@
+---
+import { localizePath, t } from '../i18n';
+import type { Locale } from '../i18n';
+import { siteConfig } from '../site.config';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const docsHref = localizePath(siteConfig.routes.docs, locale);
+
+const steps = [
+  {
+    title: t(locale, 'home.install.step1.title'),
+    description: t(locale, 'home.install.step1.description'),
+  },
+  {
+    title: t(locale, 'home.install.step2.title'),
+    description: t(locale, 'home.install.step2.description'),
+  },
+  {
+    title: t(locale, 'home.install.step3.title'),
+    description: t(locale, 'home.install.step3.description'),
+  },
+];
+---
+
+<section
+  class="border-y border-neutral-200 bg-white py-20 dark:border-white/10 dark:bg-white/[0.02]"
+>
+  <div class="mx-auto max-w-[1100px] px-6">
+    <h2 class="text-3xl font-semibold tracking-tight sm:text-4xl">
+      {t(locale, 'home.install.title')}
+    </h2>
+
+    <ol class="mt-10 grid gap-6 sm:grid-cols-3">
+      {
+        steps.map((step, index) => (
+          <li class="rounded-3xl border border-neutral-200 bg-neutral-50 p-6 dark:border-white/10 dark:bg-neutral-950/60">
+            <span class="text-xs font-semibold tracking-widest text-accent uppercase">
+              {String(index + 1).padStart(2, '0')}
+            </span>
+            <h3 class="mt-4 text-base font-semibold text-neutral-900 dark:text-white">
+              {step.title}
+            </h3>
+            <p class="mt-2 text-sm leading-6 text-neutral-600 dark:text-neutral-400">
+              {step.description}
+            </p>
+          </li>
+        ))
+      }
+    </ol>
+
+    <div
+      class="mt-8 flex flex-col gap-5 rounded-3xl border border-amber-500/20 bg-amber-500/5 p-6 sm:flex-row sm:items-start sm:justify-between"
+    >
+      <div class="max-w-2xl">
+        <h3 class="text-base font-semibold text-amber-900 dark:text-amber-200">
+          {t(locale, 'home.install.smartScreenTitle')}
+        </h3>
+        <p class="mt-2 text-sm leading-6 text-amber-900/80 dark:text-amber-100/80">
+          {t(locale, 'home.install.smartScreenBody')}
+        </p>
+      </div>
+      <a
+        href={docsHref}
+        class="shrink-0 rounded-full border border-amber-500/30 px-4 py-2 text-sm font-medium text-amber-900 transition-colors hover:bg-amber-500/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500 dark:text-amber-200"
+      >
+        {t(locale, 'home.install.smartScreenLink')}
+      </a>
+    </div>
+
+    <p class="mt-6 text-sm text-neutral-500 dark:text-neutral-400">
+      {t(locale, 'home.install.note')}
+    </p>
+  </div>
+</section>

@@ -1,0 +1,115 @@
+---
+import Badge from './Badge.astro';
+import DownloadButton from './DownloadButton.astro';
+import { localizePath, t } from '../i18n';
+import type { Locale } from '../i18n';
+import { formatFileSize } from '../lib/format';
+import type { Release } from '../lib/github';
+import { siteConfig } from '../site.config';
+
+interface Props {
+  latest?: Release;
+  locale: Locale;
+}
+
+const { latest, locale } = Astro.props;
+const installer = latest?.primaryInstaller;
+const versionsHref = localizePath(siteConfig.routes.download, locale);
+---
+
+<section class="relative overflow-hidden">
+  <div
+    class="pointer-events-none absolute inset-x-0 top-0 h-[32rem] bg-[radial-gradient(ellipse_at_top,rgba(61,126,255,0.18),transparent_65%)] dark:bg-[radial-gradient(ellipse_at_top,rgba(61,126,255,0.22),transparent_65%)]"
+    aria-hidden="true"
+  >
+  </div>
+
+  <div
+    class="relative mx-auto flex max-w-3xl flex-col items-center px-6 pt-16 pb-20 text-center sm:pt-24 sm:pb-28"
+  >
+    <div
+      class="notch-pill mb-10 h-8 w-44 rounded-full bg-neutral-950 shadow-2xl shadow-neutral-950/20 ring-1 ring-black/10 dark:bg-black dark:shadow-black/60 dark:ring-white/10"
+      aria-hidden="true"
+    >
+    </div>
+
+    {
+      latest && (
+        <div class="mb-4">
+          <Badge label={t(locale, 'home.hero.latest')} tone="accent" />
+        </div>
+      )
+    }
+
+    <h1 class="text-6xl font-semibold tracking-tight sm:text-7xl">{siteConfig.appName}</h1>
+    <p class="mt-5 max-w-xl text-lg leading-8 text-neutral-600 dark:text-neutral-400">
+      {t(locale, 'home.hero.tagline')}
+    </p>
+
+    {
+      latest ? (
+        <div class="mt-8 flex flex-col items-center gap-3">
+          <DownloadButton release={latest} locale={locale} />
+          <p class="text-sm text-neutral-500 dark:text-neutral-400">
+            {t(locale, 'home.platform')}
+            {installer && <span> · {formatFileSize(installer.size, locale)}</span>}
+          </p>
+        </div>
+      ) : (
+        <div class="mt-8 flex flex-col items-center gap-3">
+          <p class="text-sm text-neutral-500 dark:text-neutral-400">
+            {t(locale, 'home.hero.noStable')}
+          </p>
+          <a
+            href={versionsHref}
+            class="inline-flex items-center justify-center rounded-full bg-accent px-6 py-3.5 text-sm font-semibold text-white shadow-lg shadow-accent/25 transition-colors hover:bg-accent-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-50 dark:focus-visible:ring-offset-neutral-950"
+          >
+            {t(locale, 'home.hero.browseReleases')}
+          </a>
+        </div>
+      )
+    }
+
+    <a
+      href={versionsHref}
+      class="mt-5 rounded-full text-sm font-medium text-neutral-500 underline decoration-neutral-300 underline-offset-4 transition-colors hover:text-neutral-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent dark:text-neutral-400 dark:decoration-neutral-700 dark:hover:text-white"
+    >
+      {t(locale, 'home.hero.secondary')}
+    </a>
+
+    <p
+      id="os-note"
+      hidden
+      class="mt-6 max-w-md rounded-2xl border border-amber-500/20 bg-amber-500/10 px-4 py-3 text-sm leading-6 text-amber-800 dark:text-amber-200"
+    >
+      {t(locale, 'home.hero.nonWindows')}
+    </p>
+  </div>
+</section>
+
+<style>
+  .notch-pill {
+    animation: notch-breathe 6s ease-in-out infinite;
+  }
+
+  @keyframes notch-breathe {
+    0%,
+    100% {
+      transform: scaleX(1);
+    }
+    50% {
+      transform: scaleX(1.06);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .notch-pill {
+      animation: none;
+    }
+  }
+</style>
+
+<script>
+  const note = document.getElementById('os-note');
+  if (note && !/Windows/i.test(navigator.userAgent)) note.hidden = false;
+</script>

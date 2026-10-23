@@ -134,6 +134,13 @@ export function normalizeRelease(
   };
 }
 
+let releasesPromise: Promise<Release[]> | undefined;
+
+export function getReleases(): Promise<Release[]> {
+  releasesPromise ??= fetchReleases();
+  return releasesPromise;
+}
+
 export async function fetchReleases(options: FetchReleasesOptions = {}): Promise<Release[]> {
   const fetchImpl = options.fetchImpl ?? fetch;
   const owner = options.owner ?? siteConfig.github.owner;

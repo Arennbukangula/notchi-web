@@ -1,0 +1,179 @@
+---
+import ChecksumField from '../ChecksumField.astro';
+import DownloadButton from '../DownloadButton.astro';
+import Faq from '../Faq.astro';
+import { localizePath, t } from '../../i18n';
+import type { Locale } from '../../i18n';
+import { getReleases } from '../../lib/github';
+import { getLatestStable } from '../../lib/version';
+import { siteConfig } from '../../site.config';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const releases = await getReleases();
+const latest = getLatestStable(releases);
+const installer = latest?.primaryInstaller;
+const homeHref = localizePath('/', locale);
+
+const headingClass = 'text-xl font-semibold tracking-tight text-neutral-900 dark:text-white';
+const bodyClass = 'mt-3 text-sm leading-7 text-neutral-600 dark:text-neutral-400';
+
+const installSteps = [
+  {
+    title: t(locale, 'home.install.step1.title'),
+    description: t(locale, 'home.install.step1.description'),
+  },
+  {
+    title: t(locale, 'home.install.step2.title'),
+    description: t(locale, 'home.install.step2.description'),
+  },
+  {
+    title: t(locale, 'home.install.step3.title'),
+    description: t(locale, 'home.install.step3.description'),
+  },
+];
+
+const faqItems = [
+  {
+    question: t(locale, 'faq.windows.question'),
+    answer: t(locale, 'faq.windows.answer'),
+  },
+  {
+    question: t(locale, 'faq.smartscreen.question'),
+    answer: t(locale, 'faq.smartscreen.answer'),
+  },
+  {
+    question: t(locale, 'faq.admin.question'),
+    answer: t(locale, 'faq.admin.answer'),
+  },
+  {
+    question: t(locale, 'faq.rollback.question'),
+    answer: t(locale, 'faq.rollback.answer'),
+  },
+  {
+    question: t(locale, 'faq.notes.question'),
+    answer: t(locale, 'faq.notes.answer'),
+  },
+  {
+    question: t(locale, 'faq.uninstall.question'),
+    answer: t(locale, 'faq.uninstall.answer'),
+  },
+];
+---
+
+<div class="mx-auto max-w-3xl px-6 pt-16 pb-8">
+  <a
+    href={homeHref}
+    class="text-sm font-medium text-neutral-500 transition-colors hover:text-neutral-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent dark:text-neutral-400 dark:hover:text-white"
+  >
+    ← {t(locale, 'docs.backHome')}
+  </a>
+
+  <h1 class="mt-4 text-4xl font-semibold tracking-tight sm:text-5xl">
+    {t(locale, 'docs.title')}
+  </h1>
+  <p class="mt-4 text-base leading-7 text-neutral-600 dark:text-neutral-400">
+    {t(locale, 'docs.description')}
+  </p>
+
+  {
+    latest && (
+      <div class="mt-6">
+        <DownloadButton release={latest} locale={locale} />
+      </div>
+    )
+  }
+
+  <section class="mt-12" aria-labelledby="docs-install">
+    <h2 id="docs-install" class={headingClass}>{t(locale, 'docs.installTitle')}</h2>
+    <p class={bodyClass}>{t(locale, 'docs.installIntro')}</p>
+
+    <ol class="mt-6 space-y-4">
+      {
+        installSteps.map((step, index) => (
+          <li class="flex gap-4 rounded-2xl border border-neutral-200 bg-white p-4 dark:border-white/10 dark:bg-white/[0.03]">
+            <span class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-accent/10 text-xs font-semibold text-accent dark:bg-accent/20">
+              {index + 1}
+            </span>
+            <div>
+              <h3 class="text-sm font-semibold text-neutral-900 dark:text-white">{step.title}</h3>
+              <p class="mt-1 text-sm leading-6 text-neutral-600 dark:text-neutral-400">
+                {step.description}
+              </p>
+            </div>
+          </li>
+        ))
+      }
+    </ol>
+  </section>
+
+  <section class="mt-12" aria-labelledby="docs-verify">
+    <h2 id="docs-verify" class={headingClass}>{t(locale, 'docs.verifyTitle')}</h2>
+    <p class={bodyClass}>{t(locale, 'docs.verifyBody')}</p>
+    <p class="mt-2 text-sm leading-7 text-neutral-500 dark:text-neutral-400">
+      {t(locale, 'docs.verifyNote')}
+    </p>
+    {
+      installer && (
+        <div class="mt-5">
+          <ChecksumField file={installer.name} hash={installer.sha256} locale={locale} />
+        </div>
+      )
+    }
+  </section>
+
+  <section class="mt-12" aria-labelledby="docs-smartscreen">
+    <h2 id="docs-smartscreen" class={headingClass}>{t(locale, 'docs.smartScreenTitle')}</h2>
+    <p class={bodyClass}>{t(locale, 'docs.smartScreenBody')}</p>
+  </section>
+
+  <div class="mt-12 grid gap-6 sm:grid-cols-2">
+    <section aria-labelledby="docs-autostart">
+      <h2 id="docs-autostart" class={headingClass}>{t(locale, 'docs.autostartTitle')}</h2>
+      <p class={bodyClass}>{t(locale, 'docs.autostartBody')}</p>
+    </section>
+
+    <section aria-labelledby="docs-storage">
+      <h2 id="docs-storage" class={headingClass}>{t(locale, 'docs.storageTitle')}</h2>
+      <p class={bodyClass}>{t(locale, 'docs.storageBody')}</p>
+    </section>
+
+    <section aria-labelledby="docs-uninstall" class="sm:col-span-2">
+      <h2 id="docs-uninstall" class={headingClass}>{t(locale, 'docs.uninstallTitle')}</h2>
+      <p class={bodyClass}>{t(locale, 'docs.uninstallBody')}</p>
+    </section>
+  </div>
+</div>
+
+<Faq title={t(locale, 'docs.faqTitle')} items={faqItems} />
+
+<div class="mx-auto max-w-3xl px-6 pb-16">
+  <section
+    class="rounded-3xl border border-neutral-200 bg-white p-6 dark:border-white/10 dark:bg-white/[0.03]"
+    aria-labelledby="docs-bugs"
+  >
+    <h2 id="docs-bugs" class={headingClass}>{t(locale, 'docs.bugsTitle')}</h2>
+    <p class={bodyClass}>{t(locale, 'docs.bugsBody')}</p>
+    <div class="mt-5 flex flex-wrap gap-3">
+      <a
+        href={siteConfig.github.issuesUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="inline-flex items-center rounded-full bg-accent px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-accent-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-neutral-950"
+      >
+        {t(locale, 'docs.reportIssue')}
+      </a>
+      <a
+        href={siteConfig.github.url}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="inline-flex items-center rounded-full border border-neutral-200 px-4 py-2 text-sm font-medium text-neutral-700 transition-colors hover:bg-neutral-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent dark:border-white/10 dark:text-neutral-300 dark:hover:bg-white/10"
+      >
+        {t(locale, 'docs.viewSource')}
+      </a>
+    </div>
+  </section>
+</div>

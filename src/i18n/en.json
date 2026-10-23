@@ -6,7 +6,9 @@
     "ogImageAlt": "Notchi notch overlay preview"
   },
   "a11y": {
-    "skipToContent": "Skip to content"
+    "skipToContent": "Skip to content",
+    "screenshots": "Notchi screenshots",
+    "releaseList": "Release list"
   },
   "nav": {
     "main": "Main navigation",
@@ -39,7 +41,233 @@
   },
   "home": {
     "platform": "Windows 10/11 · x64",
-    "placeholderTitle": "Notchi",
-    "placeholderBody": "The download site is being built."
+    "hero": {
+      "tagline": "A native notch overlay for Windows, inspired by the macOS notch and Dynamic Island.",
+      "latest": "Latest stable",
+      "secondary": "View all versions",
+      "nonWindows": "Notchi only runs on Windows. You can still browse every release from this site.",
+      "noStable": "There is no stable release available yet.",
+      "browseReleases": "Browse releases"
+    },
+    "previews": {
+      "title": "Compact when idle. Ready when you hover.",
+      "description": "The notch stays out of the way, then expands with media controls, system stats, notes and files.",
+      "menu": "Feature menu",
+      "media": "Media player",
+      "side": "Side anchor",
+      "compact": "Compact",
+      "expanded": "Expanded",
+      "menuCompactAlt": "Notchi compact feature menu",
+      "menuExpandedAlt": "Notchi expanded feature menu",
+      "mediaCompactAlt": "Notchi compact media player",
+      "mediaExpandedAlt": "Notchi expanded media player",
+      "sideCompactAlt": "Notchi compact side anchor",
+      "sideExpandedAlt": "Notchi expanded side anchor"
+    },
+    "features": {
+      "title": "Built for the desktop",
+      "description": "A focused set of tools that stays close at hand without taking over your screen.",
+      "alwaysOnTop": {
+        "title": "Always-on-top overlay",
+        "description": "Keeps the notch visible above other windows without appearing in the taskbar."
+      },
+      "modes": {
+        "title": "Compact and expanded",
+        "description": "Stays compact while idle and expands smoothly when the cursor moves over it."
+      },
+      "media": {
+        "title": "Media controls",
+        "description": "Track info, album art, progress, seeking and playback controls through Windows SMTC."
+      },
+      "dashboard": {
+        "title": "System dashboard",
+        "description": "Clock, date, battery, CPU, RAM and disk usage at a glance."
+      },
+      "notes": {
+        "title": "Quick notes",
+        "description": "A dedicated notes window with automatic saving."
+      },
+      "files": {
+        "title": "File drop shelf",
+        "description": "Drag files onto the notch to open, reveal, copy paths or clear them."
+      },
+      "anchor": {
+        "title": "Screen anchoring",
+        "description": "Snap to the top center, left center or right center of the screen."
+      },
+      "position": {
+        "title": "Persistent position",
+        "description": "Remembers the last anchor and restores it on the next launch."
+      },
+      "settings": {
+        "title": "Useful settings",
+        "description": "Choose which system metrics are visible and start Notchi with Windows."
+      },
+      "lightweight": {
+        "title": "Lightweight by design",
+        "description": "Native WPF with no Electron or webview, and low idle resource usage."
+      }
+    },
+    "requirements": {
+      "title": "System requirements",
+      "description": "Notchi runs on 64-bit Windows 10 and Windows 11.",
+      "component": "Component",
+      "minimum": "Minimum",
+      "recommended": "Recommended",
+      "os": {
+        "label": "Operating system",
+        "minimum": "Windows 10 version 2004 (build 19041), 64-bit",
+        "recommended": "Windows 11 version 22H2 or later, 64-bit"
+      },
+      "architecture": {
+        "label": "Architecture",
+        "minimum": "x64",
+        "recommended": "x64"
+      },
+      "processor": {
+        "label": "Processor",
+        "minimum": "1 GHz dual-core or equivalent",
+        "recommended": "2 GHz quad-core or equivalent"
+      },
+      "memory": {
+        "label": "Memory",
+        "minimum": "4 GB RAM",
+        "recommended": "8 GB RAM"
+      },
+      "storage": {
+        "label": "Storage",
+        "minimum": "150 MB free space",
+        "recommended": "250 MB free space on an SSD"
+      },
+      "display": {
+        "label": "Display",
+        "minimum": "1280 × 720",
+        "recommended": "1920 × 1080 or higher"
+      },
+      "note": "The installer is per-user and does not require administrator privileges."
+    },
+    "install": {
+      "title": "Install in three steps",
+      "step1": {
+        "title": "Download the installer",
+        "description": "Get the latest stable version from this site or the GitHub releases page."
+      },
+      "step2": {
+        "title": "Run the installer",
+        "description": "The per-user installer starts right away and does not need administrator rights."
+      },
+      "step3": {
+        "title": "Launch Notchi",
+        "description": "The notch appears at the top of your screen. Hover over it to expand."
+      },
+      "smartScreenTitle": "Windows may show a SmartScreen warning",
+      "smartScreenBody": "The installer is not code-signed yet, so Windows may warn you the first time. Choose “More info” then “Run anyway” only if you downloaded the file from this site or GitHub.",
+      "smartScreenLink": "Read the installation guide",
+      "note": "Looking for a beta? Pre-releases are listed on the versions page."
+    }
+  },
+  "archive": {
+    "title": "All versions",
+    "description": "Browse every published Notchi release, including older versions and pre-releases.",
+    "showPrereleases": "Show pre-releases",
+    "hidePrereleases": "Hide pre-releases",
+    "latest": "Latest",
+    "prerelease": "Pre-release",
+    "noInstaller": "No installer",
+    "download": "Download",
+    "details": "Details",
+    "size": "Installer size",
+    "downloads": "Downloads",
+    "date": "Released",
+    "emptyTitle": "No releases yet",
+    "emptyBody": "Notchi has not published a release yet. Follow the repository on GitHub to be notified.",
+    "viewGithub": "View GitHub releases",
+    "backHome": "Back to home"
+  },
+  "version": {
+    "title": "Notchi {version}",
+    "description": "Download Notchi {version}, read the release notes and verify the SHA-256 checksum.",
+    "published": "Released {date}",
+    "installer": "Installer",
+    "otherFiles": "Other files",
+    "releaseNotes": "Release notes",
+    "noNotes": "No release notes were provided for this release.",
+    "noInstallerTitle": "No installer for this version",
+    "noInstallerBody": "This release does not include a Windows installer. You can still view its files and notes on GitHub.",
+    "viewGithub": "View on GitHub",
+    "newer": "Newer version",
+    "older": "Older version",
+    "navigation": "Version navigation",
+    "back": "All versions",
+    "checksumTitle": "SHA-256 checksum",
+    "verifyTitle": "Verify in PowerShell",
+    "verifyHint": "Run this command in PowerShell and compare the hash with the one above.",
+    "downloads": "{count} downloads",
+    "size": "Size"
+  },
+  "download": {
+    "cta": "Download Notchi {version}",
+    "ctaShort": "Download",
+    "unavailable": "Installer unavailable",
+    "viewRelease": "View release on GitHub",
+    "copy": "Copy",
+    "copied": "Copied",
+    "copyFailed": "Copy failed",
+    "checksumUnavailable": "Checksum not available",
+    "verifyCommand": "Get-FileHash .\\{file} -Algorithm SHA256",
+    "kindInstaller": "Installer",
+    "kindPortable": "Portable",
+    "kindChecksum": "Checksum file",
+    "kindOther": "File"
+  },
+  "docs": {
+    "title": "Documentation",
+    "description": "Install, verify, update and uninstall Notchi on Windows 10 and Windows 11.",
+    "installTitle": "How to install Notchi",
+    "installIntro": "Download the latest stable installer, run it, and launch Notchi from the Start menu.",
+    "verifyTitle": "Verify the installer",
+    "verifyBody": "Every release lists a SHA-256 checksum. Download the installer, run the command below in PowerShell, then compare both hashes.",
+    "verifyNote": "If the hashes do not match, delete the file and download it again from GitHub.",
+    "smartScreenTitle": "SmartScreen and unsigned installers",
+    "smartScreenBody": "Notchi is not code-signed yet, so Windows SmartScreen may show a warning. This is expected for new, unsigned software. You can verify the SHA-256 checksum before running the installer.",
+    "uninstallTitle": "Uninstall Notchi",
+    "uninstallBody": "Open Windows Settings, go to Apps → Installed apps, select Notchi and choose Uninstall. Your notes are kept in %LOCALAPPDATA%\\Notchi unless you remove them manually.",
+    "autostartTitle": "Start with Windows",
+    "autostartBody": "Open Notchi settings and enable Start with Windows. You can turn it off again at any time.",
+    "storageTitle": "Notes and data",
+    "storageBody": "Notes are stored in %LOCALAPPDATA%\\Notchi. Notes from older versions are migrated automatically.",
+    "faqTitle": "Frequently asked questions",
+    "bugsTitle": "Found a bug?",
+    "bugsBody": "Report issues on GitHub so they can be tracked and fixed. Include your Windows version and the Notchi version you are using.",
+    "reportIssue": "Report an issue",
+    "viewSource": "View source code",
+    "downloadLatest": "Download latest",
+    "backHome": "Back to home"
+  },
+  "faq": {
+    "windows": {
+      "question": "Which Windows versions are supported?",
+      "answer": "Notchi supports Windows 10 version 2004 (build 19041) or later, and Windows 11, on x64."
+    },
+    "smartscreen": {
+      "question": "Why does Windows warn me about the installer?",
+      "answer": "The installer is not code-signed yet. Windows may show a SmartScreen warning; verify the SHA-256 checksum before choosing “More info” then “Run anyway”."
+    },
+    "admin": {
+      "question": "Does Notchi need administrator rights?",
+      "answer": "No. Notchi installs per-user under %LOCALAPPDATA% and does not require administrator privileges."
+    },
+    "rollback": {
+      "question": "Can I install an older version?",
+      "answer": "Yes. Every published release stays available on the all versions page."
+    },
+    "notes": {
+      "question": "Where are my notes stored?",
+      "answer": "Notes are stored in %LOCALAPPDATA%\\Notchi and are migrated automatically from older versions."
+    },
+    "uninstall": {
+      "question": "How do I uninstall Notchi?",
+      "answer": "Open Windows Settings → Apps → Installed apps, select Notchi, then choose Uninstall."
+    }
   }
 }

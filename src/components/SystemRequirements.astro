@@ -1,0 +1,65 @@
+---
+import { t } from '../i18n';
+import type { Locale } from '../i18n';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+
+const rows = ['os', 'architecture', 'processor', 'memory', 'storage', 'display'] as const;
+---
+
+<section class="mx-auto max-w-[1100px] px-6 py-20" aria-labelledby="requirements-title">
+  <div class="max-w-2xl">
+    <h2 id="requirements-title" class="text-3xl font-semibold tracking-tight sm:text-4xl">
+      {t(locale, 'home.requirements.title')}
+    </h2>
+    <p class="mt-4 text-base leading-7 text-neutral-600 dark:text-neutral-400">
+      {t(locale, 'home.requirements.description')}
+    </p>
+  </div>
+
+  <div
+    class="mt-8 overflow-x-auto rounded-3xl border border-neutral-200 bg-white dark:border-white/10 dark:bg-white/[0.03]"
+  >
+    <table class="w-full min-w-[640px] border-collapse text-left text-sm">
+      <caption class="sr-only">{t(locale, 'home.requirements.title')}</caption>
+      <thead class="border-b border-neutral-200 dark:border-white/10">
+        <tr class="text-xs tracking-wider text-neutral-500 uppercase dark:text-neutral-400">
+          <th scope="col" class="px-5 py-4 font-medium">
+            {t(locale, 'home.requirements.component')}
+          </th>
+          <th scope="col" class="px-5 py-4 font-medium">
+            {t(locale, 'home.requirements.minimum')}
+          </th>
+          <th scope="col" class="px-5 py-4 font-medium">
+            {t(locale, 'home.requirements.recommended')}
+          </th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-neutral-200 dark:divide-white/10">
+        {
+          rows.map((row) => (
+            <tr class="align-top">
+              <th scope="row" class="px-5 py-4 font-medium text-neutral-900 dark:text-white">
+                {t(locale, `home.requirements.${row}.label`)}
+              </th>
+              <td class="px-5 py-4 text-neutral-600 dark:text-neutral-400">
+                {t(locale, `home.requirements.${row}.minimum`)}
+              </td>
+              <td class="px-5 py-4 text-neutral-600 dark:text-neutral-400">
+                {t(locale, `home.requirements.${row}.recommended`)}
+              </td>
+            </tr>
+          ))
+        }
+      </tbody>
+    </table>
+  </div>
+
+  <p class="mt-4 text-sm text-neutral-500 dark:text-neutral-400">
+    {t(locale, 'home.requirements.note')}
+  </p>
+</section>

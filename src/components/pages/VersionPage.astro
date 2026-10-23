@@ -1,0 +1,203 @@
+---
+import Badge from '../Badge.astro';
+import ChecksumField from '../ChecksumField.astro';
+import DownloadButton from '../DownloadButton.astro';
+import { localizePath, t } from '../../i18n';
+import type { Locale } from '../../i18n';
+import { formatDate, formatFileSize, formatNumber } from '../../lib/format';
+import type { ReleaseAsset } from '../../lib/assets';
+import type { Release } from '../../lib/github';
+import { siteConfig } from '../../site.config';
+
+interface Props {
+  release: Release;
+  newer?: Release;
+  older?: Release;
+  locale: Locale;
+}
+
+const { release, newer, older, locale } = Astro.props;
+const installer = release.primaryInstaller;
+const otherAssets = release.assets.filter((asset) => asset !== installer);
+const backHref = localizePath(siteConfig.routes.download, locale);
+const versionHref = (value: Release) =>
+  localizePath(`/download/${encodeURIComponent(value.version)}/`, locale);
+
+const kindLabels = {
+  installer: 'download.kindInstaller',
+  portable: 'download.kindPortable',
+  checksum: 'download.kindChecksum',
+  other: 'download.kindOther',
+} as const;
+
+function kindLabel(asset: ReleaseAsset): string {
+  return t(locale, kindLabels[asset.kind]);
+}
+---
+
+<section class="mx-auto max-w-4xl px-6 py-16">
+  <a
+    href={backHref}
+    class="text-sm font-medium text-neutral-500 transition-colors hover:text-neutral-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent dark:text-neutral-400 dark:hover:text-white"
+  >
+    ← {t(locale, 'version.back')}
+  </a>
+
+  <div class="mt-5 flex flex-wrap items-start justify-between gap-4">
+    <div>
+      <div class="flex flex-wrap items-center gap-2">
+        <h1 class="text-4xl font-semibold tracking-tight sm:text-5xl">{release.tag}</h1>
+        {release.isLatestStable && <Badge label={t(locale, 'archive.latest')} tone="accent" />}
+        {release.prerelease && <Badge label={t(locale, 'archive.prerelease')} tone="warning" />}
+      </div>
+      <p class="mt-2 text-sm text-neutral-500 dark:text-neutral-400">
+        {
+          t(locale, 'version.published', {
+            date: formatDate(release.publishedAt, locale),
+          })
+        }
+      </p>
+    </div>
+
+    <a
+      href={release.htmlUrl}
+      target="_blank"
+      rel="noopener noreferrer"
+      class="inline-flex items-center rounded-full border border-neutral-200 px-4 py-2 text-sm font-medium text-neutral-700 transition-colors hover:bg-neutral-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent dark:border-white/10 dark:text-neutral-300 dark:hover:bg-white/10"
+    >
+      {t(locale, 'version.viewGithub')}
+    </a>
+  </div>
+
+  <div
+    class="mt-8 rounded-3xl border border-neutral-200 bg-white p-6 dark:border-white/10 dark:bg-white/[0.03]"
+  >
+    {
+      installer ? (
+        <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+          <div>
+            <p class="text-xs font-semibold tracking-widest text-neutral-500 uppercase dark:text-neutral-400">
+              {t(locale, 'version.installer')}
+            </p>
+            <p class="mt-2 text-sm text-neutral-500 dark:text-neutral-400">
+              {formatFileSize(installer.size, locale)} ·{' '}
+              {t(locale, 'version.downloads', {
+                count: formatNumber(installer.downloadCount, locale),
+              })}
+            </p>
+          </div>
+          <DownloadButton release={release} locale={locale} />
+        </div>
+      ) : (
+        <div>
+          <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">
+            {t(locale, 'version.noInstallerTitle')}
+          </h2>
+          <p class="mt-2 max-w-2xl text-sm leading-6 text-neutral-600 dark:text-neutral-400">
+            {t(locale, 'version.noInstallerBody')}
+          </p>
+          <a
+            href={release.htmlUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="mt-4 inline-flex items-center rounded-full bg-accent px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-accent-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-neutral-950"
+          >
+            {t(locale, 'download.viewRelease')}
+          </a>
+        </div>
+      )
+    }
+  </div>
+
+  {
+    installer && (
+      <div class="mt-6">
+        <ChecksumField file={installer.name} hash={installer.sha256} locale={locale} />
+      </div>
+    )
+  }
+
+  {
+    otherAssets.length > 0 && (
+      <section class="mt-10" aria-labelledby="other-files-title">
+        <h2 id="other-files-title" class="text-xl font-semibold tracking-tight">
+          {t(locale, 'version.otherFiles')}
+        </h2>
+        <ul class="mt-4 space-y-3">
+          {otherAssets.map((asset) => (
+            <li class="flex flex-col gap-3 rounded-2xl border border-neutral-200 bg-white p-4 sm:flex-row sm:items-center sm:justify-between dark:border-white/10 dark:bg-white/[0.03]">
+              <div>
+                <p class="text-sm font-medium break-all text-neutral-900 dark:text-white">
+                  {asset.name}
+                </p>
+                <p class="mt-1 text-xs text-neutral-500 dark:text-neutral-400">
+                  {kindLabel(asset)} · {formatFileSize(asset.size, locale)}
+                </p>
+              </div>
+              <a
+                href={asset.url}
+                class="shrink-0 rounded-full border border-neutral-200 px-3 py-1.5 text-xs font-medium text-neutral-700 transition-colors hover:bg-neutral-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent dark:border-white/10 dark:text-neutral-300 dark:hover:bg-white/10"
+              >
+                {t(locale, 'download.ctaShort')}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </section>
+    )
+  }
+
+  <section class="mt-10" aria-labelledby="release-notes-title">
+    <h2 id="release-notes-title" class="text-xl font-semibold tracking-tight">
+      {t(locale, 'version.releaseNotes')}
+    </h2>
+    {
+      release.bodyHtml ? (
+        <div class="release-notes mt-4" set:html={release.bodyHtml} />
+      ) : (
+        <p class="mt-4 text-sm text-neutral-500 dark:text-neutral-400">
+          {t(locale, 'version.noNotes')}
+        </p>
+      )
+    }
+  </section>
+
+  <nav
+    class="mt-12 grid gap-4 border-t border-neutral-200 pt-8 sm:grid-cols-2 dark:border-white/10"
+    aria-label={t(locale, 'version.navigation')}
+  >
+    {
+      newer ? (
+        <a
+          href={versionHref(newer)}
+          class="rounded-2xl border border-neutral-200 p-4 transition-colors hover:border-accent/40 hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent dark:border-white/10 dark:hover:border-accent/40 dark:hover:bg-white/5"
+        >
+          <span class="text-xs text-neutral-500 dark:text-neutral-400">
+            {t(locale, 'version.newer')}
+          </span>
+          <span class="mt-1 block text-sm font-semibold text-neutral-900 dark:text-white">
+            {newer.tag}
+          </span>
+        </a>
+      ) : null
+    }
+    {
+      older ? (
+        <a
+          href={versionHref(older)}
+          class:list={[
+            'rounded-2xl border border-neutral-200 p-4 text-right transition-colors hover:border-accent/40 hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent dark:border-white/10 dark:hover:border-accent/40 dark:hover:bg-white/5',
+            !newer && 'sm:col-start-2',
+          ]}
+        >
+          <span class="text-xs text-neutral-500 dark:text-neutral-400">
+            {t(locale, 'version.older')}
+          </span>
+          <span class="mt-1 block text-sm font-semibold text-neutral-900 dark:text-white">
+            {older.tag}
+          </span>
+        </a>
+      ) : null
+    }
+  </nav>
+</section>

@@ -1,0 +1,53 @@
+---
+import { localizePath, t } from '../i18n';
+import type { Locale } from '../i18n';
+import { formatFileSize } from '../lib/format';
+import type { Release } from '../lib/github';
+import { siteConfig } from '../site.config';
+
+interface Props {
+  release?: Release;
+  locale: Locale;
+}
+
+const { release, locale } = Astro.props;
+const installer = release?.primaryInstaller;
+const buttonClass =
+  'inline-flex items-center justify-center gap-2.5 rounded-full bg-accent px-6 py-3.5 text-sm font-semibold text-white shadow-lg shadow-accent/25 transition-colors hover:bg-accent-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-50 dark:focus-visible:ring-offset-neutral-950';
+const mutedClass =
+  'inline-flex items-center justify-center rounded-full border border-neutral-200 bg-white px-6 py-3.5 text-sm font-semibold text-neutral-700 transition-colors hover:border-neutral-300 hover:bg-neutral-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent dark:border-white/10 dark:bg-white/5 dark:text-neutral-200 dark:hover:bg-white/10';
+---
+
+{
+  installer ? (
+    <a href={installer.url} class={buttonClass}>
+      <svg
+        class="h-4 w-4"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true"
+      >
+        <path d="M12 3v12" />
+        <path d="m7 10 5 5 5-5" />
+        <path d="M5 21h14" />
+      </svg>
+      <span>{t(locale, 'download.cta', { version: release?.tag ?? '' })}</span>
+      <span class="text-xs font-medium text-white/75">
+        {formatFileSize(installer.size, locale)}
+      </span>
+    </a>
+  ) : (
+    <a
+      href={release?.htmlUrl ?? localizePath(siteConfig.routes.download, locale)}
+      target={release ? '_blank' : undefined}
+      rel={release ? 'noopener noreferrer' : undefined}
+      class={mutedClass}
+    >
+      {release ? t(locale, 'download.viewRelease') : t(locale, 'download.unavailable')}
+    </a>
+  )
+}

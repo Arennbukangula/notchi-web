@@ -1,0 +1,59 @@
+---
+import ReleaseTable from '../ReleaseTable.astro';
+import { localizePath, t } from '../../i18n';
+import type { Locale } from '../../i18n';
+import type { Release } from '../../lib/github';
+import { siteConfig } from '../../site.config';
+
+interface Props {
+  releases: Release[];
+  locale: Locale;
+}
+
+const { releases, locale } = Astro.props;
+const homeHref = localizePath('/', locale);
+---
+
+<section class="mx-auto max-w-[1100px] px-6 py-16">
+  <div class="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+    <div class="max-w-2xl">
+      <a
+        href={homeHref}
+        class="text-sm font-medium text-neutral-500 transition-colors hover:text-neutral-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent dark:text-neutral-400 dark:hover:text-white"
+      >
+        ← {t(locale, 'archive.backHome')}
+      </a>
+      <h1 class="mt-4 text-4xl font-semibold tracking-tight sm:text-5xl">
+        {t(locale, 'archive.title')}
+      </h1>
+      <p class="mt-4 text-base leading-7 text-neutral-600 dark:text-neutral-400">
+        {t(locale, 'archive.description')}
+      </p>
+    </div>
+  </div>
+
+  {
+    releases.length ? (
+      <div class="mt-10">
+        <ReleaseTable releases={releases} locale={locale} />
+      </div>
+    ) : (
+      <div class="mt-10 rounded-3xl border border-neutral-200 bg-white p-8 dark:border-white/10 dark:bg-white/[0.03]">
+        <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">
+          {t(locale, 'archive.emptyTitle')}
+        </h2>
+        <p class="mt-2 max-w-xl text-sm leading-6 text-neutral-600 dark:text-neutral-400">
+          {t(locale, 'archive.emptyBody')}
+        </p>
+        <a
+          href={siteConfig.github.releasesUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="mt-5 inline-flex items-center rounded-full bg-accent px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-accent-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-neutral-950"
+        >
+          {t(locale, 'archive.viewGithub')}
+        </a>
+      </div>
+    )
+  }
+</section>

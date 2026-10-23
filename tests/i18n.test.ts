@@ -39,7 +39,7 @@ describe('t', () => {
   it('returns translations for the requested locale', () => {
     expect(t('en', 'nav.docs')).toBe('Docs');
     expect(t('id', 'nav.docs')).toBe('Dokumentasi');
-    expect(t('id', 'home.placeholderBody')).toBe('Situs unduhan sedang dibangun.');
+    expect(t('id', 'home.hero.secondary')).toBe('Lihat semua versi');
   });
 
   it('interpolates parameters', () => {

@@ -1,0 +1,102 @@
+---
+import { t } from '../i18n';
+import type { Locale } from '../i18n';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+
+const previews = [
+  {
+    title: t(locale, 'home.previews.menu'),
+    compact: '/images/ss-menu-close.png',
+    expanded: '/images/ss-menu-open.png',
+    compactAlt: t(locale, 'home.previews.menuCompactAlt'),
+    expandedAlt: t(locale, 'home.previews.menuExpandedAlt'),
+    width: 451,
+    height: 101,
+    expandedWidth: 667,
+    expandedHeight: 201,
+  },
+  {
+    title: t(locale, 'home.previews.media'),
+    compact: '/images/ss-music-close.png',
+    expanded: '/images/ss-music-open.png',
+    compactAlt: t(locale, 'home.previews.mediaCompactAlt'),
+    expandedAlt: t(locale, 'home.previews.mediaExpandedAlt'),
+    width: 460,
+    height: 106,
+    expandedWidth: 511,
+    expandedHeight: 183,
+  },
+  {
+    title: t(locale, 'home.previews.side'),
+    compact: '/images/ss-side-music-close.png',
+    expanded: '/images/ss-side-music-open.png',
+    compactAlt: t(locale, 'home.previews.sideCompactAlt'),
+    expandedAlt: t(locale, 'home.previews.sideExpandedAlt'),
+    width: 97,
+    height: 239,
+    expandedWidth: 452,
+    expandedHeight: 265,
+  },
+];
+---
+
+<section class="mx-auto max-w-[1100px] px-6 py-20" aria-labelledby="previews-title">
+  <div class="mx-auto max-w-2xl text-center">
+    <h2 id="previews-title" class="text-3xl font-semibold tracking-tight sm:text-4xl">
+      {t(locale, 'home.previews.title')}
+    </h2>
+    <p class="mt-4 text-base leading-7 text-neutral-600 dark:text-neutral-400">
+      {t(locale, 'home.previews.description')}
+    </p>
+  </div>
+
+  <div class="mt-12 grid gap-6 lg:grid-cols-3">
+    {
+      previews.map((preview) => (
+        <figure class="flex flex-col rounded-3xl border border-neutral-200 bg-white p-5 shadow-sm dark:border-white/10 dark:bg-white/[0.03]">
+          <div class="flex min-h-40 flex-1 items-center justify-center gap-3">
+            <div class="flex flex-col items-center gap-2">
+              <img
+                src={preview.compact}
+                alt={preview.compactAlt}
+                width={preview.width}
+                height={preview.height}
+                loading="lazy"
+                decoding="async"
+                class="max-h-20 w-auto max-w-[120px] object-contain"
+              />
+              <span class="text-[10px] font-medium tracking-widest text-neutral-400 uppercase dark:text-neutral-500">
+                {t(locale, 'home.previews.compact')}
+              </span>
+            </div>
+            <span class="text-neutral-300 dark:text-neutral-600" aria-hidden="true">
+              →
+            </span>
+            <div class="flex flex-col items-center gap-2">
+              <img
+                src={preview.expanded}
+                alt={preview.expandedAlt}
+                width={preview.expandedWidth}
+                height={preview.expandedHeight}
+                loading="lazy"
+                decoding="async"
+                class="max-h-28 w-auto max-w-[190px] object-contain"
+              />
+              <span class="text-[10px] font-medium tracking-widest text-neutral-400 uppercase dark:text-neutral-500">
+                {t(locale, 'home.previews.expanded')}
+              </span>
+            </div>
+          </div>
+          <figcaption class="mt-5 text-center text-sm font-medium text-neutral-900 dark:text-white">
+            {preview.title}
+          </figcaption>
+        </figure>
+      ))
+    }
+  </div>
+</section>

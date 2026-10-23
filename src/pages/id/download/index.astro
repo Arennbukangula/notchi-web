@@ -1,0 +1,18 @@
+---
+import DownloadPage from '../../../components/pages/DownloadPage.astro';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { t } from '../../../i18n';
+import type { Locale } from '../../../i18n';
+import { getReleases } from '../../../lib/github';
+
+const locale: Locale = 'id';
+const releases = await getReleases();
+---
+
+<BaseLayout
+  locale={locale}
+  title={t(locale, 'archive.title')}
+  description={t(locale, 'archive.description')}
+>
+  <DownloadPage releases={releases} locale={locale} />
+</BaseLayout>

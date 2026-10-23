@@ -1,0 +1,39 @@
+---
+import VersionPage from '../../components/pages/VersionPage.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { t } from '../../i18n';
+import type { Locale } from '../../i18n';
+import { getReleases } from '../../lib/github';
+import type { Release } from '../../lib/github';
+
+export async function getStaticPaths() {
+  const releases = await getReleases();
+  const unique = releases.filter(
+    (release, index) => releases.findIndex((item) => item.version === release.version) === index,
+  );
+
+  return unique.map((release, index) => ({
+    params: { version: release.version },
+    props: {
+      release,
+      newer: unique[index - 1],
+      older: unique[index + 1],
+    },
+  }));
+}
+
+interface Props {
+  release: Release;
+  newer?: Release;
+  older?: Release;
+}
+
+const { release, newer, older } = Astro.props;
+const locale: Locale = 'en';
+const title = t(locale, 'version.title', { version: release.tag });
+const description = t(locale, 'version.description', { version: release.tag });
+---
+
+<BaseLayout locale={locale} fullTitle={title} description={description}>
+  <VersionPage release={release} newer={newer} older={older} locale={locale} />
+</BaseLayout>

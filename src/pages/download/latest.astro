@@ -1,0 +1,9 @@
+---
+import { getReleases } from '../../lib/github';
+import { getLatestStable } from '../../lib/version';
+
+const releases = await getReleases();
+const installer = getLatestStable(releases)?.primaryInstaller;
+
+return Astro.redirect(installer?.url ?? '/download/', 302);
+---

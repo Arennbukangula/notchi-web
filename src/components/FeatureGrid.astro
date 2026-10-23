@@ -1,0 +1,139 @@
+---
+import { t } from '../i18n';
+import type { Locale } from '../i18n';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+
+const icons = {
+  overlay: ['M3 5h18v11H3z', 'M8 21h8', 'M12 16v5'],
+  expand: [
+    'M8 3H5a2 2 0 0 0-2 2v3',
+    'M16 3h3a2 2 0 0 1 2 2v3',
+    'M8 21H5a2 2 0 0 1-2-2v-3',
+    'M16 21h3a2 2 0 0 0 2-2v-3',
+  ],
+  media: [
+    'M9 18V5l12-2v13',
+    'M6 15a3 3 0 1 0 0 6 3 3 0 0 0 0-6',
+    'M18 13a3 3 0 1 0 0 6 3 3 0 0 0 0-6',
+  ],
+  dashboard: ['M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18', 'M12 7v5l3 2'],
+  notes: [
+    'M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z',
+    'M14 3v6h6',
+    'M8 13h8',
+    'M8 17h5',
+  ],
+  files: ['M3 7h6l2 2h10v10H3z', 'M3 7V5h6l2 2'],
+  anchor: ['M12 8v13', 'M5 12H2a10 10 0 0 0 20 0h-3', 'M12 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6'],
+  pin: [
+    'M12 17v5',
+    'M9 10.76a2 2 0 0 1-1.11 1.79l-1.78.9A2 2 0 0 0 5 15.24V16a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-.76a2 2 0 0 0-1.11-1.79l-1.78-.9A2 2 0 0 1 15 10.76V7a1 1 0 0 1 1-1 2 2 0 0 0 0-4H8a2 2 0 0 0 0 4 1 1 0 0 1 1 1z',
+  ],
+  settings: ['M6 4v16', 'M12 4v16', 'M18 4v16', 'M4 8h4', 'M10 14h4', 'M16 10h4'],
+  feather: ['M20.24 12.24a6 6 0 0 0-8.49-8.49L5 10.5V19h8.5z', 'M16 8 2 22', 'M17.5 15H9'],
+};
+
+const features = [
+  {
+    icon: icons.overlay,
+    title: 'home.features.alwaysOnTop.title',
+    description: 'home.features.alwaysOnTop.description',
+  },
+  {
+    icon: icons.expand,
+    title: 'home.features.modes.title',
+    description: 'home.features.modes.description',
+  },
+  {
+    icon: icons.media,
+    title: 'home.features.media.title',
+    description: 'home.features.media.description',
+  },
+  {
+    icon: icons.dashboard,
+    title: 'home.features.dashboard.title',
+    description: 'home.features.dashboard.description',
+  },
+  {
+    icon: icons.notes,
+    title: 'home.features.notes.title',
+    description: 'home.features.notes.description',
+  },
+  {
+    icon: icons.files,
+    title: 'home.features.files.title',
+    description: 'home.features.files.description',
+  },
+  {
+    icon: icons.anchor,
+    title: 'home.features.anchor.title',
+    description: 'home.features.anchor.description',
+  },
+  {
+    icon: icons.pin,
+    title: 'home.features.position.title',
+    description: 'home.features.position.description',
+  },
+  {
+    icon: icons.settings,
+    title: 'home.features.settings.title',
+    description: 'home.features.settings.description',
+  },
+  {
+    icon: icons.feather,
+    title: 'home.features.lightweight.title',
+    description: 'home.features.lightweight.description',
+  },
+] as const;
+---
+
+<section
+  class="border-y border-neutral-200 bg-white py-20 dark:border-white/10 dark:bg-white/[0.02]"
+>
+  <div class="mx-auto max-w-[1100px] px-6">
+    <div class="max-w-2xl">
+      <h2 class="text-3xl font-semibold tracking-tight sm:text-4xl">
+        {t(locale, 'home.features.title')}
+      </h2>
+      <p class="mt-4 text-base leading-7 text-neutral-600 dark:text-neutral-400">
+        {t(locale, 'home.features.description')}
+      </p>
+    </div>
+
+    <div class="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      {
+        features.map((feature) => (
+          <article class="rounded-3xl border border-neutral-200 bg-neutral-50 p-6 transition-colors hover:border-accent/30 dark:border-white/10 dark:bg-neutral-950/60 dark:hover:border-accent/40">
+            <span class="flex h-10 w-10 items-center justify-center rounded-2xl bg-accent/10 text-accent">
+              <svg
+                class="h-5 w-5"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.6"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                {feature.icon.map((path) => (
+                  <path d={path} />
+                ))}
+              </svg>
+            </span>
+            <h3 class="mt-5 text-base font-semibold text-neutral-900 dark:text-white">
+              {t(locale, feature.title)}
+            </h3>
+            <p class="mt-2 text-sm leading-6 text-neutral-600 dark:text-neutral-400">
+              {t(locale, feature.description)}
+            </p>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>

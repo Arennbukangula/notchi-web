@@ -1,33 +1,46 @@
 ---
+import Faq from '../Faq.astro';
+import FeatureGrid from '../FeatureGrid.astro';
+import Hero from '../Hero.astro';
+import InstallGuide from '../InstallGuide.astro';
+import Screenshots from '../Screenshots.astro';
+import SystemRequirements from '../SystemRequirements.astro';
 import { t } from '../../i18n';
 import type { Locale } from '../../i18n';
+import { getReleases } from '../../lib/github';
+import { getLatestStable } from '../../lib/version';
 
 interface Props {
   locale: Locale;
 }
 
 const { locale } = Astro.props;
+const releases = await getReleases();
+const latest = getLatestStable(releases);
+
+const faqItems = [
+  {
+    question: t(locale, 'faq.windows.question'),
+    answer: t(locale, 'faq.windows.answer'),
+  },
+  {
+    question: t(locale, 'faq.smartscreen.question'),
+    answer: t(locale, 'faq.smartscreen.answer'),
+  },
+  {
+    question: t(locale, 'faq.admin.question'),
+    answer: t(locale, 'faq.admin.answer'),
+  },
+  {
+    question: t(locale, 'faq.rollback.question'),
+    answer: t(locale, 'faq.rollback.answer'),
+  },
+];
 ---
 
-<section
-  class="mx-auto flex w-full max-w-3xl flex-col items-center px-6 py-24 text-center sm:py-32"
->
-  <div
-    class="mb-10 h-7 w-40 rounded-full bg-neutral-950 ring-1 ring-black/10 dark:bg-black dark:ring-white/10"
-    aria-hidden="true"
-  >
-  </div>
-
-  <span
-    class="mb-5 rounded-full border border-neutral-200 bg-white px-3 py-1 text-xs font-medium text-neutral-500 dark:border-white/10 dark:bg-white/5 dark:text-neutral-400"
-  >
-    {t(locale, 'home.platform')}
-  </span>
-
-  <h1 class="text-5xl font-semibold tracking-tight sm:text-6xl">
-    {t(locale, 'home.placeholderTitle')}
-  </h1>
-  <p class="mt-5 max-w-xl text-lg leading-8 text-neutral-600 dark:text-neutral-400">
-    {t(locale, 'home.placeholderBody')}
-  </p>
-</section>
+<Hero latest={latest} locale={locale} />
+<Screenshots locale={locale} />
+<FeatureGrid locale={locale} />
+<SystemRequirements locale={locale} />
+<InstallGuide locale={locale} />
+<Faq title={t(locale, 'docs.faqTitle')} items={faqItems} />
