@@ -3,7 +3,7 @@ import sitemap from '@astrojs/sitemap';
 import { defineConfig } from 'astro/config';
 import tailwindcss from '@tailwindcss/vite';
 
-const siteUrl = process.env.SITE_URL ?? 'https://notchi-web.vercel.app';
+const siteUrl = process.env.SITE_URL ?? 'https://notchi-web-tau.vercel.app';
 
 export default defineConfig({
   site: siteUrl,

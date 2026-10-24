@@ -18,7 +18,7 @@ export const siteConfig = {
   appName: 'Notchi',
   description:
     'Download Notchi, a native notch overlay for Windows 10 and 11. Browse every published version with changelogs, file sizes and checksums.',
-  siteUrl: import.meta.env.SITE ?? 'https://notchi-web.vercel.app',
+  siteUrl: import.meta.env.SITE ?? 'https://notchi-web-tau.vercel.app',
   license: 'Apache-2.0',
   github: {
     owner: githubOwner,

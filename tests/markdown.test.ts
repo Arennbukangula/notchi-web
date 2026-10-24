@@ -87,4 +87,8 @@ describe('toPlainText', () => {
   it('ignores invalid numeric entities', () => {
     expect(toPlainText('<p>&#999999999; ok</p>')).toBe('ok');
   });
+
+  it('does not double-decode escaped entity text', () => {
+    expect(toPlainText('<p>&amp;#39;</p>')).toBe('&#39;');
+  });
 });
