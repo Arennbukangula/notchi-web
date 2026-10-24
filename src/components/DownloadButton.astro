@@ -13,7 +13,7 @@ interface Props {
 const { release, locale } = Astro.props;
 const installer = release?.primaryInstaller;
 const buttonClass =
-  'inline-flex items-center justify-center gap-2.5 rounded-full bg-accent px-6 py-3.5 text-sm font-semibold text-white shadow-lg shadow-accent/25 transition-colors hover:bg-accent-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-50 dark:focus-visible:ring-offset-neutral-950';
+  'inline-flex items-center justify-center gap-2.5 rounded-full bg-accent-strong px-6 py-3.5 text-sm font-semibold text-white shadow-lg shadow-accent/25 transition-colors hover:bg-accent-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-50 dark:focus-visible:ring-offset-neutral-950';
 const mutedClass =
   'inline-flex items-center justify-center rounded-full border border-neutral-200 bg-white px-6 py-3.5 text-sm font-semibold text-neutral-700 transition-colors hover:border-neutral-300 hover:bg-neutral-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent dark:border-white/10 dark:bg-white/5 dark:text-neutral-200 dark:hover:bg-white/10';
 ---
@@ -36,9 +36,7 @@ const mutedClass =
         <path d="M5 21h14" />
       </svg>
       <span>{t(locale, 'download.cta', { version: release?.tag ?? '' })}</span>
-      <span class="text-xs font-medium text-white/75">
-        {formatFileSize(installer.size, locale)}
-      </span>
+      <span class="text-xs font-medium text-white">{formatFileSize(installer.size, locale)}</span>
     </a>
   ) : (
     <a

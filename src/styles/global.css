@@ -4,7 +4,8 @@
 
 @theme {
   --color-accent: #3d7eff;
-  --color-accent-hover: #2f6ef0;
+  --color-accent-strong: #2563eb;
+  --color-accent-hover: #1d4ed8;
   --font-sans:
     ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial,
     'Noto Sans', sans-serif;
