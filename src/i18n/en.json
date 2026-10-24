@@ -1,7 +1,7 @@
 {
   "meta": {
     "titleTemplate": "{title} · {site}",
-    "defaultTitle": "Notchi — a native notch overlay for Windows",
+    "defaultTitle": "Notchi",
     "description": "Download Notchi, a native notch overlay for Windows 10 and 11. Browse every published version with changelogs, file sizes and checksums.",
     "ogImageAlt": "Notchi notch overlay preview"
   },
