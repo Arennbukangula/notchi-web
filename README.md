@@ -37,12 +37,12 @@ npm run dev
 
 ## Environment variables
 
-| Variable       | Required | Description                                                         |
-| -------------- | -------- | ------------------------------------------------------------------- |
-| `GITHUB_TOKEN` | No       | Read-only token to raise the GitHub API rate limit                  |
-| `GITHUB_OWNER` | No       | Repository owner, defaults to `risuunava`                           |
-| `GITHUB_REPO`  | No       | Repository name, defaults to `Notchi`                               |
-| `SITE_URL`     | No       | Canonical site URL, defaults to `https://notchi-web-tau.vercel.app` |
+| Variable       | Required    | Description                                                                                                                       |
+| -------------- | ----------- | --------------------------------------------------------------------------------------------------------------------------------- |
+| `GITHUB_TOKEN` | Recommended | Read-only token; required in practice because Vercel build IPs are shared and unauthenticated requests hit the 60/hour rate limit |
+| `GITHUB_OWNER` | No          | Repository owner, defaults to `risuunava`                                                                                         |
+| `GITHUB_REPO`  | No          | Repository name, defaults to `Notchi`                                                                                             |
+| `SITE_URL`     | No          | Canonical site URL, defaults to `https://notchi-web-tau.vercel.app`                                                               |
 
 Never commit real tokens. On Vercel, set these in Project Settings → Environment Variables.
 `SITE_URL` must be the exact production domain (no trailing slash), otherwise canonical links,
@@ -95,6 +95,14 @@ repository:
    up on `/download/` (enable "Show pre-releases"). Delete the test release when done.
 6. **Custom domain** (optional): add it in Vercel → Project → Settings → Domains, then update
    `SITE_URL` to match and redeploy.
+
+### Build troubleshooting
+
+A deployment that fails with `403 rate limit exceeded` ran without a valid `GITHUB_TOKEN`. Add a
+read-only fine-grained token (Public repositories read-only, or just `risuunava/Notchi` with Contents
+read) as `GITHUB_TOKEN` for Production and Preview, then redeploy without the build cache. Token
+expiry shows up as `401 Bad credentials`; rotate the token in Vercel when it expires. A failed build
+does not replace the current production deployment.
 
 ## Repository layout
 
