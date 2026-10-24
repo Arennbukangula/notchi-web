@@ -11,45 +11,52 @@ const { locale } = Astro.props;
 const rows = ['os', 'architecture', 'processor', 'memory', 'storage', 'display'] as const;
 ---
 
-<section class="mx-auto max-w-[1100px] px-6 py-20" aria-labelledby="requirements-title">
+<section class="mx-auto max-w-[1120px] px-4 py-20 sm:px-6" aria-labelledby="requirements-title">
   <div class="max-w-2xl">
-    <h2 id="requirements-title" class="text-3xl font-semibold tracking-tight sm:text-4xl">
+    <p class="eyebrow">03</p>
+    <h2 id="requirements-title" class="display mt-4 text-3xl sm:text-5xl">
       {t(locale, 'home.requirements.title')}
     </h2>
-    <p class="mt-4 text-base leading-7 text-neutral-600 dark:text-neutral-400">
+    <p class="mt-4 text-base leading-7 text-muted">
       {t(locale, 'home.requirements.description')}
     </p>
   </div>
 
   <div
-    class="mt-8 overflow-x-auto rounded-3xl border border-neutral-200 bg-white dark:border-white/10 dark:bg-white/[0.03]"
+    class="card-brutal mt-8 overflow-x-auto"
+    role="group"
+    aria-label={t(locale, 'home.requirements.title')}
+    tabindex="0"
   >
     <table class="w-full min-w-[640px] border-collapse text-left text-sm">
       <caption class="sr-only">{t(locale, 'home.requirements.title')}</caption>
-      <thead class="border-b border-neutral-200 dark:border-white/10">
-        <tr class="text-xs tracking-wider text-neutral-500 uppercase dark:text-neutral-400">
-          <th scope="col" class="px-5 py-4 font-medium">
+      <thead class="border-b-[2.5px] border-line bg-ink text-paper">
+        <tr class="text-[0.68rem] font-bold tracking-[0.12em] uppercase">
+          <th scope="col" class="px-4 py-4">
             {t(locale, 'home.requirements.component')}
           </th>
-          <th scope="col" class="px-5 py-4 font-medium">
+          <th scope="col" class="px-4 py-4">
             {t(locale, 'home.requirements.minimum')}
           </th>
-          <th scope="col" class="px-5 py-4 font-medium">
+          <th scope="col" class="px-4 py-4">
             {t(locale, 'home.requirements.recommended')}
           </th>
         </tr>
       </thead>
-      <tbody class="divide-y divide-neutral-200 dark:divide-white/10">
+      <tbody>
         {
-          rows.map((row) => (
-            <tr class="align-top">
-              <th scope="row" class="px-5 py-4 font-medium text-neutral-900 dark:text-white">
+          rows.map((row, index) => (
+            <tr
+              class:list={[
+                'border-b-2 border-line-soft align-top last:border-b-0',
+                index % 2 === 1 ? 'bg-panel-alt/60' : 'bg-panel',
+              ]}
+            >
+              <th scope="row" class="px-4 py-4 font-bold text-ink">
                 {t(locale, `home.requirements.${row}.label`)}
               </th>
-              <td class="px-5 py-4 text-neutral-600 dark:text-neutral-400">
-                {t(locale, `home.requirements.${row}.minimum`)}
-              </td>
-              <td class="px-5 py-4 text-neutral-600 dark:text-neutral-400">
+              <td class="px-4 py-4 text-muted">{t(locale, `home.requirements.${row}.minimum`)}</td>
+              <td class="px-4 py-4 text-muted">
                 {t(locale, `home.requirements.${row}.recommended`)}
               </td>
             </tr>
@@ -59,7 +66,15 @@ const rows = ['os', 'architecture', 'processor', 'memory', 'storage', 'display']
     </table>
   </div>
 
-  <p class="mt-4 text-sm text-neutral-500 dark:text-neutral-400">
-    {t(locale, 'home.requirements.note')}
+  <p
+    class="mt-5 flex items-start gap-3 rounded-xl border-2 border-line bg-panel px-4 py-3 text-sm text-ink shadow-brutal-sm"
+  >
+    <span
+      class="flex h-6 w-6 shrink-0 items-center justify-center rounded-md border-2 border-line bg-accent font-display text-xs text-accent-contrast"
+      aria-hidden="true"
+    >
+      i
+    </span>
+    <span class="pt-0.5">{t(locale, 'home.requirements.note')}</span>
   </p>
 </section>

@@ -12,18 +12,18 @@ const { locale } = Astro.props;
 <button
   id="theme-toggle"
   type="button"
-  class="inline-flex h-9 w-9 items-center justify-center rounded-full border border-neutral-200 text-neutral-600 transition-colors hover:bg-neutral-100 hover:text-neutral-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/60 dark:border-white/10 dark:text-neutral-300 dark:hover:bg-white/10 dark:hover:text-white"
+  class="inline-flex h-10 w-10 items-center justify-center rounded-xl border-2 border-line bg-panel text-ink shadow-brutal-sm transition-colors hover:bg-accent-soft"
   aria-label={t(locale, 'theme.toggle')}
   title={t(locale, 'theme.toggle')}
   data-label-dark={t(locale, 'theme.switchToDark')}
   data-label-light={t(locale, 'theme.switchToLight')}
 >
   <svg
-    class="hidden h-4 w-4 dark:block"
+    class="hidden h-[18px] w-[18px] dark:block"
     viewBox="0 0 24 24"
     fill="none"
     stroke="currentColor"
-    stroke-width="1.75"
+    stroke-width="2"
     stroke-linecap="round"
     stroke-linejoin="round"
     aria-hidden="true"
@@ -34,11 +34,11 @@ const { locale } = Astro.props;
     ></path>
   </svg>
   <svg
-    class="h-4 w-4 dark:hidden"
+    class="h-[18px] w-[18px] dark:hidden"
     viewBox="0 0 24 24"
     fill="none"
     stroke="currentColor"
-    stroke-width="1.75"
+    stroke-width="2"
     stroke-linecap="round"
     stroke-linejoin="round"
     aria-hidden="true"
@@ -50,6 +50,7 @@ const { locale } = Astro.props;
 <script>
   const root = document.documentElement;
   const toggle = document.getElementById('theme-toggle');
+  const metaThemeColor = document.querySelector<HTMLMetaElement>('meta[name="theme-color"]');
 
   function getStorage(): Storage | null {
     try {
@@ -57,6 +58,11 @@ const { locale } = Astro.props;
     } catch {
       return null;
     }
+  }
+
+  function syncThemeColor(): void {
+    const dark = root.classList.contains('dark');
+    metaThemeColor?.setAttribute('content', dark ? '#08080b' : '#f4f6fb');
   }
 
   function syncToggle(): void {
@@ -76,8 +82,10 @@ const { locale } = Astro.props;
     const dark = !root.classList.contains('dark');
     root.classList.toggle('dark', dark);
     getStorage()?.setItem('theme', dark ? 'dark' : 'light');
+    syncThemeColor();
     syncToggle();
   });
 
   syncToggle();
+  syncThemeColor();
 </script>

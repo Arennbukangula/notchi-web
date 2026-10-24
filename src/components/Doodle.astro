@@ -1,0 +1,182 @@
+---
+type Variant = 'notch' | 'star' | 'sparkle' | 'arrow' | 'squiggle' | 'heart' | 'cursor';
+
+interface Props {
+  variant?: Variant;
+  class?: string;
+}
+
+const { variant = 'star', class: className } = Astro.props;
+---
+
+<svg
+  class:list={['text-ink', className]}
+  viewBox={variant === 'notch' ? '0 0 380 300' : variant === 'arrow' ? '0 0 120 80' : '0 0 48 48'}
+  fill="none"
+  aria-hidden="true"
+  focusable="false"
+>
+  {
+    variant === 'notch' && (
+      <>
+        <circle cx="190" cy="152" r="126" fill="var(--accent)" opacity="0.16" />
+        <circle
+          cx="190"
+          cy="152"
+          r="144"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-dasharray="3 9"
+          opacity="0.35"
+        />
+        <g stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M58 138c-24-6-38-24-36-44" />
+          <path d="M322 138c24-6 38-24 36-44" />
+          <path d="M137 196v22" />
+          <path d="M243 196v22" />
+        </g>
+        <rect
+          x="54"
+          y="92"
+          width="272"
+          height="104"
+          rx="52"
+          fill="#0b0b0f"
+          stroke="currentColor"
+          stroke-width="4"
+        />
+        <ellipse cx="145" cy="127" rx="16" ry="17" fill="#ffffff" />
+        <ellipse cx="225" cy="127" rx="16" ry="17" fill="#ffffff" />
+        <circle cx="150" cy="122" r="4.5" fill="#0b0b0f" />
+        <circle cx="230" cy="122" r="4.5" fill="#0b0b0f" />
+        <circle cx="141" cy="132" r="4" fill="#ffffff" opacity="0.9" />
+        <circle cx="221" cy="132" r="4" fill="#ffffff" opacity="0.9" />
+        <path
+          d="M165 158c9 10 34 10 44 0"
+          stroke="#ffffff"
+          stroke-width="5"
+          stroke-linecap="round"
+        />
+        <circle cx="116" cy="155" r="10" fill="var(--accent)" opacity="0.85" />
+        <circle cx="254" cy="155" r="10" fill="var(--accent)" opacity="0.85" />
+        <path
+          d="M14 92c8-8 19-8 27 0M330 90c8-8 19-8 27 0"
+          stroke="var(--accent)"
+          stroke-width="5"
+          stroke-linecap="round"
+        />
+        <path
+          d="M303 42l5 13 13 5-13 5-5 13-5-13-13-5 13-5 5-13Z"
+          fill="var(--accent)"
+          stroke="currentColor"
+          stroke-width="2.5"
+          stroke-linejoin="round"
+        />
+        <path
+          d="M44 214c8-8 16-8 24 0s16 8 24 0"
+          stroke="var(--accent)"
+          stroke-width="4"
+          stroke-linecap="round"
+        />
+        <path
+          d="M292 226c7-7 14-7 21 0s14 7 21 0"
+          stroke="currentColor"
+          stroke-width="3"
+          stroke-linecap="round"
+          opacity="0.5"
+        />
+      </>
+    )
+  }
+
+  {
+    variant === 'star' && (
+      <path
+        d="M24 3l6.2 14.6 15.8 1.5-12 10.5 3.6 15.4L24 37.2 10.4 45l3.6-15.4-12-10.5 15.8-1.5L24 3Z"
+        fill="var(--accent)"
+        stroke="currentColor"
+        stroke-width="2.5"
+        stroke-linejoin="round"
+      />
+    )
+  }
+
+  {
+    variant === 'sparkle' && (
+      <>
+        <path
+          d="M24 3c1.5 10.5 6.5 15.5 17 17-10.5 1.5-15.5 6.5-17 17-1.5-10.5-6.5-15.5-17-17 10.5-1.5 15.5-6.5 17-17Z"
+          fill="var(--accent)"
+          stroke="currentColor"
+          stroke-width="2.5"
+          stroke-linejoin="round"
+        />
+        <circle cx="39" cy="9" r="3" fill="currentColor" />
+      </>
+    )
+  }
+
+  {
+    variant === 'arrow' && (
+      <>
+        <path
+          d="M6 68c20-42 55-58 99-52"
+          stroke="currentColor"
+          stroke-width="3"
+          stroke-linecap="round"
+          stroke-dasharray="7 8"
+        />
+        <path
+          d="M93 7l14 8-12 11"
+          stroke="currentColor"
+          stroke-width="3"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+      </>
+    )
+  }
+
+  {
+    variant === 'squiggle' && (
+      <path
+        d="M3 30c6-13 12-13 18 0s12 13 18 0 12-13 18 0"
+        stroke="var(--accent)"
+        stroke-width="5"
+        stroke-linecap="round"
+      />
+    )
+  }
+
+  {
+    variant === 'heart' && (
+      <path
+        d="M24 43S5 31 5 17.5C5 10.6 10.2 5 17 5c3.5 0 6 1.8 7 3.5C25 6.8 27.5 5 31 5c6.8 0 12 5.6 12 12.5C43 31 24 43 24 43Z"
+        fill="var(--accent)"
+        stroke="currentColor"
+        stroke-width="2.5"
+        stroke-linejoin="round"
+      />
+    )
+  }
+
+  {
+    variant === 'cursor' && (
+      <>
+        <path
+          d="M9 6l27 19-12 3-6 12L9 6Z"
+          fill="var(--accent)"
+          stroke="currentColor"
+          stroke-width="2.5"
+          stroke-linejoin="round"
+        />
+        <path
+          d="M31 32l9 10M38 27l11 2M27 41l2 9"
+          stroke="currentColor"
+          stroke-width="2.5"
+          stroke-linecap="round"
+        />
+      </>
+    )
+  }
+</svg>

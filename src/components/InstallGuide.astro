@@ -26,25 +26,45 @@ const steps = [
 ];
 ---
 
-<section
-  class="border-y border-neutral-200 bg-white py-20 dark:border-white/10 dark:bg-white/[0.02]"
->
-  <div class="mx-auto max-w-[1100px] px-6">
-    <h2 class="text-3xl font-semibold tracking-tight sm:text-4xl">
+<section class="border-y-[2.5px] border-line bg-panel py-20">
+  <div class="mx-auto max-w-[1120px] px-4 sm:px-6">
+    <p class="eyebrow">04</p>
+    <h2 class="display mt-4 text-3xl sm:text-5xl">
       {t(locale, 'home.install.title')}
     </h2>
 
-    <ol class="mt-10 grid gap-6 sm:grid-cols-3">
+    <ol class="mt-10 grid gap-5 sm:grid-cols-3">
       {
         steps.map((step, index) => (
-          <li class="rounded-3xl border border-neutral-200 bg-neutral-50 p-6 dark:border-white/10 dark:bg-neutral-950/60">
-            <span class="text-xs font-semibold tracking-widest text-accent uppercase">
+          <li
+            class:list={[
+              'card-brutal relative overflow-hidden p-6',
+              index === 0 && 'bg-accent text-accent-contrast',
+            ]}
+          >
+            <span
+              class:list={[
+                'font-display absolute -top-1 right-3 text-6xl leading-none',
+                index === 0 ? 'text-[#08080b]/70' : 'text-muted/70',
+              ]}
+              aria-hidden="true"
+            >
               {String(index + 1).padStart(2, '0')}
             </span>
-            <h3 class="mt-4 text-base font-semibold text-neutral-900 dark:text-white">
-              {step.title}
-            </h3>
-            <p class="mt-2 text-sm leading-6 text-neutral-600 dark:text-neutral-400">
+            <span
+              class:list={[
+                'sticker',
+                index === 0
+                  ? 'border-[#08080b] bg-[#08080b] text-white shadow-[3px_3px_0_0_#08080b]'
+                  : 'sticker-accent',
+              ]}
+            >
+              {String(index + 1).padStart(2, '0')}
+            </span>
+            <h3 class="mt-5 pr-10 text-base font-bold">{step.title}</h3>
+            <p
+              class:list={['mt-2 text-sm leading-6', index === 0 ? 'text-[#08080b]' : 'text-muted']}
+            >
               {step.description}
             </p>
           </li>
@@ -53,25 +73,28 @@ const steps = [
     </ol>
 
     <div
-      class="mt-8 flex flex-col gap-5 rounded-3xl border border-amber-500/20 bg-amber-500/5 p-6 sm:flex-row sm:items-start sm:justify-between"
+      class="card-brutal mt-8 grid gap-5 bg-[#08080b] p-6 text-white sm:grid-cols-[auto_1fr_auto] sm:items-start"
     >
+      <span
+        class="flex h-11 w-11 items-center justify-center rounded-xl border-2 border-white bg-accent font-display text-xl text-accent-contrast shadow-[3px_3px_0_0_#ffffff]"
+        aria-hidden="true"
+      >
+        !
+      </span>
       <div class="max-w-2xl">
-        <h3 class="text-base font-semibold text-amber-900 dark:text-amber-200">
+        <h3 class="text-base font-bold text-white">
           {t(locale, 'home.install.smartScreenTitle')}
         </h3>
-        <p class="mt-2 text-sm leading-6 text-amber-900/80 dark:text-amber-100/80">
+        <p class="mt-2 text-sm leading-6 text-white/70">
           {t(locale, 'home.install.smartScreenBody')}
         </p>
       </div>
-      <a
-        href={docsHref}
-        class="shrink-0 rounded-full border border-amber-500/30 px-4 py-2 text-sm font-medium text-amber-900 transition-colors hover:bg-amber-500/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500 dark:text-amber-200"
-      >
+      <a href={docsHref} class="btn btn-primary btn-sm justify-self-start sm:justify-self-end">
         {t(locale, 'home.install.smartScreenLink')}
       </a>
     </div>
 
-    <p class="mt-6 text-sm text-neutral-500 dark:text-neutral-400">
+    <p class="mt-6 text-sm text-muted">
       {t(locale, 'home.install.note')}
     </p>
   </div>

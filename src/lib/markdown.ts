@@ -45,6 +45,7 @@ const sanitizeOptions: IOptions = {
     a: ['href', 'title', 'name', 'target', 'rel'],
     img: ['src', 'alt', 'title', 'width', 'height', 'loading'],
     code: ['class'],
+    pre: ['tabindex'],
     th: ['align'],
     td: ['align'],
     input: ['type', 'checked', 'disabled'],
@@ -66,6 +67,13 @@ const sanitizeOptions: IOptions = {
         },
       };
     },
+    pre: (tagName, attribs) => ({
+      tagName,
+      attribs: {
+        ...attribs,
+        tabindex: '0',
+      },
+    }),
   },
 };
 

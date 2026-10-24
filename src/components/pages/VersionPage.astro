@@ -35,72 +35,77 @@ function kindLabel(asset: ReleaseAsset): string {
 }
 ---
 
-<section class="mx-auto max-w-4xl px-6 py-16">
+<section class="mx-auto max-w-4xl px-4 py-12 sm:px-6 sm:py-16">
   <a
     href={backHref}
-    class="text-sm font-medium text-neutral-500 transition-colors hover:text-neutral-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent dark:text-neutral-400 dark:hover:text-white"
+    class="inline-flex items-center gap-2 text-sm font-bold text-muted transition-colors hover:text-ink"
   >
-    ← {t(locale, 'version.back')}
+    <span
+      class="flex h-7 w-7 items-center justify-center rounded-md border-2 border-line bg-panel text-ink shadow-brutal-sm"
+      aria-hidden="true"
+    >
+      ←
+    </span>
+    {t(locale, 'version.back')}
   </a>
 
-  <div class="mt-5 flex flex-wrap items-start justify-between gap-4">
-    <div>
-      <div class="flex flex-wrap items-center gap-2">
-        <h1 class="text-4xl font-semibold tracking-tight sm:text-5xl">{release.tag}</h1>
+  <div class="mt-8 flex flex-wrap items-start justify-between gap-5">
+    <div class="min-w-0">
+      <h1 class="display text-4xl break-words sm:text-6xl">{release.tag}</h1>
+      <div class="mt-4 flex flex-wrap items-center gap-2">
         {release.isLatestStable && <Badge label={t(locale, 'archive.latest')} tone="accent" />}
         {release.prerelease && <Badge label={t(locale, 'archive.prerelease')} tone="warning" />}
+        <span class="sticker">
+          {t(locale, 'version.published', { date: formatDate(release.publishedAt, locale) })}
+        </span>
       </div>
-      <p class="mt-2 text-sm text-neutral-500 dark:text-neutral-400">
-        {
-          t(locale, 'version.published', {
-            date: formatDate(release.publishedAt, locale),
-          })
-        }
-      </p>
     </div>
 
     <a
       href={release.htmlUrl}
       target="_blank"
       rel="noopener noreferrer"
-      class="inline-flex items-center rounded-full border border-neutral-200 px-4 py-2 text-sm font-medium text-neutral-700 transition-colors hover:bg-neutral-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent dark:border-white/10 dark:text-neutral-300 dark:hover:bg-white/10"
+      class="btn btn-secondary btn-sm"
     >
       {t(locale, 'version.viewGithub')}
+      <span aria-hidden="true">↗</span>
     </a>
   </div>
 
   <div
-    class="mt-8 rounded-3xl border border-neutral-200 bg-white p-6 dark:border-white/10 dark:bg-white/[0.03]"
+    class:list={[
+      'card-brutal relative mt-8 overflow-hidden p-6',
+      installer && 'border-t-[8px] border-t-accent bg-accent-soft',
+    ]}
   >
     {
       installer ? (
-        <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+        <div class="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <p class="text-xs font-semibold tracking-widest text-neutral-500 uppercase dark:text-neutral-400">
-              {t(locale, 'version.installer')}
-            </p>
-            <p class="mt-2 text-sm text-neutral-500 dark:text-neutral-400">
+            <p class="eyebrow">{t(locale, 'version.installer')}</p>
+            <p class="mt-2 text-sm font-medium text-muted">
               {formatFileSize(installer.size, locale)} ·{' '}
               {t(locale, 'version.downloads', {
                 count: formatNumber(installer.downloadCount, locale),
               })}
             </p>
+            <p class="mt-2 text-sm font-bold break-all text-ink">{installer.name}</p>
           </div>
           <DownloadButton release={release} locale={locale} />
         </div>
       ) : (
         <div>
-          <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">
+          <h2 class="font-display text-xl tracking-tight text-ink">
             {t(locale, 'version.noInstallerTitle')}
           </h2>
-          <p class="mt-2 max-w-2xl text-sm leading-6 text-neutral-600 dark:text-neutral-400">
+          <p class="mt-2 max-w-2xl text-sm leading-6 text-muted">
             {t(locale, 'version.noInstallerBody')}
           </p>
           <a
             href={release.htmlUrl}
             target="_blank"
             rel="noopener noreferrer"
-            class="mt-4 inline-flex items-center rounded-full bg-accent-strong px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-accent-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-neutral-950"
+            class="btn btn-primary mt-5"
           >
             {t(locale, 'download.viewRelease')}
           </a>
@@ -120,24 +125,19 @@ function kindLabel(asset: ReleaseAsset): string {
   {
     otherAssets.length > 0 && (
       <section class="mt-10" aria-labelledby="other-files-title">
-        <h2 id="other-files-title" class="text-xl font-semibold tracking-tight">
+        <h2 id="other-files-title" class="display text-2xl sm:text-3xl">
           {t(locale, 'version.otherFiles')}
         </h2>
         <ul class="mt-4 space-y-3">
           {otherAssets.map((asset) => (
-            <li class="flex flex-col gap-3 rounded-2xl border border-neutral-200 bg-white p-4 sm:flex-row sm:items-center sm:justify-between dark:border-white/10 dark:bg-white/[0.03]">
-              <div>
-                <p class="text-sm font-medium break-all text-neutral-900 dark:text-white">
-                  {asset.name}
-                </p>
-                <p class="mt-1 text-xs text-neutral-500 dark:text-neutral-400">
+            <li class="card-brutal flex flex-col gap-3 p-4 sm:flex-row sm:items-center sm:justify-between">
+              <div class="min-w-0">
+                <p class="text-sm font-bold break-all text-ink">{asset.name}</p>
+                <p class="mt-1 text-xs text-muted">
                   {kindLabel(asset)} · {formatFileSize(asset.size, locale)}
                 </p>
               </div>
-              <a
-                href={asset.url}
-                class="shrink-0 rounded-full border border-neutral-200 px-3 py-1.5 text-xs font-medium text-neutral-700 transition-colors hover:bg-neutral-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent dark:border-white/10 dark:text-neutral-300 dark:hover:bg-white/10"
-              >
+              <a href={asset.url} class="btn btn-secondary btn-sm shrink-0 self-start sm:self-auto">
                 {t(locale, 'download.ctaShort')}
               </a>
             </li>
@@ -148,36 +148,30 @@ function kindLabel(asset: ReleaseAsset): string {
   }
 
   <section class="mt-10" aria-labelledby="release-notes-title">
-    <h2 id="release-notes-title" class="text-xl font-semibold tracking-tight">
+    <h2 id="release-notes-title" class="display text-2xl sm:text-3xl">
       {t(locale, 'version.releaseNotes')}
     </h2>
     {
       release.bodyHtml ? (
-        <div class="release-notes mt-4" set:html={release.bodyHtml} />
+        <div class="release-notes card-brutal mt-4 p-5 sm:p-6" set:html={release.bodyHtml} />
       ) : (
-        <p class="mt-4 text-sm text-neutral-500 dark:text-neutral-400">
-          {t(locale, 'version.noNotes')}
-        </p>
+        <p class="mt-4 text-sm text-muted">{t(locale, 'version.noNotes')}</p>
       )
     }
   </section>
 
   <nav
-    class="mt-12 grid gap-4 border-t border-neutral-200 pt-8 sm:grid-cols-2 dark:border-white/10"
+    class="mt-12 grid gap-4 border-t-[2.5px] border-line pt-8 sm:grid-cols-2"
     aria-label={t(locale, 'version.navigation')}
   >
     {
       newer ? (
-        <a
-          href={versionHref(newer)}
-          class="rounded-2xl border border-neutral-200 p-4 transition-colors hover:border-accent/40 hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent dark:border-white/10 dark:hover:border-accent/40 dark:hover:bg-white/5"
-        >
-          <span class="text-xs text-neutral-500 dark:text-neutral-400">
+        <a href={versionHref(newer)} class="card-brutal card-hover group p-4">
+          <span class="eyebrow">
+            <span aria-hidden="true">←</span>
             {t(locale, 'version.newer')}
           </span>
-          <span class="mt-1 block text-sm font-semibold text-neutral-900 dark:text-white">
-            {newer.tag}
-          </span>
+          <span class="font-display mt-2 block text-xl text-ink">{newer.tag}</span>
         </a>
       ) : null
     }
@@ -185,17 +179,13 @@ function kindLabel(asset: ReleaseAsset): string {
       older ? (
         <a
           href={versionHref(older)}
-          class:list={[
-            'rounded-2xl border border-neutral-200 p-4 text-right transition-colors hover:border-accent/40 hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent dark:border-white/10 dark:hover:border-accent/40 dark:hover:bg-white/5',
-            !newer && 'sm:col-start-2',
-          ]}
+          class:list={['card-brutal card-hover group p-4 text-right', !newer && 'sm:col-start-2']}
         >
-          <span class="text-xs text-neutral-500 dark:text-neutral-400">
+          <span class="eyebrow justify-end">
             {t(locale, 'version.older')}
+            <span aria-hidden="true">→</span>
           </span>
-          <span class="mt-1 block text-sm font-semibold text-neutral-900 dark:text-white">
-            {older.tag}
-          </span>
+          <span class="font-display mt-2 block text-xl text-ink">{older.tag}</span>
         </a>
       ) : null
     }

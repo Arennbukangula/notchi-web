@@ -45,22 +45,32 @@ const previews = [
 ];
 ---
 
-<section class="mx-auto max-w-[1100px] px-6 py-20" aria-labelledby="previews-title">
-  <div class="mx-auto max-w-2xl text-center">
-    <h2 id="previews-title" class="text-3xl font-semibold tracking-tight sm:text-4xl">
+<section class="mx-auto max-w-[1120px] px-4 py-20 sm:px-6" aria-labelledby="previews-title">
+  <div class="max-w-2xl">
+    <p class="eyebrow">01</p>
+    <h2 id="previews-title" class="display mt-4 text-3xl sm:text-5xl">
       {t(locale, 'home.previews.title')}
     </h2>
-    <p class="mt-4 text-base leading-7 text-neutral-600 dark:text-neutral-400">
+    <p class="mt-4 text-base leading-7 text-muted">
       {t(locale, 'home.previews.description')}
     </p>
   </div>
 
-  <div class="mt-12 grid gap-6 lg:grid-cols-3">
+  <div class="mt-12 border-y-2 border-line-soft">
     {
-      previews.map((preview) => (
-        <figure class="flex flex-col rounded-3xl border border-neutral-200 bg-white p-5 shadow-sm dark:border-white/10 dark:bg-white/[0.03]">
-          <div class="flex min-h-40 flex-1 items-center justify-center gap-3">
-            <div class="flex flex-col items-center gap-2">
+      previews.map((preview, index) => (
+        <figure class="grid gap-4 border-b-2 border-line-soft py-8 last:border-b-0 lg:grid-cols-[220px_1fr] lg:items-center lg:gap-10 lg:py-10">
+          <figcaption class="flex items-baseline gap-3 lg:block">
+            <span class="font-display text-xs text-accent-ink">
+              {String(index + 1).padStart(2, '0')}
+            </span>
+            <span class="text-sm font-bold text-ink lg:mt-2 lg:block lg:text-lg">
+              {preview.title}
+            </span>
+          </figcaption>
+
+          <div class="flex items-center justify-center gap-3 sm:gap-5 lg:justify-end lg:gap-8">
+            <div class="flex min-w-0 flex-col items-center gap-2">
               <img
                 src={preview.compact}
                 alt={preview.compactAlt}
@@ -68,16 +78,16 @@ const previews = [
                 height={preview.height}
                 loading="lazy"
                 decoding="async"
-                class="max-h-20 w-auto max-w-[120px] object-contain"
+                class="max-h-40 w-auto max-w-[clamp(84px,24vw,200px)] object-contain sm:max-h-48 lg:max-h-52"
               />
-              <span class="text-[10px] font-medium tracking-widest text-neutral-500 uppercase dark:text-neutral-400">
+              <span class="text-[10px] font-bold tracking-[0.14em] text-muted uppercase">
                 {t(locale, 'home.previews.compact')}
               </span>
             </div>
-            <span class="text-neutral-300 dark:text-neutral-600" aria-hidden="true">
+            <span class="shrink-0 text-xl leading-none text-muted sm:text-2xl" aria-hidden="true">
               →
             </span>
-            <div class="flex flex-col items-center gap-2">
+            <div class="flex min-w-0 flex-col items-center gap-2">
               <img
                 src={preview.expanded}
                 alt={preview.expandedAlt}
@@ -85,16 +95,13 @@ const previews = [
                 height={preview.expandedHeight}
                 loading="lazy"
                 decoding="async"
-                class="max-h-28 w-auto max-w-[190px] object-contain"
+                class="max-h-28 w-auto max-w-[clamp(160px,42vw,520px)] object-contain sm:max-h-44 lg:max-h-56"
               />
-              <span class="text-[10px] font-medium tracking-widest text-neutral-500 uppercase dark:text-neutral-400">
+              <span class="text-[10px] font-bold tracking-[0.14em] text-muted uppercase">
                 {t(locale, 'home.previews.expanded')}
               </span>
             </div>
           </div>
-          <figcaption class="mt-5 text-center text-sm font-medium text-neutral-900 dark:text-white">
-            {preview.title}
-          </figcaption>
         </figure>
       ))
     }

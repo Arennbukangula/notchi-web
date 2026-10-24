@@ -81,8 +81,14 @@ const ogAlternateLocale = locale === 'id' ? 'en_US' : 'id_ID';
     <meta name="twitter:image:alt" content={t(locale, 'meta.ogImageAlt')} />
 
     <link rel="icon" href="/images/icon.png" type="image/png" />
-    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
-    <meta name="theme-color" content="#0a0a0a" media="(prefers-color-scheme: dark)" />
+    <link
+      rel="preload"
+      href="/fonts/archivo-black-latin.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <meta name="theme-color" content="#f4f6fb" />
 
     <script is:inline>
       (() => {
@@ -95,18 +101,18 @@ const ogAlternateLocale = locale === 'id' ? 'en_US' : 'id_ID';
           stored = null;
         }
 
-        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        const dark = stored === 'dark' || (stored !== 'light' && prefersDark);
+        const dark = stored === 'dark';
         root.classList.toggle('dark', dark);
+        document
+          .querySelector('meta[name="theme-color"]')
+          ?.setAttribute('content', dark ? '#08080b' : '#f4f6fb');
       })();
     </script>
   </head>
-  <body
-    class="flex min-h-dvh flex-col bg-neutral-50 font-sans text-neutral-900 antialiased dark:bg-neutral-950 dark:text-neutral-100"
-  >
+  <body class="flex min-h-dvh flex-col bg-paper font-sans text-ink antialiased">
     <a
       href="#main"
-      class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:rounded-full focus:bg-accent-strong focus:px-4 focus:py-2 focus:text-sm focus:font-medium focus:text-white"
+      class="btn btn-primary sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[70]"
     >
       {t(locale, 'a11y.skipToContent')}
     </a>

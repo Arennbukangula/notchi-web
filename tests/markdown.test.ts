@@ -19,7 +19,7 @@ describe('renderReleaseNotes', () => {
     expect(html).toContain('<h2>Highlights</h2>');
     expect(html).toContain('<li>Faster startup</li>');
     expect(html).toContain('<strong>Better</strong>');
-    expect(html).toContain('<pre><code class="language-ts">');
+    expect(html).toContain('<pre tabindex="0"><code class="language-ts">');
   });
 
   it('returns an empty string for blank input', () => {

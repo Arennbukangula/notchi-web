@@ -1,5 +1,5 @@
 ---
-import { localizePath, t } from '../i18n';
+import { localizePath, stripLocaleFromPath, t } from '../i18n';
 import type { Locale } from '../i18n';
 import { siteConfig } from '../site.config';
 import LangSwitcher from './LangSwitcher.astro';
@@ -10,37 +10,57 @@ interface Props {
 }
 
 const { locale } = Astro.props;
+const currentPath = stripLocaleFromPath(Astro.url.pathname);
 
 const homeHref = localizePath('/', locale);
 const versionsHref = localizePath(siteConfig.routes.download, locale);
 const docsHref = localizePath(siteConfig.routes.docs, locale);
-const navLinkClass =
-  'rounded-full px-3 py-2 text-sm text-neutral-600 transition-colors hover:bg-neutral-100 hover:text-neutral-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/60 dark:text-neutral-300 dark:hover:bg-white/10 dark:hover:text-white';
+
+const links = [
+  { href: homeHref, path: '/', label: t(locale, 'nav.home') },
+  { href: versionsHref, path: siteConfig.routes.download, label: t(locale, 'nav.versions') },
+  { href: docsHref, path: siteConfig.routes.docs, label: t(locale, 'nav.docs') },
+];
+
+const isActive = (path: string) =>
+  path === '/' ? currentPath === '/' : currentPath === path || currentPath.startsWith(path);
 ---
 
-<header
-  class="sticky top-0 z-40 border-b border-neutral-200/80 bg-white/80 backdrop-blur-md dark:border-white/10 dark:bg-neutral-950/80"
->
-  <div class="mx-auto flex h-16 max-w-[1100px] items-center gap-4 px-6">
-    <a
-      href={homeHref}
-      class="flex items-center gap-2 rounded-full text-neutral-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/60 dark:text-white"
-    >
-      <img
-        src="/images/icon.png"
-        alt=""
-        width="28"
-        height="28"
-        class="h-7 w-7 rounded-lg"
-        loading="eager"
-      />
-      <span class="text-sm font-semibold tracking-tight">{siteConfig.appName}</span>
+<header class="sticky top-0 z-40 border-b-[2.5px] border-line bg-paper">
+  <div class="mx-auto flex h-16 max-w-[1120px] items-center gap-3 px-4 sm:h-[72px] sm:px-6">
+    <a href={homeHref} class="group flex items-center gap-2.5">
+      <span
+        class="flex h-10 w-10 items-center justify-center rounded-xl border-2 border-line bg-white shadow-brutal-sm transition-transform group-hover:-rotate-3"
+      >
+        <img
+          src="/images/icon.png"
+          alt=""
+          width="28"
+          height="28"
+          class="h-7 w-7 rounded-md"
+          loading="eager"
+        />
+      </span>
+      <span class="font-display text-lg leading-none tracking-tight">{siteConfig.appName}</span>
     </a>
 
-    <nav class="hidden items-center gap-1 sm:flex" aria-label={t(locale, 'nav.main')}>
-      <a href={homeHref} class={navLinkClass}>{t(locale, 'nav.home')}</a>
-      <a href={versionsHref} class={navLinkClass}>{t(locale, 'nav.versions')}</a>
-      <a href={docsHref} class={navLinkClass}>{t(locale, 'nav.docs')}</a>
+    <nav class="ml-4 hidden items-center gap-1 sm:flex" aria-label={t(locale, 'nav.main')}>
+      {
+        links.map((link) => (
+          <a
+            href={link.href}
+            aria-current={isActive(link.path) ? 'page' : undefined}
+            class:list={[
+              'rounded-lg border-2 px-3 py-2 text-sm font-semibold transition-colors',
+              isActive(link.path)
+                ? 'border-line bg-panel text-ink shadow-brutal-sm'
+                : 'border-transparent text-muted hover:border-line hover:bg-panel hover:text-ink',
+            ]}
+          >
+            {link.label}
+          </a>
+        ))
+      }
     </nav>
 
     <div class="ml-auto flex items-center gap-2">
@@ -50,7 +70,7 @@ const navLinkClass =
         href={siteConfig.github.url}
         target="_blank"
         rel="noopener noreferrer"
-        class="inline-flex h-9 w-9 items-center justify-center rounded-full border border-neutral-200 text-neutral-600 transition-colors hover:bg-neutral-100 hover:text-neutral-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/60 dark:border-white/10 dark:text-neutral-300 dark:hover:bg-white/10 dark:hover:text-white"
+        class="inline-flex h-10 w-10 items-center justify-center rounded-xl border-2 border-line bg-panel text-ink shadow-brutal-sm transition-colors hover:bg-accent-soft"
         aria-label={t(locale, 'nav.github')}
         title={t(locale, 'nav.github')}
       >
@@ -62,4 +82,26 @@ const navLinkClass =
       </a>
     </div>
   </div>
+
+  <nav class="border-t-2 border-line bg-panel sm:hidden" aria-label={t(locale, 'nav.main')}>
+    <div class="flex">
+      {
+        links.map((link, index) => (
+          <a
+            href={link.href}
+            aria-current={isActive(link.path) ? 'page' : undefined}
+            class:list={[
+              'flex-1 px-2 py-2.5 text-center text-[0.7rem] font-bold tracking-wider uppercase transition-colors',
+              index < links.length - 1 && 'border-r-2 border-line',
+              isActive(link.path)
+                ? 'bg-accent text-accent-contrast'
+                : 'text-muted hover:bg-accent-soft hover:text-ink',
+            ]}
+          >
+            {link.label}
+          </a>
+        ))
+      }
+    </div>
+  </nav>
 </header>

@@ -4,9 +4,10 @@ import type { Locale } from '../i18n';
 
 interface Props {
   locale: Locale;
+  inverse?: boolean;
 }
 
-const { locale } = Astro.props;
+const { locale, inverse = false } = Astro.props;
 const currentPath = stripLocaleFromPath(Astro.url.pathname);
 
 const options = [
@@ -26,7 +27,12 @@ const options = [
 ---
 
 <div
-  class="inline-flex items-center rounded-full border border-neutral-200 p-0.5 dark:border-white/10"
+  class:list={[
+    'inline-flex h-10 items-center rounded-xl border-2 p-0.5',
+    inverse
+      ? 'border-white/40 bg-white/5 shadow-[3px_3px_0_0_var(--accent)]'
+      : 'border-line bg-panel shadow-brutal-sm',
+  ]}
   role="group"
   aria-label={t(locale, 'language.switch')}
 >
@@ -38,10 +44,12 @@ const options = [
         lang={option.locale}
         aria-current={locale === option.locale ? 'true' : undefined}
         class:list={[
-          'rounded-full px-2 py-1 text-xs font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/60',
+          'flex h-full items-center rounded-lg px-2 text-[0.65rem] font-bold tracking-wider transition-colors',
           locale === option.locale
-            ? 'bg-neutral-900 text-white dark:bg-white dark:text-neutral-900'
-            : 'text-neutral-500 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-white',
+            ? 'bg-accent text-accent-contrast'
+            : inverse
+              ? 'text-white/70 hover:text-white'
+              : 'text-muted hover:text-ink',
         ]}
       >
         <span aria-hidden="true">{option.short}</span>

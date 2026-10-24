@@ -23,29 +23,34 @@ const hasPrereleases = releases.some((release) => release.prerelease);
         aria-controls="release-list"
         data-label-show={t(locale, 'archive.showPrereleases')}
         data-label-hide={t(locale, 'archive.hidePrereleases')}
-        class="inline-flex items-center rounded-full border border-neutral-200 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition-colors hover:bg-neutral-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent dark:border-white/10 dark:bg-white/5 dark:text-neutral-300 dark:hover:bg-white/10"
+        class="btn btn-secondary btn-sm aria-pressed:bg-accent aria-pressed:text-accent-contrast"
       >
-        {t(locale, 'archive.showPrereleases')}
+        <span class="h-2 w-2 rounded-full border border-current bg-current" aria-hidden="true" />
+        <span data-toggle-label>{t(locale, 'archive.showPrereleases')}</span>
       </button>
     </div>
   )
 }
 
-<div id="release-list" role="list" class="space-y-4" aria-label={t(locale, 'a11y.releaseList')}>
+<ul id="release-list" class="list-none space-y-4" aria-label={t(locale, 'a11y.releaseList')}>
   {releases.map((release) => <ReleaseCard release={release} locale={locale} />)}
-</div>
+</ul>
 
 <script>
   const toggle = document.getElementById('prerelease-toggle');
   const list = document.getElementById('release-list');
 
   if (toggle instanceof HTMLButtonElement && list) {
+    const label = toggle.querySelector<HTMLElement>('[data-toggle-label]');
+
     toggle.addEventListener('click', () => {
       const show = toggle.getAttribute('aria-pressed') !== 'true';
       toggle.setAttribute('aria-pressed', String(show));
-      toggle.textContent = show
-        ? (toggle.dataset.labelHide ?? '')
-        : (toggle.dataset.labelShow ?? '');
+      if (label) {
+        label.textContent = show
+          ? (toggle.dataset.labelHide ?? '')
+          : (toggle.dataset.labelShow ?? '');
+      }
 
       list.querySelectorAll<HTMLElement>('[data-prerelease]').forEach((item) => {
         item.hidden = !show;

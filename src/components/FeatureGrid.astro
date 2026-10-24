@@ -92,47 +92,77 @@ const features = [
 ] as const;
 ---
 
-<section
-  class="border-y border-neutral-200 bg-white py-20 dark:border-white/10 dark:bg-white/[0.02]"
->
-  <div class="mx-auto max-w-[1100px] px-6">
+<section class="border-y-[2.5px] border-line bg-panel py-20">
+  <div class="mx-auto max-w-[1120px] px-4 sm:px-6">
     <div class="max-w-2xl">
-      <h2 class="text-3xl font-semibold tracking-tight sm:text-4xl">
+      <p class="eyebrow">02</p>
+      <h2 class="display mt-4 text-3xl sm:text-5xl">
         {t(locale, 'home.features.title')}
       </h2>
-      <p class="mt-4 text-base leading-7 text-neutral-600 dark:text-neutral-400">
+      <p class="mt-4 text-base leading-7 text-muted">
         {t(locale, 'home.features.description')}
       </p>
     </div>
 
     <div class="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
       {
-        features.map((feature) => (
-          <article class="rounded-3xl border border-neutral-200 bg-neutral-50 p-6 transition-colors hover:border-accent/30 dark:border-white/10 dark:bg-neutral-950/60 dark:hover:border-accent/40">
-            <span class="flex h-10 w-10 items-center justify-center rounded-2xl bg-accent/10 text-accent">
-              <svg
-                class="h-5 w-5"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="1.6"
-                stroke-linecap="round"
-                stroke-linejoin="round"
+        features.map((feature, index) => {
+          const isDark = index === 2;
+          const isBlue = index === 9;
+          return (
+            <article
+              class:list={[
+                'card-brutal card-hover group relative p-5',
+                isDark && 'bg-[#08080b] text-white',
+                isBlue && 'bg-accent text-accent-contrast',
+              ]}
+            >
+              <span
+                class:list={[
+                  'font-display absolute top-4 right-4 text-2xl leading-none',
+                  isDark ? 'text-white/40' : isBlue ? 'text-[#08080b]/70' : 'text-muted/70',
+                ]}
                 aria-hidden="true"
               >
-                {feature.icon.map((path) => (
-                  <path d={path} />
-                ))}
-              </svg>
-            </span>
-            <h3 class="mt-5 text-base font-semibold text-neutral-900 dark:text-white">
-              {t(locale, feature.title)}
-            </h3>
-            <p class="mt-2 text-sm leading-6 text-neutral-600 dark:text-neutral-400">
-              {t(locale, feature.description)}
-            </p>
-          </article>
-        ))
+                {String(index + 1).padStart(2, '0')}
+              </span>
+              <span
+                class:list={[
+                  'flex h-11 w-11 items-center justify-center rounded-xl border-2 border-line shadow-brutal-sm',
+                  isDark
+                    ? 'bg-accent text-accent-contrast'
+                    : isBlue
+                      ? 'bg-[#08080b] text-white'
+                      : 'bg-accent-soft text-accent-ink',
+                ]}
+              >
+                <svg
+                  class="h-5 w-5"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  {feature.icon.map((path) => (
+                    <path d={path} />
+                  ))}
+                </svg>
+              </span>
+              <h3 class="mt-5 pr-8 text-base font-bold">{t(locale, feature.title)}</h3>
+              <p
+                class:list={[
+                  'mt-2 text-sm leading-6',
+                  isDark ? 'text-white/70' : isBlue ? 'text-[#08080b]' : 'text-muted',
+                ]}
+              >
+                {t(locale, feature.description)}
+              </p>
+            </article>
+          );
+        })
       }
     </div>
   </div>
