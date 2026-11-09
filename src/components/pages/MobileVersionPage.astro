@@ -1,0 +1,193 @@
+---
+import Badge from '../Badge.astro';
+import ChecksumField from '../ChecksumField.astro';
+import DownloadButton from '../DownloadButton.astro';
+import { localizePath, t } from '../../i18n';
+import type { Locale } from '../../i18n';
+import { formatDate, formatFileSize, formatNumber } from '../../lib/format';
+import type { ReleaseAsset } from '../../lib/assets';
+import type { Release } from '../../lib/github';
+import { siteConfig } from '../../site.config';
+
+interface Props {
+  release: Release;
+  newer?: Release;
+  older?: Release;
+  locale: Locale;
+}
+
+const { release, newer, older, locale } = Astro.props;
+const installer = release.primaryInstaller;
+const otherAssets = release.assets.filter((asset) => asset !== installer);
+const backHref = localizePath(siteConfig.routes.mobile, locale);
+const versionHref = (value: Release) =>
+  localizePath(`/mobile/${encodeURIComponent(value.version)}/`, locale);
+
+const kindLabels = {
+  installer: 'download.kindInstaller',
+  portable: 'download.kindPortable',
+  checksum: 'download.kindChecksum',
+  other: 'download.kindOther',
+} as const;
+
+function kindLabel(asset: ReleaseAsset): string {
+  return t(locale, kindLabels[asset.kind]);
+}
+---
+
+<section class="mx-auto max-w-4xl px-4 py-12 sm:px-6 sm:py-16">
+  <a
+    href={backHref}
+    class="inline-flex items-center gap-2 text-sm font-bold text-muted transition-colors hover:text-ink"
+  >
+    <span
+      class="flex h-7 w-7 items-center justify-center rounded-md border-2 border-line bg-panel text-ink shadow-brutal-sm"
+      aria-hidden="true"
+    >
+      ←
+    </span>
+    {t(locale, 'version.back')}
+  </a>
+
+  <div class="mt-8 flex flex-wrap items-start justify-between gap-5">
+    <div class="min-w-0">
+      <h1 class="display text-4xl break-words sm:text-6xl">{release.tag}</h1>
+      <div class="mt-4 flex flex-wrap items-center gap-2">
+        {release.isLatestStable && <Badge label={t(locale, 'archive.latest')} tone="accent" />}
+        {release.prerelease && <Badge label={t(locale, 'archive.prerelease')} tone="warning" />}
+        <span class="sticker">
+          {t(locale, 'version.published', { date: formatDate(release.publishedAt, locale) })}
+        </span>
+      </div>
+    </div>
+
+    <a
+      href={release.htmlUrl}
+      target="_blank"
+      rel="noopener noreferrer"
+      class="btn btn-secondary btn-sm"
+    >
+      {t(locale, 'version.viewGithub')}
+      <span aria-hidden="true">↗</span>
+    </a>
+  </div>
+
+  <div
+    class:list={[
+      'card-brutal relative mt-8 overflow-hidden p-6',
+      installer && 'border-t-[8px] border-t-accent bg-accent-soft',
+    ]}
+  >
+    {
+      installer ? (
+        <div class="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
+          <div>
+            <p class="eyebrow">{t(locale, 'version.installer')}</p>
+            <p class="mt-2 text-sm font-medium text-muted">
+              {formatFileSize(installer.size, locale)} ·{' '}
+              {t(locale, 'version.downloads', {
+                count: formatNumber(installer.downloadCount, locale),
+              })}
+            </p>
+            <p class="mt-2 text-sm font-bold break-all text-ink">{installer.name}</p>
+          </div>
+          <DownloadButton release={release} locale={locale} />
+        </div>
+      ) : (
+        <div>
+          <h2 class="font-display text-xl tracking-tight text-ink">
+            {t(locale, 'version.noInstallerTitle')}
+          </h2>
+          <p class="mt-2 max-w-2xl text-sm leading-6 text-muted">
+            {t(locale, 'version.noInstallerBody')}
+          </p>
+          <a
+            href={release.htmlUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn btn-primary mt-5"
+          >
+            {t(locale, 'download.viewRelease')}
+          </a>
+        </div>
+      )
+    }
+  </div>
+
+  {
+    installer && (
+      <div class="mt-6">
+        <ChecksumField file={installer.name} hash={installer.sha256} locale={locale} />
+      </div>
+    )
+  }
+
+  {
+    otherAssets.length > 0 && (
+      <section class="mt-10" aria-labelledby="other-files-title">
+        <h2 id="other-files-title" class="display text-2xl sm:text-3xl">
+          {t(locale, 'version.otherFiles')}
+        </h2>
+        <ul class="mt-4 space-y-3">
+          {otherAssets.map((asset) => (
+            <li class="card-brutal flex flex-col gap-3 p-4 sm:flex-row sm:items-center sm:justify-between">
+              <div class="min-w-0">
+                <p class="text-sm font-bold break-all text-ink">{asset.name}</p>
+                <p class="mt-1 text-xs text-muted">
+                  {kindLabel(asset)} · {formatFileSize(asset.size, locale)}
+                </p>
+              </div>
+              <a href={asset.url} class="btn btn-secondary btn-sm shrink-0 self-start sm:self-auto">
+                {t(locale, 'download.ctaShort')}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </section>
+    )
+  }
+
+  <section class="mt-10" aria-labelledby="release-notes-title">
+    <h2 id="release-notes-title" class="display text-2xl sm:text-3xl">
+      {t(locale, 'version.releaseNotes')}
+    </h2>
+    {
+      release.bodyHtml ? (
+        <div class="release-notes card-brutal mt-4 p-5 sm:p-6" set:html={release.bodyHtml} />
+      ) : (
+        <p class="mt-4 text-sm text-muted">{t(locale, 'version.noNotes')}</p>
+      )
+    }
+  </section>
+
+  <nav
+    class="mt-12 grid gap-4 border-t-[2.5px] border-line pt-8 sm:grid-cols-2"
+    aria-label={t(locale, 'version.navigation')}
+  >
+    {
+      newer ? (
+        <a href={versionHref(newer)} class="card-brutal card-hover group p-4">
+          <span class="eyebrow">
+            <span aria-hidden="true">←</span>
+            {t(locale, 'version.newer')}
+          </span>
+          <span class="font-display mt-2 block text-xl text-ink">{newer.tag}</span>
+        </a>
+      ) : null
+    }
+    {
+      older ? (
+        <a
+          href={versionHref(older)}
+          class:list={['card-brutal card-hover group p-4 text-right', !newer && 'sm:col-start-2']}
+        >
+          <span class="eyebrow justify-end">
+            {t(locale, 'version.older')}
+            <span aria-hidden="true">→</span>
+          </span>
+          <span class="font-display mt-2 block text-xl text-ink">{older.tag}</span>
+        </a>
+      ) : null
+    }
+  </nav>
+</section>

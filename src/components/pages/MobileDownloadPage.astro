@@ -43,7 +43,7 @@ const githubUrl = 'https://github.com/risuunava/notchi-mobile/releases';
 <section class="mx-auto max-w-[1120px] px-4 py-10 sm:px-6 sm:py-14">
   {
     releases.length ? (
-      <ReleaseTable releases={releases} locale={locale} />
+      <ReleaseTable releases={releases} locale={locale} detailRoute="/mobile/" />
     ) : (
       <div class="card-brutal p-8">
         <h2 class="font-display text-2xl tracking-tight text-ink">

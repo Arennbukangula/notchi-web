@@ -1,15 +1,16 @@
 ---
 import ReleaseCard from './ReleaseCard.astro';
-import { t } from '../i18n';
+import { localizePath, t } from '../i18n';
 import type { Locale } from '../i18n';
 import type { Release } from '../lib/github';
 
 interface Props {
   releases: Release[];
   locale: Locale;
+  detailRoute?: string;
 }
 
-const { releases, locale } = Astro.props;
+const { releases, locale, detailRoute } = Astro.props;
 const hasPrereleases = releases.some((release) => release.prerelease);
 ---
 
@@ -33,7 +34,19 @@ const hasPrereleases = releases.some((release) => release.prerelease);
 }
 
 <ul id="release-list" class="list-none space-y-4" aria-label={t(locale, 'a11y.releaseList')}>
-  {releases.map((release) => <ReleaseCard release={release} locale={locale} />)}
+  {
+    releases.map((release) => (
+      <ReleaseCard
+        release={release}
+        locale={locale}
+        detailHref={
+          detailRoute
+            ? localizePath(`${detailRoute}${encodeURIComponent(release.version)}/`, locale)
+            : undefined
+        }
+      />
+    ))
+  }
 </ul>
 
 <script>

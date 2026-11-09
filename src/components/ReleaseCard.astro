@@ -8,11 +8,12 @@ import type { Release } from '../lib/github';
 interface Props {
   release: Release;
   locale: Locale;
+  detailHref?: string;
 }
 
-const { release, locale } = Astro.props;
+const { release, locale, detailHref } = Astro.props;
 const installer = release.primaryInstaller;
-const detailHref = localizePath(`/download/${encodeURIComponent(release.version)}/`, locale);
+const detailUrl = detailHref ?? localizePath(`/download/${encodeURIComponent(release.version)}/`, locale);
 const downloadCount = installer?.downloadCount ?? 0;
 ---
 
@@ -75,7 +76,7 @@ const downloadCount = installer?.downloadCount ?? 0;
         <span class="sticker border-line-soft text-muted">{t(locale, 'archive.noInstaller')}</span>
       )
     }
-    <a href={detailHref} class="btn btn-secondary btn-sm">
+    <a href={detailUrl} class="btn btn-secondary btn-sm">
       {t(locale, 'archive.details')}
     </a>
   </div>
