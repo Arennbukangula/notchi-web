@@ -14,11 +14,13 @@ const currentPath = stripLocaleFromPath(Astro.url.pathname);
 
 const homeHref = localizePath('/', locale);
 const versionsHref = localizePath(siteConfig.routes.download, locale);
+const mobileHref = localizePath(siteConfig.routes.mobile, locale);
 const docsHref = localizePath(siteConfig.routes.docs, locale);
 
 const links = [
   { href: homeHref, path: '/', label: t(locale, 'nav.home') },
   { href: versionsHref, path: siteConfig.routes.download, label: t(locale, 'nav.versions') },
+  { href: mobileHref, path: siteConfig.routes.mobile, label: t(locale, 'nav.mobile') },
   { href: docsHref, path: siteConfig.routes.docs, label: t(locale, 'nav.docs') },
 ];
 

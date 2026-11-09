@@ -14,6 +14,7 @@
     "main": "Main navigation",
     "home": "Home",
     "versions": "Versions",
+    "mobile": "Mobile",
     "docs": "Docs",
     "github": "GitHub"
   },
@@ -33,6 +34,7 @@
     "product": "Product",
     "resources": "Resources",
     "allReleases": "All releases",
+    "mobileReleases": "Notchi Mobile releases",
     "githubReleases": "GitHub Releases",
     "source": "Source code",
     "issues": "Report an issue",
@@ -188,6 +190,13 @@
     "emptyBody": "Notchi has not published a release yet. Follow the repository on GitHub to be notified.",
     "viewGithub": "View GitHub releases",
     "backHome": "Back to home"
+  },
+  "mobile": {
+    "title": "Notchi Mobile",
+    "description": "Download the Notchi Mobile app to connect Notchi Mobile to Notchi on Windows.",
+    "emptyTitle": "No mobile releases yet",
+    "emptyBody": "Notchi Mobile has not published a release yet. Follow the repository on GitHub to be notified when the app is available.",
+    "viewGithub": "View GitHub releases"
   },
   "version": {
     "title": "Notchi {version}",

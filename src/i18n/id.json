@@ -14,6 +14,7 @@
     "main": "Navigasi utama",
     "home": "Beranda",
     "versions": "Versi",
+    "mobile": "Mobile",
     "docs": "Dokumentasi",
     "github": "GitHub"
   },
@@ -33,6 +34,7 @@
     "product": "Produk",
     "resources": "Sumber daya",
     "allReleases": "Semua versi",
+    "mobileReleases": "Rilis Notchi Mobile",
     "githubReleases": "Rilis GitHub",
     "source": "Kode sumber",
     "issues": "Laporkan masalah",
@@ -188,6 +190,13 @@
     "emptyBody": "Notchi belum mempublikasikan rilis. Ikuti repositori di GitHub untuk mendapat notifikasi.",
     "viewGithub": "Lihat rilis GitHub",
     "backHome": "Kembali ke beranda"
+  },
+  "mobile": {
+    "title": "Notchi Mobile",
+    "description": "Unduh aplikasi Notchi Mobile untuk menghubungkan Notchi Mobile ke Notchi di Windows.",
+    "emptyTitle": "Belum ada rilis mobile",
+    "emptyBody": "Notchi Mobile belum mempublikasikan rilis. Ikuti repositori di GitHub untuk diberi tahu saat aplikasi tersedia.",
+    "viewGithub": "Lihat rilis GitHub"
   },
   "version": {
     "title": "Notchi {version}",

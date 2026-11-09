@@ -31,6 +31,7 @@ export const siteConfig = {
     home: '/',
     download: '/download/',
     latest: '/download/latest',
+    mobile: '/mobile/',
     docs: '/docs/',
   },
   assetRules: {
