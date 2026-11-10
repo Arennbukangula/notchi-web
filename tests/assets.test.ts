@@ -27,6 +27,8 @@ describe('classifyAsset', () => {
   it.each([
     ['Notchi-Setup-1.2.0.exe', 'installer'],
     ['Notchi-Installer-1.2.0.MSI', 'installer'],
+    ['notchi-mobile.apk', 'mobile'],
+    ['Notchi-mobile-1.0.0.AAB', 'mobile'],
     ['Notchi.exe', 'other'],
     ['Notchi-App.msi', 'other'],
     ['Notchi-1.2.0-portable.zip', 'portable'],
@@ -146,6 +148,20 @@ describe('pickPrimaryInstaller', () => {
     const installer = asset('Notchi-Setup.exe', 'installer');
 
     expect(pickPrimaryInstaller([portable, installer])).toBe(installer);
+  });
+
+  it('falls back to a mobile build when no installer is classified', () => {
+    const other = asset('notes.txt', 'other');
+    const mobile = asset('notchi-mobile.apk', 'mobile');
+
+    expect(pickPrimaryInstaller([other, mobile])).toBe(mobile);
+  });
+
+  it('prefers an installer over a mobile build', () => {
+    const mobile = asset('notchi-mobile.apk', 'mobile');
+    const installer = asset('Notchi-Setup.exe', 'installer');
+
+    expect(pickPrimaryInstaller([mobile, installer])).toBe(installer);
   });
 
   it('falls back to the first .exe when no installer is classified', () => {

@@ -1,4 +1,4 @@
-export type AssetKind = 'installer' | 'portable' | 'checksum' | 'other';
+export type AssetKind = 'installer' | 'mobile' | 'portable' | 'checksum' | 'other';
 
 export interface AssetRule {
   readonly extensions: readonly string[];
@@ -7,6 +7,7 @@ export interface AssetRule {
 
 export interface AssetRules {
   readonly installer: AssetRule;
+  readonly mobile: AssetRule;
   readonly portable: AssetRule;
   readonly checksum: AssetRule;
 }
@@ -38,6 +39,9 @@ export const siteConfig = {
     installer: {
       extensions: ['.exe', '.msi'],
       nameIncludes: ['setup', 'install'],
+    },
+    mobile: {
+      extensions: ['.apk', '.aab'],
     },
     portable: {
       extensions: ['.zip', '.7z'],

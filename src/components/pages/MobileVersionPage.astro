@@ -25,6 +25,7 @@ const versionHref = (value: Release) =>
 
 const kindLabels = {
   installer: 'download.kindInstaller',
+  mobile: 'download.kindMobile',
   portable: 'download.kindPortable',
   checksum: 'download.kindChecksum',
   other: 'download.kindOther',
@@ -82,7 +83,7 @@ function kindLabel(asset: ReleaseAsset): string {
       installer ? (
         <div class="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <p class="eyebrow">{t(locale, 'version.installer')}</p>
+            <p class="eyebrow">{t(locale, 'version.mobileInstaller')}</p>
             <p class="mt-2 text-sm font-medium text-muted">
               {formatFileSize(installer.size, locale)} ·{' '}
               {t(locale, 'version.downloads', {
@@ -96,10 +97,10 @@ function kindLabel(asset: ReleaseAsset): string {
       ) : (
         <div>
           <h2 class="font-display text-xl tracking-tight text-ink">
-            {t(locale, 'version.noInstallerTitle')}
+            {t(locale, 'version.noMobileTitle')}
           </h2>
           <p class="mt-2 max-w-2xl text-sm leading-6 text-muted">
-            {t(locale, 'version.noInstallerBody')}
+            {t(locale, 'version.noMobileBody')}
           </p>
           <a
             href={release.htmlUrl}

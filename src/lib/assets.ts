@@ -40,6 +40,10 @@ export function classifyAsset(name: string, rules: AssetRules = siteConfig.asset
     return 'installer';
   }
 
+  if (matchesExtension(lowerName, rules.mobile)) {
+    return 'mobile';
+  }
+
   if (matchesExtension(lowerName, rules.portable)) {
     return 'portable';
   }
@@ -112,6 +116,7 @@ export function normalizeAssets(rawAssets: readonly RawReleaseAsset[]): ReleaseA
 export function pickPrimaryInstaller(assets: readonly ReleaseAsset[]): ReleaseAsset | undefined {
   return (
     assets.find((asset) => asset.kind === 'installer') ??
+    assets.find((asset) => asset.kind === 'mobile') ??
     assets.find((asset) => asset.name.toLowerCase().endsWith('.exe'))
   );
 }
