@@ -7,7 +7,7 @@ interface Props {
   inverse?: boolean;
 }
 
-const { locale, inverse = false } = Astro.props;
+const { locale } = Astro.props;
 const currentPath = stripLocaleFromPath(Astro.url.pathname);
 
 const options = [
@@ -27,12 +27,7 @@ const options = [
 ---
 
 <div
-  class:list={[
-    'inline-flex h-10 items-center rounded-xl border-2 p-0.5',
-    inverse
-      ? 'border-white/40 bg-white/5 shadow-[3px_3px_0_0_var(--accent)]'
-      : 'border-line bg-panel shadow-brutal-sm',
-  ]}
+  class="inline-flex h-8 items-center border border-neutral-800 bg-neutral-900 text-white"
   role="group"
   aria-label={t(locale, 'language.switch')}
 >
@@ -44,12 +39,10 @@ const options = [
         lang={option.locale}
         aria-current={locale === option.locale ? 'true' : undefined}
         class:list={[
-          'flex h-full items-center rounded-lg px-2 text-[0.65rem] font-bold tracking-wider transition-colors',
+          'flex h-full items-center px-2 text-[11px] font-mono font-medium transition-colors',
           locale === option.locale
-            ? 'bg-accent text-accent-contrast'
-            : inverse
-              ? 'text-white/70 hover:text-white'
-              : 'text-muted hover:text-ink',
+            ? 'bg-neutral-800 text-white font-semibold'
+            : 'text-neutral-400 hover:text-white',
         ]}
       >
         <span aria-hidden="true">{option.short}</span>
