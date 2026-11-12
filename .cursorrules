@@ -1,0 +1,96 @@
+# Project Rules — notchi-web
+
+## ⚠️ GIT RULES — WAJIB DIIKUTI
+
+**JANGAN pernah menjalankan perintah berikut tanpa persetujuan eksplisit dari user:**
+- `git commit`
+- `git push`
+- `git push --force`
+- `git push origin`
+- `git merge` (kecuali diminta)
+- `git rebase` (kecuali diminta)
+
+Semua perubahan hanya boleh dilakukan di working directory (unstaged / staged).
+Agent harus **hanya membuat dan mengedit file**, lalu melaporkan perubahan kepada user.
+User yang memutuskan kapan akan commit dan push.
+
+---
+
+## Stack Teknologi
+
+- **Framework**: Astro 5 (static output)
+- **UI Components**: Watermelon UI (`ui.watermelon.sh`) via shadcn registry
+- **Component Framework**: React 19 (Astro islands)
+- **Styling**: Tailwind CSS v4 (via `@tailwindcss/vite`)
+- **Language**: TypeScript (strict)
+- **i18n**: Astro built-in i18n (`en` default, `id`)
+- **Deployment**: Vercel (static)
+
+---
+
+## Struktur Komponen
+
+### Komponen Astro (`.astro`)
+- Digunakan untuk layout, halaman, dan komponen non-interaktif
+- Tidak boleh menggunakan React hooks
+- Import komponen React harus pakai `client:*` directive
+
+### Komponen React (`.tsx`)
+- Disimpan di `src/components/` (bebas subdirektori)
+- Komponen UI dari shadcn/Watermelon di `src/components/ui/`
+- Komponen React interaktif **wajib** di-mount dengan `client:load` atau `client:idle`
+
+### Contoh Penggunaan Komponen React di Astro:
+```astro
+---
+import { MyReactComponent } from '../components/MyReactComponent';
+---
+<MyReactComponent client:load />
+```
+
+---
+
+## Import Path
+
+Gunakan alias `@/` untuk import dari `src/`:
+```ts
+import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
+```
+
+---
+
+## Menambah Komponen Watermelon UI
+
+Gunakan shadcn CLI dengan registry Watermelon:
+```bash
+npx shadcn@latest add https://registry.watermelon.sh/r/<component-name>.json
+```
+
+Contoh:
+```bash
+npx shadcn@latest add https://registry.watermelon.sh/r/card-split-accordian.json
+```
+
+---
+
+## Aturan Styling
+
+- Gunakan Tailwind CSS v4 utility classes
+- CSS variables proyek ada di `src/styles/global.css`
+- Variabel tema proyek: `--paper`, `--panel`, `--ink`, `--accent`, dll.
+- Variabel shadcn: `--background`, `--foreground`, `--primary`, dll. (ditambahkan oleh shadcn init)
+- Jangan hardcode warna — gunakan CSS variables
+
+---
+
+## File Penting
+
+| File | Keterangan |
+|------|------------|
+| `astro.config.mjs` | Konfigurasi Astro + React integration |
+| `components.json` | Konfigurasi shadcn CLI |
+| `src/styles/global.css` | CSS global + Tailwind + shadcn theme |
+| `src/lib/utils.ts` | Utility `cn()` dari shadcn |
+| `tsconfig.json` | TypeScript config dengan path alias `@/*` |
+
