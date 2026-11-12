@@ -88,7 +88,7 @@ const ogAlternateLocale = locale === 'id' ? 'en_US' : 'id_ID';
       type="font/woff2"
       crossorigin
     />
-    <meta name="theme-color" content="#f4f6fb" />
+    <meta name="theme-color" content="#0a0a0c" />
 
     <script is:inline>
       (() => {
@@ -101,15 +101,15 @@ const ogAlternateLocale = locale === 'id' ? 'en_US' : 'id_ID';
           stored = null;
         }
 
-        const dark = stored === 'dark';
+        const dark = stored !== 'light';
         root.classList.toggle('dark', dark);
         document
           .querySelector('meta[name="theme-color"]')
-          ?.setAttribute('content', dark ? '#08080b' : '#f4f6fb');
+          ?.setAttribute('content', dark ? '#0a0a0c' : '#0a0a0c');
       })();
     </script>
   </head>
-  <body class="flex min-h-dvh flex-col bg-paper font-sans text-ink antialiased">
+  <body class="flex min-h-dvh flex-col bg-neutral-950 font-sans text-white antialiased selection:bg-blue-500 selection:text-white">
     <a
       href="#main"
       class="btn btn-primary sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[70]"
