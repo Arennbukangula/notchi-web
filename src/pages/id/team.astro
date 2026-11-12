@@ -1,0 +1,16 @@
+---
+import TeamPage from '../../components/pages/TeamPage.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import type { Locale } from '../../i18n';
+
+const locale: Locale = 'id';
+---
+
+<BaseLayout
+  locale={locale}
+  title="Tim & Kontributor"
+  description="Kenali pengembang utama dan para kontributor di balik proyek Notchi."
+>
+  <TeamPage locale={locale} />
+</BaseLayout>
+

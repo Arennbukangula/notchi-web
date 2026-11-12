@@ -1,0 +1,16 @@
+---
+import TeamPage from '../components/pages/TeamPage.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import type { Locale } from '../i18n';
+
+const locale: Locale = 'en';
+---
+
+<BaseLayout
+  locale={locale}
+  title="Team & Contributors"
+  description="Meet the core developer and contributors behind the Notchi project."
+>
+  <TeamPage locale={locale} />
+</BaseLayout>
+
