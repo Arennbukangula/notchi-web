@@ -1,13 +1,11 @@
 ---
-import Badge from '../Badge.astro';
-import ChecksumField from '../ChecksumField.astro';
-import DownloadButton from '../DownloadButton.astro';
 import { localizePath, t } from '../../i18n';
 import type { Locale } from '../../i18n';
 import { formatDate, formatFileSize, formatNumber } from '../../lib/format';
 import type { ReleaseAsset } from '../../lib/assets';
 import type { Release } from '../../lib/github';
 import { siteConfig } from '../../site.config';
+import { ArrowLeft, ArrowRight, Download, ExternalLink, ShieldCheck } from 'lucide-react';
 
 interface Props {
   release: Release;
@@ -36,159 +34,169 @@ function kindLabel(asset: ReleaseAsset): string {
 }
 ---
 
-<section class="mx-auto max-w-4xl px-4 py-12 sm:px-6 sm:py-16">
-  <a
-    href={backHref}
-    class="inline-flex items-center gap-2 text-sm font-bold text-muted transition-colors hover:text-ink"
-  >
-    <span
-      class="flex h-7 w-7 items-center justify-center rounded-md border-2 border-line bg-panel text-ink shadow-brutal-sm"
-      aria-hidden="true"
-    >
-      ←
-    </span>
-    {t(locale, 'version.back')}
-  </a>
+<div class="w-full bg-neutral-950 text-white antialiased">
+  <section class="border-b border-neutral-800 bg-neutral-950">
+    <div class="mx-auto max-w-4xl px-4 py-12 sm:px-6 sm:py-16">
+      <a
+        href={backHref}
+        class="inline-flex items-center gap-2 text-xs font-mono text-neutral-400 hover:text-white transition-colors"
+      >
+        <ArrowLeft className="size-3.5" />
+        <span>{t(locale, 'version.back')}</span>
+      </a>
 
-  <div class="mt-8 flex flex-wrap items-start justify-between gap-5">
-    <div class="min-w-0">
-      <h1 class="display text-4xl break-words sm:text-6xl">{release.tag}</h1>
-      <div class="mt-4 flex flex-wrap items-center gap-2">
-        {release.isLatestStable && <Badge label={t(locale, 'archive.latest')} tone="accent" />}
-        {release.prerelease && <Badge label={t(locale, 'archive.prerelease')} tone="warning" />}
-        <span class="sticker">
-          {t(locale, 'version.published', { date: formatDate(release.publishedAt, locale) })}
-        </span>
+      <div class="mt-6 flex flex-wrap items-start justify-between gap-4">
+        <div>
+          <div class="flex items-center gap-3 font-mono text-xs text-neutral-500">
+            <span>{formatDate(release.publishedAt, locale)}</span>
+            <span class="bg-blue-500/10 border border-blue-500/30 px-2 py-0.5 text-[10px] text-blue-400 font-semibold">
+              Android Companion
+            </span>
+          </div>
+          <h1 class="mt-2 text-3xl sm:text-5xl font-semibold tracking-tight text-white font-sans">
+            {release.tag}
+          </h1>
+        </div>
+
+        <a
+          href={release.htmlUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex h-9 items-center gap-1.5 border border-neutral-800 bg-neutral-900 px-4 text-xs font-mono text-neutral-300 hover:bg-neutral-800 hover:text-white transition-colors"
+        >
+          <span>GitHub Release</span>
+          <ExternalLink className="size-3.5" />
+        </a>
       </div>
     </div>
-
-    <a
-      href={release.htmlUrl}
-      target="_blank"
-      rel="noopener noreferrer"
-      class="btn btn-secondary btn-sm"
-    >
-      {t(locale, 'version.viewGithub')}
-      <span aria-hidden="true">↗</span>
-    </a>
-  </div>
-
-  <div
-    class:list={[
-      'card-brutal relative mt-8 overflow-hidden p-6',
-      installer && 'border-t-[8px] border-t-accent bg-accent-soft',
-    ]}
-  >
-    {
-      installer ? (
-        <div class="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
-          <div>
-            <p class="eyebrow">{t(locale, 'version.mobileInstaller')}</p>
-            <p class="mt-2 text-sm font-medium text-muted">
-              {formatFileSize(installer.size, locale)} ·{' '}
-              {t(locale, 'version.downloads', {
-                count: formatNumber(installer.downloadCount, locale),
-              })}
-            </p>
-            <p class="mt-2 text-sm font-bold break-all text-ink">{installer.name}</p>
-          </div>
-          <DownloadButton release={release} locale={locale} />
-        </div>
-      ) : (
-        <div>
-          <h2 class="font-display text-xl tracking-tight text-ink">
-            {t(locale, 'version.noMobileTitle')}
-          </h2>
-          <p class="mt-2 max-w-2xl text-sm leading-6 text-muted">
-            {t(locale, 'version.noMobileBody')}
-          </p>
-          <a
-            href={release.htmlUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            class="btn btn-primary mt-5"
-          >
-            {t(locale, 'download.viewRelease')}
-          </a>
-        </div>
-      )
-    }
-  </div>
-
-  {
-    installer && (
-      <div class="mt-6">
-        <ChecksumField file={installer.name} hash={installer.sha256} locale={locale} />
-      </div>
-    )
-  }
-
-  {
-    otherAssets.length > 0 && (
-      <section class="mt-10" aria-labelledby="other-files-title">
-        <h2 id="other-files-title" class="display text-2xl sm:text-3xl">
-          {t(locale, 'version.otherFiles')}
-        </h2>
-        <ul class="mt-4 space-y-3">
-          {otherAssets.map((asset) => (
-            <li class="card-brutal flex flex-col gap-3 p-4 sm:flex-row sm:items-center sm:justify-between">
-              <div class="min-w-0">
-                <p class="text-sm font-bold break-all text-ink">{asset.name}</p>
-                <p class="mt-1 text-xs text-muted">
-                  {kindLabel(asset)} · {formatFileSize(asset.size, locale)}
-                </p>
-              </div>
-              <a href={asset.url} class="btn btn-secondary btn-sm shrink-0 self-start sm:self-auto">
-                {t(locale, 'download.ctaShort')}
-              </a>
-            </li>
-          ))}
-        </ul>
-      </section>
-    )
-  }
-
-  <section class="mt-10" aria-labelledby="release-notes-title">
-    <h2 id="release-notes-title" class="display text-2xl sm:text-3xl">
-      {t(locale, 'version.releaseNotes')}
-    </h2>
-    {
-      release.bodyHtml ? (
-        <div class="release-notes card-brutal mt-4 p-5 sm:p-6" set:html={release.bodyHtml} />
-      ) : (
-        <p class="mt-4 text-sm text-muted">{t(locale, 'version.noNotes')}</p>
-      )
-    }
   </section>
 
-  <nav
-    class="mt-12 grid gap-4 border-t-[2.5px] border-line pt-8 sm:grid-cols-2"
-    aria-label={t(locale, 'version.navigation')}
-  >
+  <div class="mx-auto max-w-4xl px-4 py-10 sm:px-6 space-y-12">
+    {/* Primary Package Card */}
+    <div class="border border-neutral-800 bg-neutral-900/40 p-6 sm:p-8">
+      {
+        installer ? (
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-6">
+            <div class="space-y-1">
+              <span class="text-xs font-mono uppercase tracking-wider text-neutral-500">
+                Package APK
+              </span>
+              <p class="text-base font-semibold text-white font-mono break-all">{installer.name}</p>
+              <p class="text-xs text-neutral-400 font-mono">
+                {formatFileSize(installer.size, locale)} ·{' '}
+                {t(locale, 'version.downloads', {
+                  count: formatNumber(installer.downloadCount, locale),
+                })}
+              </p>
+            </div>
+            <a
+              href={installer.url}
+              class="inline-flex h-11 items-center justify-center gap-2 bg-blue-600 px-6 text-xs font-mono font-medium text-white hover:bg-blue-500 transition-colors shrink-0"
+            >
+              <Download className="size-4" />
+              <span>{t(locale, 'download.ctaShort')} ({formatFileSize(installer.size, locale)})</span>
+            </a>
+          </div>
+        ) : (
+          <div>
+            <h3 class="text-base font-semibold text-white">{t(locale, 'version.noInstallerTitle')}</h3>
+            <p class="mt-1 text-xs sm:text-sm text-neutral-400 leading-relaxed font-normal">{t(locale, 'version.noInstallerBody')}</p>
+            <a
+              href={release.htmlUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="mt-4 inline-flex h-9 items-center gap-1.5 bg-neutral-800 px-4 text-xs font-mono text-white hover:bg-neutral-700 transition-colors"
+            >
+              <span>{t(locale, 'download.viewRelease')}</span>
+              <ExternalLink className="size-3.5" />
+            </a>
+          </div>
+        )
+      }
+
+      {
+        installer && installer.sha256 && (
+          <div class="mt-6 pt-6 border-t border-neutral-800 text-xs font-mono">
+            <div class="flex items-center gap-2 text-neutral-400">
+              <ShieldCheck className="size-4 text-emerald-400" />
+              <span class="text-neutral-400 uppercase text-[11px]">SHA-256 Checksum:</span>
+            </div>
+            <code class="mt-2 block break-all text-xs text-emerald-400 bg-black/60 p-3 border border-neutral-800">
+              {installer.sha256}
+            </code>
+          </div>
+        )
+      }
+    </div>
+
+    {/* Other Assets */}
     {
-      newer ? (
-        <a href={versionHref(newer)} class="card-brutal card-hover group p-4">
-          <span class="eyebrow">
-            <span aria-hidden="true">←</span>
-            {t(locale, 'version.newer')}
-          </span>
-          <span class="font-display mt-2 block text-xl text-ink">{newer.tag}</span>
-        </a>
-      ) : null
+      otherAssets.length > 0 && (
+        <section aria-labelledby="other-files-title">
+          <h2 id="other-files-title" class="text-lg font-semibold text-white pb-3 border-b border-neutral-800">
+            {t(locale, 'version.otherFiles')}
+          </h2>
+          <div class="mt-4 divide-y divide-neutral-800 border-b border-neutral-800">
+            {otherAssets.map((asset) => (
+              <div class="flex flex-col sm:flex-row sm:items-center justify-between py-3.5 gap-2">
+                <div class="min-w-0 pr-4">
+                  <p class="text-xs sm:text-sm font-mono font-medium text-white break-all">{asset.name}</p>
+                  <p class="text-xs text-neutral-400 font-mono mt-0.5">
+                    {kindLabel(asset)} · {formatFileSize(asset.size, locale)}
+                  </p>
+                </div>
+                <a
+                  href={asset.url}
+                  class="inline-flex h-8 items-center justify-center gap-1.5 border border-neutral-800 bg-neutral-900 px-3 text-xs font-mono text-neutral-300 hover:text-white hover:bg-neutral-800 transition-colors shrink-0 self-start sm:self-auto"
+                >
+                  <Download className="size-3" />
+                  <span>{t(locale, 'download.ctaShort')}</span>
+                </a>
+              </div>
+            ))}
+          </div>
+        </section>
+      )
     }
-    {
-      older ? (
-        <a
-          href={versionHref(older)}
-          class:list={['card-brutal card-hover group p-4 text-right', !newer && 'sm:col-start-2']}
-        >
-          <span class="eyebrow justify-end">
-            {t(locale, 'version.older')}
-            <span aria-hidden="true">→</span>
-          </span>
-          <span class="font-display mt-2 block text-xl text-ink">{older.tag}</span>
-        </a>
-      ) : null
-    }
-  </nav>
-</section>
+
+    {/* Release Notes */}
+    <section aria-labelledby="release-notes-title">
+      <h2 id="release-notes-title" class="text-lg font-semibold text-white pb-3 border-b border-neutral-800">
+        {t(locale, 'version.releaseNotes')}
+      </h2>
+      {
+        release.bodyHtml ? (
+          <div class="mt-4 border border-neutral-800 bg-neutral-900/30 p-6 text-sm text-neutral-300 leading-relaxed font-normal release-notes" set:html={release.bodyHtml} />
+        ) : (
+          <p class="mt-4 text-xs font-mono text-neutral-500">{t(locale, 'version.noNotes')}</p>
+        )
+      }
+    </section>
+
+    {/* Pagination */}
+    <nav class="grid gap-4 border-t border-neutral-800 pt-8 sm:grid-cols-2 text-xs font-mono" aria-label={t(locale, 'version.navigation')}>
+      {
+        newer ? (
+          <a href={versionHref(newer)} class="border border-neutral-800 bg-neutral-900/40 p-4 hover:border-neutral-700 transition-colors">
+            <span class="text-neutral-500 flex items-center gap-1">
+              <ArrowLeft className="size-3" />
+              <span>{t(locale, 'version.newer')}</span>
+            </span>
+            <span class="mt-1 block text-sm font-semibold text-white">{newer.tag}</span>
+          </a>
+        ) : <div />
+      }
+      {
+        older ? (
+          <a href={versionHref(older)} class="border border-neutral-800 bg-neutral-900/40 p-4 text-right hover:border-neutral-700 transition-colors">
+            <span class="text-neutral-500 flex items-center justify-end gap-1">
+              <span>{t(locale, 'version.older')}</span>
+              <ArrowRight className="size-3" />
+            </span>
+            <span class="mt-1 block text-sm font-semibold text-white">{older.tag}</span>
+          </a>
+        ) : null
+      }
+    </nav>
+  </div>
+</div>
