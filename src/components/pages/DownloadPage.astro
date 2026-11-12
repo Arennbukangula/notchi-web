@@ -1,68 +1,54 @@
 ---
-import Doodle from '../Doodle.astro';
-import ReleaseTable from '../ReleaseTable.astro';
+import NotchiInstallerGrid from '../react/NotchiInstallerGrid';
 import { localizePath, t } from '../../i18n';
 import type { Locale } from '../../i18n';
 import type { Release } from '../../lib/github';
-import { siteConfig } from '../../site.config';
+import { ArrowLeft } from 'lucide-react';
 
 interface Props {
   releases: Release[];
+  mobileReleases?: Release[];
   locale: Locale;
+  initialTab?: 'windows' | 'mobile';
 }
 
-const { releases, locale } = Astro.props;
+const { releases, mobileReleases = [], locale, initialTab = 'windows' } = Astro.props;
 const homeHref = localizePath('/', locale);
+const isId = locale === 'id';
 ---
 
-<section class="pattern-dots border-b-[2.5px] border-line">
-  <div class="mx-auto max-w-[1120px] px-4 py-12 sm:px-6 sm:py-16">
+<section class="border-b border-neutral-800 bg-neutral-950 text-white">
+  <div class="mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-16 lg:px-8">
     <a
       href={homeHref}
-      class="inline-flex items-center gap-2 text-sm font-bold text-muted transition-colors hover:text-ink"
+      class="inline-flex items-center gap-2 text-xs font-mono text-neutral-400 hover:text-white transition-colors"
     >
-      <span
-        class="flex h-7 w-7 items-center justify-center rounded-md border-2 border-line bg-panel text-ink shadow-brutal-sm"
-        aria-hidden="true"
-      >
-        ←
-      </span>
-      {t(locale, 'archive.backHome')}
+      <ArrowLeft className="size-3.5" />
+      <span>{t(locale, 'archive.backHome')}</span>
     </a>
 
-    <div class="mt-8 flex flex-wrap items-end justify-between gap-6">
-      <div class="max-w-2xl">
-        <h1 class="display text-4xl sm:text-6xl">
-          {t(locale, 'archive.title')}
-        </h1>
-        <p class="mt-4 text-base leading-7 text-muted">
-          {t(locale, 'archive.description')}
-        </p>
-      </div>
-      <Doodle variant="sparkle" class="hidden h-14 w-14 -rotate-6 text-ink sm:block" />
+    <div class="mt-6 max-w-3xl">
+      <p class="text-xs font-mono uppercase tracking-wider text-neutral-500">
+        {isId ? "Distribusi Resmi" : "Official Downloads"}
+      </p>
+      <h1 class="mt-2 text-3xl sm:text-5xl font-semibold tracking-tight text-white">
+        Installer
+      </h1>
+      <p class="mt-3 text-sm sm:text-base text-neutral-400 leading-relaxed font-normal">
+        {isId
+          ? "Unduh paket installer dan portabel resmi untuk Windows desktop maupun aplikasi pendamping Android."
+          : "Download official installer and portable packages for Windows desktop or the Android companion application."}
+      </p>
     </div>
   </div>
 </section>
 
-<section class="mx-auto max-w-[1120px] px-4 py-10 sm:px-6 sm:py-14">
-  {
-    releases.length ? (
-      <ReleaseTable releases={releases} locale={locale} />
-    ) : (
-      <div class="card-brutal p-8">
-        <h2 class="font-display text-2xl tracking-tight text-ink">
-          {t(locale, 'archive.emptyTitle')}
-        </h2>
-        <p class="mt-3 max-w-xl text-sm leading-6 text-muted">{t(locale, 'archive.emptyBody')}</p>
-        <a
-          href={siteConfig.github.releasesUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          class="btn btn-primary mt-6"
-        >
-          {t(locale, 'archive.viewGithub')}
-        </a>
-      </div>
-    )
-  }
+<section class="mx-auto max-w-7xl px-4 py-10 sm:px-6 sm:py-14 lg:px-8">
+  <NotchiInstallerGrid
+    windowsReleases={releases}
+    mobileReleases={mobileReleases}
+    locale={locale}
+    initialTab={initialTab}
+    client:load
+  />
 </section>
