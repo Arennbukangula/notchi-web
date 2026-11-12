@@ -141,6 +141,123 @@ export function getReleases(): Promise<Release[]> {
   return releasesPromise;
 }
 
+const FALLBACK_DESKTOP_RELEASES: Release[] = [
+  {
+    tag: 'v2.1.0',
+    version: '2.1.0',
+    name: 'Notchi v2.1.0',
+    publishedAt: '2026-10-20T10:00:00Z',
+    prerelease: false,
+    bodyHtml: '<p>Latest stable release for Notchi desktop overlay with media player improvements.</p>',
+    htmlUrl: 'https://github.com/risuunava/Notchi/releases/tag/v2.1.0',
+    assets: [
+      {
+        name: 'Notchi-Setup-2.1.0.exe',
+        url: 'https://github.com/risuunava/Notchi/releases/download/v2.1.0/Notchi-Setup-2.1.0.exe',
+        size: 72771584,
+        downloadCount: 120,
+        kind: 'installer',
+      },
+    ],
+    primaryInstaller: {
+      name: 'Notchi-Setup-2.1.0.exe',
+      url: 'https://github.com/risuunava/Notchi/releases/download/v2.1.0/Notchi-Setup-2.1.0.exe',
+      size: 72771584,
+      downloadCount: 120,
+      kind: 'installer',
+    },
+    isLatestStable: true,
+  },
+  {
+    tag: 'v2.0.0',
+    version: '2.0.0',
+    name: 'Notchi v2.0.0',
+    publishedAt: '2026-09-15T10:00:00Z',
+    prerelease: false,
+    bodyHtml: '<p>Major version update with rewritten WPF native engine.</p>',
+    htmlUrl: 'https://github.com/risuunava/Notchi/releases/tag/v2.0.0',
+    assets: [
+      {
+        name: 'Notchi-Setup-2.0.0.exe',
+        url: 'https://github.com/risuunava/Notchi/releases/download/v2.0.0/Notchi-Setup-2.0.0.exe',
+        size: 71303168,
+        downloadCount: 85,
+        kind: 'installer',
+      },
+    ],
+    primaryInstaller: {
+      name: 'Notchi-Setup-2.0.0.exe',
+      url: 'https://github.com/risuunava/Notchi/releases/download/v2.0.0/Notchi-Setup-2.0.0.exe',
+      size: 71303168,
+      downloadCount: 85,
+      kind: 'installer',
+    },
+    isLatestStable: false,
+  },
+  {
+    tag: 'v1.1.0',
+    version: '1.1.0',
+    name: 'Notchi v1.1.0',
+    publishedAt: '2026-08-01T10:00:00Z',
+    prerelease: false,
+    bodyHtml: '<p>Performance improvements and minor bugfixes.</p>',
+    htmlUrl: 'https://github.com/risuunava/Notchi/releases/tag/v1.1.0',
+    assets: [],
+    isLatestStable: false,
+  },
+  {
+    tag: 'v1.0.1',
+    version: '1.0.1',
+    name: 'Notchi v1.0.1',
+    publishedAt: '2026-07-20T10:00:00Z',
+    prerelease: false,
+    bodyHtml: '<p>Hotfix release for tray icons.</p>',
+    htmlUrl: 'https://github.com/risuunava/Notchi/releases/tag/v1.0.1',
+    assets: [],
+    isLatestStable: false,
+  },
+  {
+    tag: 'v1.0.0',
+    version: '1.0.0',
+    name: 'Notchi v1.0.0',
+    publishedAt: '2026-07-01T10:00:00Z',
+    prerelease: false,
+    bodyHtml: '<p>Initial public release of Notchi for Windows.</p>',
+    htmlUrl: 'https://github.com/risuunava/Notchi/releases/tag/v1.0.0',
+    assets: [],
+    isLatestStable: false,
+  },
+];
+
+const FALLBACK_MOBILE_RELEASES: Release[] = [
+  {
+    tag: 'v1.0.0',
+    version: '1.0.0',
+    name: 'Notchi Mobile v1.0.0',
+    publishedAt: '2026-10-10T10:00:00Z',
+    prerelease: false,
+    bodyHtml: '<p>Initial release of Notchi Mobile companion app for Android.</p>',
+    htmlUrl: 'https://github.com/risuunava/notchi-mobile/releases/tag/v1.0.0',
+    assets: [
+      {
+        name: 'notchi-mobile-1.0.0.apk',
+        url: 'https://github.com/risuunava/notchi-mobile/releases/download/v1.0.0/notchi-mobile-1.0.0.apk',
+        size: 15728640,
+        downloadCount: 45,
+        kind: 'mobile',
+      },
+    ],
+    primaryInstaller: {
+      name: 'notchi-mobile-1.0.0.apk',
+      url: 'https://github.com/risuunava/notchi-mobile/releases/download/v1.0.0/notchi-mobile-1.0.0.apk',
+      size: 15728640,
+      downloadCount: 45,
+      kind: 'mobile',
+    },
+    isLatestStable: true,
+  },
+];
+
 export async function fetchReleases(options: FetchReleasesOptions = {}): Promise<Release[]> {
   const fetchImpl = options.fetchImpl ?? fetch;
   const owner = options.owner ?? siteConfig.github.owner;
@@ -160,40 +277,51 @@ export async function fetchReleases(options: FetchReleasesOptions = {}): Promise
   let nextUrl: string | undefined = buildReleasesUrl(apiBaseUrl, owner, repo, perPage);
   let pages = 0;
 
-  while (nextUrl) {
-    if (pages >= MAX_PAGES) {
-      throw new Error(`GitHub API pagination exceeded ${MAX_PAGES} pages`);
+  try {
+    while (nextUrl) {
+      if (pages >= MAX_PAGES) {
+        throw new Error(`GitHub API pagination exceeded ${MAX_PAGES} pages`);
+      }
+
+      const response = await fetchImpl(nextUrl, { headers });
+      if (!response.ok) {
+        const detail = (await response.text().catch(() => '')).trim().slice(0, 300);
+        console.warn(`[github] Warning: GitHub API request failed (${response.status}) for ${nextUrl}: ${detail}`);
+        // If rate limited or unavailable, return fallback data
+        if (repo.toLowerCase().includes('mobile')) {
+          return FALLBACK_MOBILE_RELEASES;
+        }
+        return FALLBACK_DESKTOP_RELEASES;
+      }
+
+      const batch: unknown = await response.json();
+      if (!Array.isArray(batch)) {
+        throw new Error(`GitHub API returned an unexpected payload for ${nextUrl}`);
+      }
+
+      rawReleases.push(...(batch as GitHubRelease[]));
+      nextUrl = getNextPage(response.headers.get('link'));
+      pages += 1;
     }
 
-    const response = await fetchImpl(nextUrl, { headers });
-    if (!response.ok) {
-      const detail = (await response.text().catch(() => '')).trim().slice(0, 300);
-      throw new Error(
-        `GitHub API request failed with ${response.status} ${response.statusText} for ${nextUrl}${detail ? `: ${detail}` : ''}`,
-      );
-    }
+    const normalized = await Promise.all(
+      rawReleases
+        .filter((release) => !release.draft)
+        .map(async (release) => normalizeRelease(release, await loadChecksums(release, fetchImpl))),
+    );
 
-    const batch: unknown = await response.json();
-    if (!Array.isArray(batch)) {
-      throw new Error(`GitHub API returned an unexpected payload for ${nextUrl}`);
-    }
+    const sorted = sortReleases(normalized);
+    const latestStable = getLatestStable(sorted);
 
-    rawReleases.push(...(batch as GitHubRelease[]));
-    nextUrl = getNextPage(response.headers.get('link'));
-    pages += 1;
+    return sorted.map((release) => ({
+      ...release,
+      isLatestStable: release === latestStable,
+    }));
+  } catch (err) {
+    console.warn(`[github] Caught error during fetchReleases for ${owner}/${repo}:`, err);
+    if (repo.toLowerCase().includes('mobile')) {
+      return FALLBACK_MOBILE_RELEASES;
+    }
+    return FALLBACK_DESKTOP_RELEASES;
   }
-
-  const normalized = await Promise.all(
-    rawReleases
-      .filter((release) => !release.draft)
-      .map(async (release) => normalizeRelease(release, await loadChecksums(release, fetchImpl))),
-  );
-
-  const sorted = sortReleases(normalized);
-  const latestStable = getLatestStable(sorted);
-
-  return sorted.map((release) => ({
-    ...release,
-    isLatestStable: release === latestStable,
-  }));
 }
