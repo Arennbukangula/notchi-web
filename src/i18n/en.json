@@ -13,9 +13,9 @@
   "nav": {
     "main": "Main navigation",
     "home": "Home",
-    "versions": "Versions",
-    "mobile": "Mobile",
+    "installer": "Installer",
     "docs": "Docs",
+    "team": "Team",
     "github": "GitHub"
   },
   "theme": {

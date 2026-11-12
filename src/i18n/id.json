@@ -13,9 +13,9 @@
   "nav": {
     "main": "Navigasi utama",
     "home": "Beranda",
-    "versions": "Versi",
-    "mobile": "Mobile",
+    "installer": "Installer",
     "docs": "Dokumentasi",
+    "team": "Tim",
     "github": "GitHub"
   },
   "theme": {

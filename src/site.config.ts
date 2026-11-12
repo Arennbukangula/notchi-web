@@ -28,12 +28,15 @@ export const siteConfig = {
     releasesUrl: `https://github.com/${githubOwner}/${githubRepo}/releases`,
     issuesUrl: `https://github.com/${githubOwner}/${githubRepo}/issues`,
   },
+  testimonialsApiUrl:
+    'https://script.google.com/macros/s/AKfycbwyqZJ9tRljJUZAWWZTiboMHUaVC_SyzuCtkgJVY0fJmJgeU43IofeZkNZeltcHsM2d0g/exec',
   routes: {
     home: '/',
     download: '/download/',
     latest: '/download/latest',
     mobile: '/mobile/',
     docs: '/docs/',
+    team: '/team/',
   },
   assetRules: {
     installer: {
