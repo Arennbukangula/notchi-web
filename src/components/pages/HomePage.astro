@@ -1,14 +1,17 @@
 ---
-import Faq from '../Faq.astro';
-import FeatureGrid from '../FeatureGrid.astro';
-import Hero from '../Hero.astro';
-import InstallGuide from '../InstallGuide.astro';
-import Screenshots from '../Screenshots.astro';
-import SystemRequirements from '../SystemRequirements.astro';
-import { t } from '../../i18n';
+import NotchiHero from '../react/NotchiHero';
+import NotchiScreenshots from '../react/NotchiScreenshots';
+import NotchiBentoGrid from '../react/NotchiBentoGrid';
+import NotchiReleasesSection from '../react/NotchiReleasesSection';
+import NotchiRequirements from '../react/NotchiRequirements';
+import NotchiTestimonials from '../react/NotchiTestimonials';
+import NotchiFaq from '../react/NotchiFaq';
+import { t, localizePath } from '../../i18n';
 import type { Locale } from '../../i18n';
 import { getReleases } from '../../lib/github';
 import { getLatestStable } from '../../lib/version';
+import { formatFileSize } from '../../lib/format';
+import { siteConfig } from '../../site.config';
 
 interface Props {
   locale: Locale;
@@ -17,6 +20,9 @@ interface Props {
 const { locale } = Astro.props;
 const releases = await getReleases();
 const latest = getLatestStable(releases);
+const installer = latest?.primaryInstaller;
+const versionsHref = localizePath(siteConfig.routes.download, locale);
+const mobileHref = localizePath(siteConfig.routes.mobile, locale);
 
 const faqItems = [
   {
@@ -38,9 +44,41 @@ const faqItems = [
 ];
 ---
 
-<Hero latest={latest} locale={locale} />
-<Screenshots locale={locale} />
-<FeatureGrid locale={locale} />
-<SystemRequirements locale={locale} />
-<InstallGuide locale={locale} />
-<Faq title={t(locale, 'docs.faqTitle')} items={faqItems} />
+<div class="flex flex-col w-full bg-neutral-950 min-h-screen text-white">
+  <NotchiHero
+    locale={locale}
+    latestTag={latest?.tag}
+    downloadUrl={installer?.url ?? versionsHref}
+    installerSize={installer ? formatFileSize(installer.size, locale) : undefined}
+    allVersionsUrl={versionsHref}
+    githubUrl={siteConfig.github.url}
+    client:load
+  />
+
+  <NotchiBentoGrid locale={locale} client:visible />
+
+  <NotchiScreenshots locale={locale} client:visible />
+
+  <NotchiReleasesSection
+    locale={locale}
+    latestTag={latest?.tag}
+    installerUrl={installer?.url ?? versionsHref}
+    portableUrl={versionsHref}
+    mobileUrl={mobileHref}
+    allReleasesUrl={versionsHref}
+    client:visible
+  />
+
+  <NotchiRequirements
+    locale={locale}
+    client:visible
+  />
+
+  <NotchiTestimonials
+    locale={locale}
+    apiUrl={siteConfig.testimonialsApiUrl}
+    client:visible
+  />
+
+  <NotchiFaq locale={locale} items={faqItems} client:visible />
+</div>
