@@ -9,7 +9,8 @@
  */
 
 const APPS_SCRIPT_URL =
-  'https://script.google.com/macros/s/AKfycbyDh2K2sZsJpEN-S7wLF2JHNiWeQbCZybc3h-l6z7bAseyQip1815CbtL9phlEQVWJ-gA/exec';
+  process.env.TESTIMONIALS_APPS_SCRIPT_URL ||
+  'https://script.google.com/macros/s/AKfycbwyqZJ9tRljJUZAWWZTiboMHUaVC_SyzuCtkgJVY0fJmJgeU43IofeZkNZeltcHsM2d0g/exec';
 
 export default async function handler(req, res) {
   // Allow CORS dari semua origin (aman karena ini hanya proxy read/write testimonial publik)
