@@ -29,7 +29,7 @@ export const siteConfig = {
     issuesUrl: `https://github.com/${githubOwner}/${githubRepo}/issues`,
   },
   testimonialsApiUrl:
-    'https://script.google.com/macros/s/AKfycbwyqZJ9tRljJUZAWWZTiboMHUaVC_SyzuCtkgJVY0fJmJgeU43IofeZkNZeltcHsM2d0g/exec',
+    'https://script.google.com/macros/s/AKfycbyDh2K2sZsJpEN-S7wLF2JHNiWeQbCZybc3h-l6z7bAseyQip1815CbtL9phlEQVWJ-gA/exec',
   routes: {
     home: '/',
     download: '/download/',
