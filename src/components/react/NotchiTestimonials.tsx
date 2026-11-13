@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { MessageSquarePlus, Send, CheckCircle2, AlertCircle, Quote } from "lucide-react";
+import { MessageSquarePlus, Send, CheckCircle2, AlertCircle, Quote, CornerDownRight } from "lucide-react";
 
 interface Testimonial {
   id: number | string;
@@ -9,6 +9,7 @@ interface Testimonial {
   role: string;
   message: string;
   timestamp?: string;
+  comment?: string;
 }
 
 interface NotchiTestimonialsProps {
@@ -20,7 +21,7 @@ interface NotchiTestimonialsProps {
 // Fallback ke Apps Script langsung hanya saat dev (localhost).
 const DEFAULT_API_URL =
   typeof window !== "undefined" && window.location.hostname === "localhost"
-    ? "https://script.google.com/macros/s/AKfycbwyqZJ9tRljJUZAWWZTiboMHUaVC_SyzuCtkgJVY0fJmJgeU43IofeZkNZeltcHsM2d0g/exec"
+    ? "https://script.google.com/macros/s/AKfycbyDh2K2sZsJpEN-S7wLF2JHNiWeQbCZybc3h-l6z7bAseyQip1815CbtL9phlEQVWJ-gA/exec"
     : "/api/testimonials";
 
 const INITIAL_FALLBACK_TESTIMONIALS: Testimonial[] = [
@@ -293,6 +294,18 @@ export default function NotchiTestimonials({
                 <p className="text-xs sm:text-sm text-neutral-300 leading-relaxed font-normal">
                   "{item.message}"
                 </p>
+
+                {item.comment && item.comment.trim() && (
+                  <div className="mt-4 border-l-2 border-blue-500 bg-neutral-900/70 p-3">
+                    <div className="flex items-center gap-1.5 text-[10px] font-mono font-medium text-blue-400">
+                      <CornerDownRight className="size-3 shrink-0" />
+                      <span>{isId ? "Balasan Tim Notchi" : "Notchi Team Reply"}</span>
+                    </div>
+                    <p className="mt-1.5 text-xs text-neutral-300 leading-relaxed font-normal">
+                      {item.comment}
+                    </p>
+                  </div>
+                )}
               </div>
 
               <div className="mt-6 pt-4 border-t border-neutral-900 flex items-center justify-between">
