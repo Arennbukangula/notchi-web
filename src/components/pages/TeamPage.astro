@@ -16,7 +16,7 @@ const coreTeam = [
     name: 'risuunava',
     username: 'risuunava',
     github: 'https://github.com/risuunava',
-    avatar: 'https://github.com/risuunava.png',
+    avatar: 'https://avatars.githubusercontent.com/risuunava',
     role: isId ? 'Project Owner & Lead Developer' : 'Project Owner & Lead Developer',
     description: isId
       ? 'Arsitektur sistem utama, pengembangan perangkat lunak native WPF, dan manajemen repositori Notchi.'
@@ -31,7 +31,7 @@ const contributors = [
     name: 'Aren',
     username: 'Arennbukangula',
     github: 'https://github.com/Arennbukangula',
-    avatar: 'https://github.com/Arennbukangula.png',
+    avatar: 'https://avatars.githubusercontent.com/Arennbukangula',
     role: isId ? 'Technical Writer & Web Developer' : 'Technical Writer & Web Developer',
     description: isId
       ? 'Menyusun dan menyempurnakan dokumentasi teknis, serta membangun dan memelihara website resmi Notchi.'
@@ -42,7 +42,7 @@ const contributors = [
     name: 'Pataya',
     username: 'patayaaaa',
     github: 'https://github.com/patayaaaa',
-    avatar: 'https://github.com/patayaaaa.png',
+    avatar: 'https://avatars.githubusercontent.com/patayaaaa',
     role: isId ? 'UI/UX Designer' : 'UI/UX Designer',
     description: isId
       ? 'Merancang dan mendesain ulang antarmuka visual Notchi untuk pengalaman pengguna yang intuitif.'
@@ -105,6 +105,7 @@ const contributors = [
                   alt={member.name}
                   class="size-16 rounded-none border border-neutral-700 bg-neutral-800 object-cover shrink-0"
                   loading="eager"
+                  referrerpolicy="no-referrer"
                 />
                 <div>
                   <div class="flex flex-wrap items-center gap-2.5">
@@ -160,6 +161,7 @@ const contributors = [
                     alt={member.name}
                     class="size-12 rounded-none border border-neutral-800 bg-neutral-800 object-cover shrink-0"
                     loading="lazy"
+                    referrerpolicy="no-referrer"
                   />
                   <div>
                     <h3 class="text-base font-semibold text-white">{member.name}</h3>
