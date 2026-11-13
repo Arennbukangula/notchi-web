@@ -34,10 +34,5 @@
         }
       ]
     }
-  ],
-  "functions": {
-    "api/testimonials.js": {
-      "runtime": "nodejs20.x"
-    }
-  }
+  ]
 }
