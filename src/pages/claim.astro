@@ -1,0 +1,15 @@
+---
+import ClaimPage from '../components/pages/ClaimPage.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import type { Locale } from '../i18n';
+
+const locale: Locale = 'en';
+---
+
+<BaseLayout
+  locale={locale}
+  title="Milestone Rewards"
+  description="Claim exclusive custom notch backgrounds and badges celebrating Notchi milestone releases."
+>
+  <ClaimPage locale={locale} />
+</BaseLayout>

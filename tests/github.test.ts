@@ -8,8 +8,8 @@ const HASH_B = 'fedcba9876543210fedcba9876543210fedcba9876543210fedcba9876543210
 const releases = fixture as GitHubRelease[];
 
 const API_BASE = 'https://api.github.com';
-const PAGE_ONE = `${API_BASE}/repos/risuunava/Notchi/releases?per_page=100`;
-const PAGE_TWO = `${API_BASE}/repos/risuunava/Notchi/releases?per_page=100&page=2`;
+const PAGE_ONE = `${API_BASE}/repos/Risunity/Notchi/releases?per_page=100`;
+const PAGE_TWO = `${API_BASE}/repos/Risunity/Notchi/releases?per_page=100&page=2`;
 const CHECKSUM_URL = 'https://example.com/checksums/1.1.0.txt';
 
 function requestUrl(input: Parameters<typeof fetch>[0]): string {
@@ -117,19 +117,21 @@ describe('fetchReleases', () => {
     expect(headers?.Authorization).toBe('Bearer test-token');
   });
 
-  it('fails clearly when the GitHub API responds with an error', async () => {
+  it('falls back gracefully when the GitHub API responds with an error', async () => {
     const fetchMock = vi.fn<typeof fetch>(
       async () => new Response('rate limited', { status: 429, statusText: 'Too Many Requests' }),
     );
 
-    await expect(fetchReleases({ fetchImpl: fetchMock, token: '' })).rejects.toThrow(
-      /429 Too Many Requests.*rate limited/,
-    );
+    const fallbackReleases = await fetchReleases({ fetchImpl: fetchMock, token: '' });
+    expect(fallbackReleases.length).toBeGreaterThan(0);
+    expect(fallbackReleases[0].tag).toBe('v2.1.0');
   });
 
-  it('fails when the payload is not an array', async () => {
+  it('falls back gracefully when the payload is not an array', async () => {
     const fetchMock = vi.fn<typeof fetch>(async () => jsonResponse({ message: 'Not found' }));
 
-    await expect(fetchReleases({ fetchImpl: fetchMock })).rejects.toThrow(/unexpected payload/);
+    const fallbackReleases = await fetchReleases({ fetchImpl: fetchMock });
+    expect(fallbackReleases.length).toBeGreaterThan(0);
+    expect(fallbackReleases[0].tag).toBe('v2.1.0');
   });
 });

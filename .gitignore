@@ -16,6 +16,12 @@ pnpm-debug.log*
 .env
 .env.*
 !.env.example
+*.pem
+private.pem
+public.pem
+
+# Rewards assets source (never commit)
+rewards-src/
 
 # Test output
 coverage/

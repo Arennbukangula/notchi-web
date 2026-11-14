@@ -14,6 +14,7 @@
     "main": "Navigasi utama",
     "home": "Beranda",
     "installer": "Installer",
+    "claim": "Hadiah",
     "docs": "Dokumentasi",
     "team": "Tim",
     "github": "GitHub"
@@ -295,5 +296,30 @@
     "home": "Kembali ke beranda",
     "versions": "Jelajahi versi",
     "docs": "Baca dokumentasi"
+  },
+  "claim": {
+    "title": "Hadiah Eksklusif Milestone",
+    "subtitle": "Klaim latar belakang notch dan lencana edisi terbatas untuk merayakan pencapaian rilis Notchi.",
+    "milestone": "Progres Pencapaian Komunitas",
+    "milestoneDesc": "Total akumulasi unduhan installer di seluruh versi publik (diperbarui berkala):",
+    "openNotice": "Sesi klaim telah DIBUKA! Undi latar belakang notch kustom eksklusif Anda sekarang.",
+    "closedNotice": "Sesi klaim saat ini sedang ditutup atau mempersiapkan rilis milestone berikutnya.",
+    "btnClaim": "Klaim Hadiah",
+    "btnClaiming": "Mengundi Hadiah...",
+    "btnCopied": "Tersalin!",
+    "btnCopy": "Salin Kode",
+    "btnDownloadTxt": "Unduh .txt",
+    "savedCodeNotice": "Anda sudah pernah mengklaim hadiah di browser ini. Ini adalah kode aktif Anda:",
+    "codeWarning": "Simpan kode ini baik-baik. Tanpa akun login, kode ini adalah satu-satunya cara untuk mengaktifkan atau memulihkan hadiah Anda di aplikasi Notchi PC.",
+    "howToRedeem": "Cara Redeem di Aplikasi Notchi PC",
+    "step1": "Buka Notchi di PC Windows Anda, lalu klik kanan area notch atau ikon baki untuk membuka Pengaturan (Settings).",
+    "step2": "Buka tab Hadiah / Tema Kustom (Rewards / Custom Themes).",
+    "step3": "Tempel kode klaim Anda lalu klik Tukarkan (Redeem). Latar belakang eksklusif Anda akan langsung aktif.",
+    "dropRates": "Peluang Undian & Rarity",
+    "rarityCommon": "Umum",
+    "rarityRare": "Langka",
+    "rarityEpic": "Epik",
+    "rarityLegendary": "Legendaris",
+    "quotaNotice": "Kuota terbatas: {quota} unit total"
   }
 }
