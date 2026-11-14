@@ -14,6 +14,7 @@
     "main": "Main navigation",
     "home": "Home",
     "installer": "Installer",
+    "claim": "Rewards",
     "docs": "Docs",
     "team": "Team",
     "github": "GitHub"
@@ -295,5 +296,30 @@
     "home": "Back to home",
     "versions": "Browse versions",
     "docs": "Read the docs"
+  },
+  "claim": {
+    "title": "Exclusive Milestone Rewards",
+    "subtitle": "Claim limited-edition custom notch backgrounds and badges celebrating Notchi milestone releases.",
+    "milestone": "Community Milestone Progress",
+    "milestoneDesc": "Accumulated public installer downloads across all releases (updated daily):",
+    "openNotice": "Claims are now officially OPEN! Draw your unique custom background.",
+    "closedNotice": "Claim phase is currently closed or preparing for the next milestone update.",
+    "btnClaim": "Claim Reward",
+    "btnClaiming": "Rolling Reward...",
+    "btnCopied": "Copied!",
+    "btnCopy": "Copy Code",
+    "btnDownloadTxt": "Download .txt",
+    "savedCodeNotice": "You previously claimed a reward on this browser. Here is your active code:",
+    "codeWarning": "Save this code securely. Without user accounts, this code is the only way to activate or restore your reward in the Notchi PC application.",
+    "howToRedeem": "How to Redeem in Notchi PC",
+    "step1": "Open Notchi on your Windows PC and right-click the notch or tray icon to open Settings.",
+    "step2": "Navigate to the Rewards / Custom Themes tab.",
+    "step3": "Paste your claim code and click Redeem. Your exclusive background will unlock instantly.",
+    "dropRates": "Drop Rates & Probabilities",
+    "rarityCommon": "Common",
+    "rarityRare": "Rare",
+    "rarityEpic": "Epic",
+    "rarityLegendary": "Legendary",
+    "quotaNotice": "Limited quota: {quota} total units"
   }
 }

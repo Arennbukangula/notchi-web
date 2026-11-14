@@ -12,7 +12,7 @@ export interface AssetRules {
   readonly checksum: AssetRule;
 }
 
-const githubOwner = process.env.GITHUB_OWNER ?? 'risuunava';
+const githubOwner = process.env.GITHUB_OWNER ?? 'Risunity';
 const githubRepo = process.env.GITHUB_REPO ?? 'Notchi';
 
 export const siteConfig = {
@@ -37,6 +37,7 @@ export const siteConfig = {
     mobile: '/mobile/',
     docs: '/docs/',
     team: '/team/',
+    claim: '/claim/',
   },
   assetRules: {
     installer: {

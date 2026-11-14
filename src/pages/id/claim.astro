@@ -1,0 +1,15 @@
+---
+import ClaimPage from '../../components/pages/ClaimPage.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import type { Locale } from '../../i18n';
+
+const locale: Locale = 'id';
+---
+
+<BaseLayout
+  locale={locale}
+  title="Hadiah Milestone"
+  description="Klaim latar belakang notch kustom dan lencana edisi terbatas perayaan milestone rilis Notchi."
+>
+  <ClaimPage locale={locale} />
+</BaseLayout>
